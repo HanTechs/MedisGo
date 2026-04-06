@@ -11,7 +11,7 @@
 
 <body>
     {{-- Navbar Start --}}
-    <nav class="bg-neutral-primary fixed w-full z-20 top-0 start-0 border-b border-default">
+    <nav x-data="{ open: false }" class="bg-neutral-primary fixed w-full z-20 top-0 start-0 border-b border-default">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse group">
                 <img src="/img/logo.png"
@@ -37,7 +37,7 @@
                         Daftar Sekarang
                     </a>
                 </div>
-                <button data-collapse-toggle="navbar-cta" type="button"
+                <button @click="open = !open" type="button"
                     class="inline-flex items-center p-2 w-9 h-9 justify-center text-sm text-body rounded-base md:hidden hover:bg-neutral-secondary-soft hover:text-heading focus:outline-none focus:ring-2 focus:ring-neutral-tertiary"
                     aria-controls="navbar-cta" aria-expanded="false">
                     <span class="sr-only">Open main menu</span>
@@ -48,7 +48,8 @@
                     </svg>
                 </button>
             </div>
-            <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-cta">
+            <div x-show="open" class="items-center justify-between w-full md:flex md:w-auto md:order-1"
+                :class="{ 'block': open, 'hidden': !open }">
                 <ul
                     class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-default rounded-base bg-neutral-secondary-soft md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-neutral-primary">
                     <li>
@@ -84,13 +85,8 @@
 
         <div class="mb-10 max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
             <div class="space-y-8">
-                <div class="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 border border-blue-100 rounded-full">
-                    <span class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
-                    <span class="text-[10px] font-bold uppercase tracking-widest text-blue-600">Solusi Digital Klinik
-                        Kampus</span>
-                </div>
                 <h1
-                    class="mt-10 text-5xl sm:text-7xl md:text-8xl font-extrabold text-slate-900 leading-[1.1] md:leading-[0.9] tracking-tighter text-center lg:text-left">
+                    class="mt-30 text-5xl sm:text-7xl md:text-8xl font-extrabold text-slate-900 leading-[1.1] md:leading-[0.9] tracking-tighter text-center lg:text-left">
                     Tinggalkan Kertas, <br class="hidden sm:block">
                     <span
                         class="bg-gradient-to-r from-[oklch(50.7%_0.165_254.624)] to-[oklch(64.8%_0.2_131.684)] bg-clip-text text-transparent italic">Mulai
@@ -233,25 +229,28 @@
     {{-- Tentang End --}}
 
     {{-- Footer Start --}}
-    <footer class="py-8 px-6">
+    <footer class="py-10 px-6">
         <div class="max-w-7xl mx-auto border-t border-blue-100 pt-8">
-            <div class="flex flex-col md:grid md:grid-cols-3 items-center gap-6">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6 overflow-hidden">
 
-                <div class="flex justify-center md:justify-start">
+                {{-- Sisi Kiri --}}
+                <div class="flex-shrink-0">
                     <span
                         class="bg-gradient-to-r from-[oklch(50.7%_0.165_254.624)] to-[oklch(64.8%_0.2_131.684)] bg-clip-text text-transparent font-extrabold text-2xl tracking-tight">
                         MedisGo
                     </span>
                 </div>
 
-                <div class="flex flex-col items-center justify-center text-center">
+                {{-- Sisi Tengah (Copyright) --}}
+                <div class="flex-1 w-full flex justify-center text-center">
                     <p
-                        class="bg-gradient-to-r from-[oklch(50.7%_0.165_254.624)] to-[oklch(64.8%_0.2_131.684)] bg-clip-text text-transparent text-[10px] md:text-xs font-bold  ">
-                        ©2026 Copyright - Politeknik Negeri Batam PBL Project
+                        class="bg-gradient-to-r from-[oklch(50.7%_0.165_254.624)] to-[oklch(64.8%_0.2_131.684)] bg-clip-text text-transparent text-[10px] sm:text-xs font-bold md:whitespace-nowrap px-2 leading-relaxed">
+                        © 2026 MedisGo. All Rights Reserved - Projects PBL Politeknik Negeri Batam.
                     </p>
                 </div>
 
-                <div class="hidden md:block"></div>
+                {{-- Spacer Sisi Kanan (Hanya Muncul di Desktop agar Tengah Presisi) --}}
+                <div class="hidden md:block flex-shrink-0 w-[100px]"></div>
 
             </div>
         </div>

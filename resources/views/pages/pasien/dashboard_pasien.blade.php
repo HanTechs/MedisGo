@@ -1,0 +1,145 @@
+<x-layout3>
+    <x-slot:title>{{ $title }}</x-slot:title>
+    
+    <div class="p-15 relative min-h-screen overflow-hidden">
+        {{-- Gradien Latar Belakang Start --}}
+        <div
+            class="absolute top-0 right-0 w-96 h-96 bg-[oklch(64.8%_0.2_131.684)]/10 rounded-full blur-[120px] -z-10 animate-pulse">
+        </div>
+        <div
+            class="absolute bottom-0 left-0 w-96 h-96 bg-[oklch(50.7%_0.165_254.624)]/10 rounded-full blur-[120px] -z-10 animate-pulse delay-700">
+        </div>
+        {{-- Gradien Latar Belakang End --}}
+
+        {{-- Bagian Header Start --}}
+        <div class="mb-10 animate-in fade-in slide-in-from-top-4 duration-700">
+            <h2 class="text-3xl font-black text-slate-900 tracking-tight">Selamat Datang, <span class="bg-gradient-to-r from-[oklch(50.7%_0.165_254.624)] to-[oklch(64.8%_0.2_131.684)] bg-clip-text text-transparent italic">Budi Santoso</span></h2>
+            <p class="text-slate-500 font-medium mt-1">Pantau status kesehatan dan jadwal konsultasi klinikmu di sini.
+            </p>
+        </div>
+        {{-- Bagian Header End --}}
+
+        {{-- Grid Statistik Antrean Start --}}
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Card Sedang Dilayani Start -->
+            <div
+                class="bg-white p-8 rounded-[3rem] border-4 border-[oklch(50.7%_0.165_254.624)]/10 shadow-[0_20px_50px_rgba(37,99,235,0.05)] relative overflow-hidden group">
+                <div class="absolute top-4 right-4 flex h-3 w-3">
+                    <span
+                        class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                </div>
+
+                <div class="relative z-10 text-center lg:text-left">
+                    <div>
+                        <h4 class="text-[10px] font-black text-[oklch(50.7%_0.165_254.624)] uppercase tracking-[0.3em] mb-4">Sedang
+                            Dilayani</h4>
+                        <p class="text-6xl font-black text-slate-900 tracking-tighter">A-008</p>
+                        <div class="mt-6 flex flex-col gap-1">
+                            <p class="text-sm font-black text-slate-800">Poli Umum</p>
+                            <p class="text-[10px] font-bold text-slate-400 uppercase">
+                                Status: Pemeriksaan
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <svg class="absolute -bottom-4 -right-2 w-24 h-24 text-[oklch(50.7%_0.165_254.624)]/10 rotate-12 transition-transform group-hover:scale-110"
+                    fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
+                </svg>
+            </div>
+            <!-- Card Sedang Dilayani End -->
+
+            <!-- Card Antrean Saya Start -->
+            <div
+                class="bg-white p-8 rounded-[3rem] border border-slate-100 shadow-sm hover:shadow-xl hover:shadow-blue-100/30 transition-all group relative">
+                <div
+                    class="w-14 h-14 bg-[oklch(50.7%_0.165_254.624)]/10 text-[oklch(50.7%_0.165_254.624)] rounded-2xl flex items-center justify-center text-xl mb-6 group-hover:bg-[oklch(50.7%_0.165_254.624)] group-hover:text-white transition-all shadow-inner">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+                <h4 class="text-slate-900 font-extrabold text-xl mb-1 tracking-tight">Antrean Saya</h4>
+                <p class="text-slate-500 text-sm font-medium tracking-wide">Nomor antrean Anda hari ini</p>
+
+                <div class="flex items-end gap-3 mt-4">
+                    <p class="text-4xl font-black text-[oklch(50.7%_0.165_254.624)] tracking-tighter">A-012</p>
+                    <p class="text-[10px] font-black text-orange-500 bg-orange-50 px-2 py-1 rounded-md mb-2 uppercase">
+                        Sisa 4 Antrean
+                    </p>
+                </div>
+            </div>
+            <!-- Card Antrean Saya End -->
+
+            <!-- Card Daftar Baru Start -->
+            <div
+                class="bg-gradient-to-br from-[oklch(50.7%_0.165_254.624)] to-[oklch(64.8%_0.2_131.684)] p-8 rounded-[3rem] shadow-2xl shadow-blue-200 text-white relative overflow-hidden flex flex-col justify-between group">
+                <div class="relative z-10">
+                    <h4 class="font-black text-xl mb-1 tracking-tight">Daftar Baru</h4>
+                    <p class="text-blue-100 text-sm font-medium mb-8">Ambil antrean secara online sekarang.</p>
+                    <a href="#"
+                        class="inline-flex items-center gap-3 bg-white text-[oklch(50.7%_0.165_254.624)] px-8 py-4 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] hover:bg-blue-50 transition-all active:scale-95 shadow-lg">
+                        Klik Di Sini <svg class="w-3 h-3 group-hover:translate-x-1 transition-transform" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+                <div
+                    class="absolute -bottom-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700">
+                </div>
+                <svg class="absolute -bottom-4 -right-4 w-24 h-24 opacity-10" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v5h-2v-5H7v-2h4V7h2v4h4v2z" />
+                </svg>
+            </div>
+            <!-- Card Daftar Baru End -->
+        </div>
+        {{-- Grid Statistik Antrean End --}}
+
+        {{-- Info Update Klinik Start --}}
+        <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            {{-- Bagian Poli & Dokter Start --}}
+            <div
+                class="bg-white p-8 rounded-[2.5rem] border border-[oklch(50.7%_0.165_254.624)]/10 flex items-center gap-6 shadow-sm hover:border-[oklch(50.7%_0.165_254.624)]/30 transition-colors">
+                <div class="w-12 h-12 bg-emerald-50 text-emerald-500 rounded-2xl flex items-center justify-center shrink-0">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M19 21V5a2 2 0 00-2-2H5a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                    </svg>
+                </div>
+                <div>
+                    <h5 class="text-sm font-black text-slate-900 uppercase tracking-widest">Poli & Dokter</h5>
+                    <p class="text-xs font-medium text-slate-500 mt-1">Anda terdaftar di <span
+                            class="text-[oklch(50.7%_0.165_254.624)] font-bold">Poli Umum</span> bersama <span
+                            class="text-[oklch(50.7%_0.165_254.624)] font-bold">dr. Muhammad Farhan</span>
+                    </p>
+                </div>
+            </div>
+            {{-- Bagian Poli & Dokter End --}}
+
+            {{-- Bagian Peringatan Start --}}
+            <div
+                class="bg-amber-50/50 p-8 rounded-[2.5rem] border border-amber-100 flex items-center gap-6 group hover:bg-amber-50 transition-all">
+                <div
+                    class="w-12 h-12 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center shrink-0 shadow-inner group-hover:rotate-12 transition-transform">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                </div>
+                <div>
+                    <h5 class="text-[10px] font-black text-amber-900 uppercase tracking-widest">Peringatan</h5>
+                    <p class="text-xs font-semibold text-amber-800 mt-1">Harap datang 10 menit
+                        sebelum nomor antrean Anda dipanggil.</p>
+                </div>
+            </div>
+            {{-- Bagian Peringatan End --}}
+
+        </div>
+        {{-- Info Update Klinik End --}}
+    </div>
+</x-layout3>

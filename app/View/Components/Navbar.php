@@ -6,21 +6,29 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
+// Komponen Navbar Start
 class Navbar extends Component
 {
     /**
-     * Create a new component instance.
+     * Inisialisasi Instansi Komponen Start
      */
     public function __construct()
     {
         //
     }
+    /**
+     * Inisialisasi Instansi Komponen End
+     */
 
     /**
-     * Get the view / contents that represent the component.
+     * Ambil View Konten Komponen Start
      */
     public function render(): View|Closure|string
     {
         return view('components.navbar');
     }
+    /**
+     * Ambil View Konten Komponen End
+     */
 }
+// Komponen Navbar End
