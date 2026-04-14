@@ -1,6 +1,6 @@
-<x-layout>
-    <x-slot:title class="relative">{{ $title }}</x-slot:title>
-
+@extends('layouts.master_layout')
+@section('title', $title)
+@section('content')
     <div class="p-15 relative min-h-screen overflow-hidden" x-data="{ isOpenTambahModal: false, isOpenEditModal: false, isOpenDeleteModal: false }">
         {{-- Dekorasi Latar Belakang Start --}}
         <div
@@ -167,8 +167,7 @@
                         @csrf
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-2">
-                                <label
-                                    class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Nama
+                                <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Nama
                                     Lengkap</label>
                                 <input type="text" name="nama_dokter"
                                     class="w-full p-4 bg-slate-50 border-2 border-transparent focus:border-[oklch(64.8%_0.2_131.684)]/20 focus:bg-white focus:ring-0 rounded-2xl text-sm font-bold transition-all"
@@ -190,8 +189,7 @@
                                 placeholder="dokter@medisgo.com" required>
                         </div>
                         <div class="space-y-2">
-                            <label
-                                class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Password
+                            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Password
                                 Sistem</label>
                             <input type="password" name="password"
                                 class="w-full p-4 bg-slate-50 border-2 border-transparent focus:border-[oklch(64.8%_0.2_131.684)]/20 focus:bg-white focus:ring-0 rounded-2xl text-sm font-bold transition-all"
@@ -237,8 +235,7 @@
                         @csrf
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-2">
-                                <label
-                                    class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Nama
+                                <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Nama
                                     Lengkap</label>
                                 <input type="text" name="nama_dokter"
                                     class="w-full p-4 bg-slate-50 border-2 border-transparent focus:border-[oklch(64.8%_0.2_131.684)]/20 focus:bg-white focus:ring-0 rounded-2xl text-sm font-bold transition-all"
@@ -260,8 +257,7 @@
                                 placeholder="dokter@medisgo.com" required>
                         </div>
                         <div class="space-y-2">
-                            <label
-                                class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Password
+                            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Password
                                 Sistem</label>
                             <input type="password" name="password"
                                 class="w-full p-4 bg-slate-50 border-2 border-transparent focus:border-[oklch(64.8%_0.2_131.684)]/20 focus:bg-white focus:ring-0 rounded-2xl text-sm font-bold transition-all"
@@ -282,4 +278,4 @@
         </div>
         {{-- Modal Edit Dokter End --}}
     </div>
-</x-layout>
+@endsection

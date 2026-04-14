@@ -1,5 +1,6 @@
-<x-layout2>
-    <x-slot:title>{{ $title }}</x-slot:title>
+@extends('layouts.master_layout2')
+@section('title', $title)
+@section('content')
 
     <div class="p-15 relative min-h-screen overflow-hidden">
         {{-- Gradien Latar Belakang Start --}}
@@ -73,8 +74,7 @@
                                                 class="w-12 h-12 bg-[oklch(50.7%_0.165_254.624)] text-white rounded-2xl flex items-center justify-center shadow-lg shadow-[oklch(50.7%_0.165_254.624)]/20">
                                                 <svg class="w-6 h-6" fill="none" stroke="currentColor"
                                                     viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2"
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                         d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                                 </svg>
                                             </div>
@@ -88,8 +88,7 @@
                                         </div>
                                         <button @click="showDetail = false"
                                             class="text-slate-300 hover:text-slate-500 transition-colors">
-                                            <svg class="w-6 h-6" fill="none" stroke="currentColor"
-                                                viewBox="0 0 24 24">
+                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                     d="M6 18L18 6M6 6l12 12" />
                                             </svg>
@@ -103,8 +102,7 @@
                                                     class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">Nama
                                                     Pasien</label>
                                                 <p class="text-sm font-bold text-slate-900">Budi Santoso</p>
-                                                <p
-                                                    class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
                                                     NIK: 1234567890123456</p>
                                             </div>
                                             <div>
@@ -137,8 +135,7 @@
                                     </div>
 
                                     <div class="border-t border-slate-50 pt-8 text-left">
-                                        <h5
-                                            class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">
+                                        <h5 class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">
                                             Resep Obat</h5>
                                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                             <div
@@ -212,8 +209,7 @@
                                                 class="w-12 h-12 bg-[oklch(50.7%_0.165_254.624)] text-white rounded-2xl flex items-center justify-center shadow-lg shadow-[oklch(50.7%_0.165_254.624)]/20">
                                                 <svg class="w-6 h-6" fill="none" stroke="currentColor"
                                                     viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2"
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                         d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                                 </svg>
                                             </div>
@@ -242,8 +238,7 @@
                                                     class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">Nama
                                                     Pasien</label>
                                                 <p class="text-sm font-bold text-slate-900">Siti Aminah</p>
-                                                <p
-                                                    class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
                                                     NIK: 9876543210987654</p>
                                             </div>
                                             <div>
@@ -277,8 +272,7 @@
                                     </div>
 
                                     <div class="border-t border-slate-50 pt-8 text-left">
-                                        <h5
-                                            class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">
+                                        <h5 class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">
                                             Resep Obat</h5>
                                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                             <div
@@ -320,4 +314,4 @@
         </div>
         {{-- Kontainer Tabel Pasien End --}}
     </div>
-</x-layout2>
+@endsection

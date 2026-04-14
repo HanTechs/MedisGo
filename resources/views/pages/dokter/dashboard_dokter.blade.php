@@ -1,5 +1,6 @@
-<x-layout2>
-    <x-slot:title>{{ $title }}</x-slot:title>
+@extends('layouts.master_layout2')
+@section('title', $title)
+@section('content')
 
     <div class="p-15 relative min-h-screen overflow-hidden">
         {{-- Gradien Latar Belakang Start --}}
@@ -152,8 +153,7 @@
                             <td class="px-8 py-6">
                                 <a href="#"
                                     class="inline-flex items-center gap-2 text-[oklch(50.7%_0.165_254.624)] font-black text-[10px] uppercase hover:gap-3 transition-all">
-                                    Periksa <svg class="w-2 h-2" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
+                                    Periksa <svg class="w-2 h-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
                                             d="M9 5l7 7-7 7" />
                                     </svg>
@@ -194,4 +194,4 @@
         </div>
         {{-- Kontainer Antrean Pasien End --}}
     </div>
-</x-layout2>
+@endsection

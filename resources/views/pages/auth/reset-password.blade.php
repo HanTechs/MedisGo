@@ -21,11 +21,11 @@
     {{-- Kontainer Utama Start --}}
     <main class="w-full max-w-md relative z-10">
         <div class="bg-white/70 backdrop-blur-xl p-10 lg:p-12 rounded-[3.5rem] border border-slate-100 shadow-2xl">
-            
+
             {{-- Header & Branding Start --}}
             <div class="mb-10">
                 <div class="flex items-center gap-3 mb-8 group">
-                    <img src="/img/logo.png"
+                    <img src="/images/logo.png"
                         class="h-10 w-auto transform scale-150 transition-transform duration-300 group-hover:scale-[1.7]"
                         alt="MedisGo Logo" />
                     <span

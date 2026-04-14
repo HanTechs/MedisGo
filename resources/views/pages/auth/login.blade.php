@@ -26,7 +26,7 @@
         <div class="space-y-6 md:space-y-10 text-center lg:text-left lg:pr-10">
             {{-- Logo --}}
             <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse group">
-                <img src="/img/logo.png"
+                <img src="/images/logo.png"
                     class="h-8 sm:h-10 md:h-12 w-auto transform scale-150 m-0 transition-transform duration-300 group-hover:scale-[1.7]"
                     alt="MedisGo Logo" />
                 <span

@@ -1,6 +1,7 @@
-<x-layout3>
-    <x-slot:title>{{ $title }}</x-slot:title>
-    
+@extends('layouts.master_layout3')
+@section('title', $title)
+@section('content')
+
     <div class="p-15 relative min-h-screen overflow-hidden">
         {{-- Gradien Latar Belakang Start --}}
         <div
@@ -13,7 +14,9 @@
 
         {{-- Bagian Header Start --}}
         <div class="mb-10 animate-in fade-in slide-in-from-top-4 duration-700">
-            <h2 class="text-3xl font-black text-slate-900 tracking-tight">Selamat Datang, <span class="bg-gradient-to-r from-[oklch(50.7%_0.165_254.624)] to-[oklch(64.8%_0.2_131.684)] bg-clip-text text-transparent italic">Budi Santoso</span></h2>
+            <h2 class="text-3xl font-black text-slate-900 tracking-tight">Selamat Datang, <span
+                    class="bg-gradient-to-r from-[oklch(50.7%_0.165_254.624)] to-[oklch(64.8%_0.2_131.684)] bg-clip-text text-transparent italic">Budi
+                    Santoso</span></h2>
             <p class="text-slate-500 font-medium mt-1">Pantau status kesehatan dan jadwal konsultasi klinikmu di sini.
             </p>
         </div>
@@ -32,7 +35,9 @@
 
                 <div class="relative z-10 text-center lg:text-left">
                     <div>
-                        <h4 class="text-[10px] font-black text-[oklch(50.7%_0.165_254.624)] uppercase tracking-[0.3em] mb-4">Sedang
+                        <h4
+                            class="text-[10px] font-black text-[oklch(50.7%_0.165_254.624)] uppercase tracking-[0.3em] mb-4">
+                            Sedang
                             Dilayani</h4>
                         <p class="text-6xl font-black text-slate-900 tracking-tighter">A-008</p>
                         <div class="mt-6 flex flex-col gap-1">
@@ -142,4 +147,4 @@
         </div>
         {{-- Info Update Klinik End --}}
     </div>
-</x-layout3>
+@endsection

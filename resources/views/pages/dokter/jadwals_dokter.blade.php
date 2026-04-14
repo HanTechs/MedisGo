@@ -1,5 +1,6 @@
-<x-layout2>
-    <x-slot:title>{{ $title }}</x-slot:title>
+@extends('layouts.master_layout2')
+@section('title', $title)
+@section('content')
 
     <div class="p-15 relative min-h-screen overflow-hidden">
         {{-- Gradien Latar Belakang Start --}}
@@ -38,8 +39,7 @@
                 <h4
                     class="text-[10px] font-black text-[oklch(50.7%_0.165_254.624)] uppercase tracking-[0.3em] mb-4 group-hover:text-blue-100 transition-colors">
                     HARI</h4>
-                <p
-                    class="text-3xl font-black text-slate-900 mb-6 group-hover:text-white relative z-10 transition-colors">
+                <p class="text-3xl font-black text-slate-900 mb-6 group-hover:text-white relative z-10 transition-colors">
                     Senin</p>
 
                 <div class="space-y-4 relative z-10">
@@ -84,8 +84,7 @@
                 <h4
                     class="text-[10px] font-black text-[oklch(64.8%_0.2_131.684)] uppercase tracking-[0.3em] mb-4 group-hover:text-emerald-100 transition-colors">
                     HARI</h4>
-                <p
-                    class="text-3xl font-black text-slate-900 mb-6 group-hover:text-white relative z-10 transition-colors">
+                <p class="text-3xl font-black text-slate-900 mb-6 group-hover:text-white relative z-10 transition-colors">
                     Rabu</p>
 
                 <div class="space-y-4 relative z-10">
@@ -130,8 +129,7 @@
                 <h4
                     class="text-[10px] font-black text-[oklch(50.7%_0.165_254.624)] uppercase tracking-[0.3em] mb-4 group-hover:text-blue-100 transition-colors">
                     HARI</h4>
-                <p
-                    class="text-3xl font-black text-slate-900 mb-6 group-hover:text-white relative z-10 transition-colors">
+                <p class="text-3xl font-black text-slate-900 mb-6 group-hover:text-white relative z-10 transition-colors">
                     Jumat</p>
 
                 <div class="space-y-4 relative z-10">
@@ -164,4 +162,4 @@
         </div>
         {{-- Grid Kartu Jadwal End --}}
     </div>
-</x-layout2>
+@endsection

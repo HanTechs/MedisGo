@@ -1,6 +1,6 @@
-<x-layout>
-    <x-slot:title>{{ $title }}</x-slot:title>
-
+@extends('layouts.master_layout')
+@section('title', $title)
+@section('content')
     <div class="p-15  relative min-h-screen overflow-hidden">
         {{-- Gradien Latar Belakang Start --}}
         <div
@@ -16,8 +16,7 @@
             <div class="flex items-center gap-3 mb-2">
                 <div class="p-2 bg-white rounded-xl shadow-sm border border-slate-100">
                     <svg class="w-6 h-6 text-[oklch(50.7%_0.165_254.624)]" aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                        viewBox="0 0 24 24">
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M10 6a4 4 0 1 1 4 4v4a4 4 0 1 1-4-4V6Z" />
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -132,8 +131,7 @@
                         class="flex flex-col items-center p-6 bg-slate-50 rounded-3xl hover:bg-gradient-to-r hover:from-[oklch(50.7%_0.165_254.624)] hover:to-[oklch(50.7%_0.165_254.624)] group transition-all duration-300">
                         <div
                             class="w-12 h-12 mb-3 rounded-2xl bg-white flex items-center justify-center text-[oklch(50.7%_0.165_254.624)] group-hover:scale-110 transition-transform">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
-                                viewBox="0 0 24 24">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path d="M12 4v16m8-8H4" />
                             </svg>
                         </div>
@@ -144,8 +142,7 @@
                         class="flex flex-col items-center p-6 bg-slate-50 rounded-3xl hover:bg-gradient-to-r hover:from-[oklch(64.8%_0.2_131.684)] hover:to-[oklch(64.8%_0.2_131.684)] group transition-all duration-300">
                         <div
                             class="w-12 h-12 mb-3 rounded-2xl bg-white flex items-center justify-center text-[oklch(64.8%_0.2_131.684)] group-hover:scale-110 transition-transform">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
-                                viewBox="0 0 24 24">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path
                                     d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                             </svg>
@@ -187,4 +184,4 @@
         {{-- Bagian Aksi Cepat dan Keamanan End --}}
 
     </div>
-</x-layout>
+@endsection

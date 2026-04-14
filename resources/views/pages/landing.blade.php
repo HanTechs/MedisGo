@@ -14,7 +14,7 @@
     <nav x-data="{ open: false }" class="bg-neutral-primary fixed w-full z-20 top-0 start-0 border-b border-default">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse group">
-                <img src="/img/logo.png"
+                <img src="/images/logo.png"
                     class="h-8 sm:h-10 md:h-12 w-auto transform scale-150 m-0 transition-transform duration-300 group-hover:scale-[1.7]"
                     alt="MedisGo Logo" />
                 <span

@@ -1,6 +1,7 @@
-<x-layout3>
-    <x-slot:title>{{ $title }}</x-slot:title>
-    
+@extends('layouts.master_layout3')
+@section('title', $title)
+@section('content')
+
     <div class="p-15 relative min-h-screen overflow-hidden">
         {{-- Gradien Latar Belakang Start --}}
         <div
@@ -13,7 +14,8 @@
 
         {{-- Bagian Header Start --}}
         <div class="mb-10 animate-in fade-in slide-in-from-top-4 duration-700">
-            <h2 class="text-3xl font-black text-slate-900 tracking-tight">Ambil <span class="bg-gradient-to-r from-[oklch(50.7%_0.165_254.624)] to-[oklch(64.8%_0.2_131.684)] bg-clip-text text-transparent italic">Antrean</span>
+            <h2 class="text-3xl font-black text-slate-900 tracking-tight">Ambil <span
+                    class="bg-gradient-to-r from-[oklch(50.7%_0.165_254.624)] to-[oklch(64.8%_0.2_131.684)] bg-clip-text text-transparent italic">Antrean</span>
             </h2>
             <p class="text-slate-500 font-medium mt-1">Pilih jadwal konsultasi yang tersedia untuk hari ini.</p>
         </div>
@@ -44,9 +46,8 @@
                                 class="w-full p-6 bg-slate-50 border-none rounded-2xl text-sm font-bold text-left flex justify-between items-center focus:ring-4 focus:ring-[oklch(50.7%_0.165_254.624)]/10 transition-all">
                                 <span :class="selectedId ? 'text-slate-900' : 'text-slate-400'"
                                     x-text="selectedLabel"></span>
-                                <svg class="w-4 h-4 text-slate-400 transition-transform"
-                                    :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
+                                <svg class="w-4 h-4 text-slate-400 transition-transform" :class="open ? 'rotate-180' : ''"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M19 9l-7 7-7-7" />
                                 </svg>
@@ -68,7 +69,9 @@
                                         </svg>
                                     </div>
                                     <div>
-                                        <p class="text-sm font-black text-slate-800 group-hover:text-[oklch(50.7%_0.165_254.624)]">dr.
+                                        <p
+                                            class="text-sm font-black text-slate-800 group-hover:text-[oklch(50.7%_0.165_254.624)]">
+                                            dr.
                                             Muhammad Farhan</p>
                                         <p
                                             class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-0.5 group-hover:text-[oklch(50.7%_0.165_254.624)]/60">
@@ -89,7 +92,9 @@
                                         </svg>
                                     </div>
                                     <div>
-                                        <p class="text-sm font-black text-slate-800 group-hover:text-[oklch(64.8%_0.2_131.684)]">dr. Siti
+                                        <p
+                                            class="text-sm font-black text-slate-800 group-hover:text-[oklch(64.8%_0.2_131.684)]">
+                                            dr. Siti
                                             Aminah</p>
                                         <p
                                             class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-0.5 group-hover:text-[oklch(64.8%_0.2_131.684)]/60">
@@ -164,7 +169,8 @@
                                 d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                         </svg>
                     </div>
-                    <p class="text-[9px] text-[oklch(50.7%_0.165_254.624)] font-bold uppercase leading-relaxed tracking-wider">
+                    <p
+                        class="text-[9px] text-[oklch(50.7%_0.165_254.624)] font-bold uppercase leading-relaxed tracking-wider">
                         Sistem MedisGo menjamin kerahasiaan data medis dan keluhan anda. Mohon isi data dengan jujur.
                     </p>
                 </div>
@@ -172,4 +178,4 @@
             </form>
         </div>
     </div>
-</x-layout3>
+@endsection

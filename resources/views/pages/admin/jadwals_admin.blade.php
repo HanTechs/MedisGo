@@ -1,6 +1,6 @@
-<x-layout>
-    <x-slot:title class="relative">{{ $title }}</x-slot:title>
-
+@extends('layouts.master_layout')
+@section('title', $title)
+@section('content')
     <div class="p-15 relative min-h-screen overflow-hidden" x-data="{ isOpenTambahModal: false, isOpenEditModal: false, isOpenDeleteModal: false }">
         {{-- Dekorasi Latar Belakang Start --}}
         <div class="absolute top-0 right-0 w-80 h-80 bg-[oklch(50.7%_0.165_254.624)]/5 rounded-full blur-[100px] -z-10">
@@ -13,8 +13,9 @@
             <div>
                 <div class="flex items-center gap-3 mb-1">
                     <div class="p-2 bg-white rounded-xl shadow-sm border border-slate-100">
-                        <svg class="w-6 h-6 text-[oklch(50.7%_0.165_254.624)]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                            width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <svg class="w-6 h-6 text-[oklch(50.7%_0.165_254.624)]" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                            viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M8 7V6a1 1 0 0 1 1-1h11a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1h-1M3 18v-7a1 1 0 0 1 1-1h11a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1Zm8-3.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" />
                         </svg>
@@ -69,7 +70,9 @@
                                 </span>
                             </td>
                             <td class="px-8 py-6">
-                                <p class="font-bold text-slate-900 group-hover:text-[oklch(50.7%_0.165_254.624)] transition-colors">dr.
+                                <p
+                                    class="font-bold text-slate-900 group-hover:text-[oklch(50.7%_0.165_254.624)] transition-colors">
+                                    dr.
                                     Farhan Syah</p>
                                 <p class="text-[10px] text-slate-400 font-medium tracking-widest">Spesialis Jantung</p>
                             </td>
@@ -143,24 +146,27 @@
         {{-- Modal Konfirmasi Hapus End --}}
 
         {{-- Modal Tambah/Edit Jadwal Start --}}
-        <div x-cloak x-show="isOpenTambahModal || isOpenEditModal"
-            x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-95"
-            x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-200"
-            x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+        <div x-cloak x-show="isOpenTambahModal || isOpenEditModal" x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+            x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100"
+            x-transition:leave-end="opacity-0 scale-95"
             class="fixed top-16 bottom-0 left-0 sm:left-64 right-0 z-[40] overflow-y-auto bg-slate-900/40 backdrop-blur-sm">
             <div class="flex min-h-full items-center justify-center p-4">
                 <div
                     class="bg-white w-full max-w-lg rounded-[3rem] p-12 shadow-2xl animate-in zoom-in duration-300 relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-[oklch(50.7%_0.165_254.624)]/5 rounded-full -mr-16 -mt-16"></div>
+                    <div
+                        class="absolute top-0 right-0 w-32 h-32 bg-[oklch(50.7%_0.165_254.624)]/5 rounded-full -mr-16 -mt-16">
+                    </div>
 
                     <h3 class="text-3xl font-black text-slate-900 mb-8 tracking-tight italic">
                         <span x-show="isOpenTambahModal">Atur Jadwal</span>
                         <span x-show="isOpenEditModal">Edit Jadwal</span>
-                        <span class="bg-gradient-to-r from-[oklch(50.7%_0.165_254.624)] to-[oklch(64.8%_0.2_131.684)] bg-clip-text text-transparent">Dokter</span>
+                        <span
+                            class="bg-gradient-to-r from-[oklch(50.7%_0.165_254.624)] to-[oklch(64.8%_0.2_131.684)] bg-clip-text text-transparent">Dokter</span>
                     </h3>
 
-                    <form @click.away="isOpenTambahModal = false; isOpenEditModal = false" action="#"
-                        method="POST" class="space-y-6">
+                    <form @click.away="isOpenTambahModal = false; isOpenEditModal = false" action="#" method="POST"
+                        class="space-y-6">
                         @csrf
                         <div class="space-y-2">
                             <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Pilih
@@ -174,8 +180,7 @@
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-2">
-                                <label
-                                    class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Hari
+                                <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Hari
                                     Mulai</label>
                                 <select name="hari_mulai"
                                     class="w-full p-4 bg-slate-50 border-2 border-transparent focus:border-[oklch(50.7%_0.165_254.624)]/20 focus:bg-white focus:ring-0 rounded-2xl text-sm font-bold transition-all appearance-none">
@@ -189,8 +194,7 @@
                                 </select>
                             </div>
                             <div class="space-y-2">
-                                <label
-                                    class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Hari
+                                <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Hari
                                     Selesai</label>
                                 <select name="hari_selesai"
                                     class="w-full p-4 bg-slate-50 border-2 border-transparent focus:border-[oklch(50.7%_0.165_254.624)]/20 focus:bg-white focus:ring-0 rounded-2xl text-sm font-bold transition-all appearance-none">
@@ -243,4 +247,4 @@
         </div>
         {{-- Modal Tambah/Edit Jadwal End --}}
     </div>
-</x-layout>
+@endsection

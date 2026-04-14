@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 // Routh Landing Page
 Route::get('/{index?}', function () {
     $title = 'Landing Page | MedisGo ';
-    return view('landing', compact('title'));
+    return view('pages.landing', compact('title'));
 })->where('index', 'index|landing')->name('ShowLanding');
 
 

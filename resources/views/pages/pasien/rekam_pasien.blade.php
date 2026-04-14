@@ -1,6 +1,7 @@
-<x-layout3>
-    <x-slot:title>{{ $title }}</x-slot:title>
-    
+@extends('layouts.master_layout3')
+@section('title', $title)
+@section('content')
+
     <div class="p-15 relative min-h-screen overflow-hidden">
         {{-- Gradien Latar Belakang Start --}}
         <div
@@ -13,7 +14,8 @@
 
         {{-- Bagian Header Start --}}
         <div class="mb-10 animate-in fade-in slide-in-from-top-4 duration-700">
-            <h2 class="text-3xl font-black text-slate-900 tracking-tight">Rekam <span class="bg-gradient-to-r from-[oklch(50.7%_0.165_254.624)] to-[oklch(64.8%_0.2_131.684)] bg-clip-text text-transparent italic">Medis</span>
+            <h2 class="text-3xl font-black text-slate-900 tracking-tight">Rekam <span
+                    class="bg-gradient-to-r from-[oklch(50.7%_0.165_254.624)] to-[oklch(64.8%_0.2_131.684)] bg-clip-text text-transparent italic">Medis</span>
             </h2>
             <p class="text-slate-500 font-medium mt-1">Riwayat kesehatan dan catatan medis Anda selama di klinik.</p>
         </div>
@@ -45,7 +47,9 @@
                                 05/04/2026
                             </span>
                         </td>
-                        <td class="px-8 py-6 font-bold text-slate-900 text-sm group-hover:text-[oklch(50.7%_0.165_254.624)] transition-colors">dr. Muhammad Farhan</td>
+                        <td
+                            class="px-8 py-6 font-bold text-slate-900 text-sm group-hover:text-[oklch(50.7%_0.165_254.624)] transition-colors">
+                            dr. Muhammad Farhan</td>
                         <td class="px-8 py-6 text-sm font-medium text-slate-600 truncate max-w-[200px]">Hipertensi
                             Essential</td>
                         <td class="px-8 py-6">
@@ -79,22 +83,21 @@
                                                 class="w-12 h-12 bg-gradient-to-r from-[oklch(50.7%_0.165_254.624)] to-[oklch(64.8%_0.2_131.684)] text-white rounded-2xl flex items-center justify-center shadow-lg shadow-blue-200">
                                                 <svg class="w-6 h-6" fill="none" stroke="currentColor"
                                                     viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2"
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                         d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                                 </svg>
                                             </div>
                                             <div>
                                                 <h3 class="text-2xl font-black text-slate-900 tracking-tight">Detail
                                                     Rekam Medis</h3>
-                                                <p class="text-xs font-bold text-[oklch(50.7%_0.165_254.624)] uppercase tracking-[0.1em]">
+                                                <p
+                                                    class="text-xs font-bold text-[oklch(50.7%_0.165_254.624)] uppercase tracking-[0.1em]">
                                                     Minggu, 05 April 2026</p>
                                             </div>
                                         </div>
                                         <button @click="showDetail = false"
                                             class="text-slate-300 hover:text-slate-500 transition-colors">
-                                            <svg class="w-6 h-6" fill="none" stroke="currentColor"
-                                                viewBox="0 0 24 24">
+                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                     d="M6 18L18 6M6 6l12 12" />
                                             </svg>
@@ -108,8 +111,7 @@
                                                     class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">Dokter
                                                     Pemeriksa</label>
                                                 <p class="text-sm font-bold text-slate-900">dr. Muhammad Farhan</p>
-                                                <p
-                                                    class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
                                                     Spesialis Jantung</p>
                                             </div>
                                             <div>
@@ -131,8 +133,10 @@
                                             <div>
                                                 <label
                                                     class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">Diagnosa</label>
-                                                <div class="p-4 bg-[oklch(50.7%_0.165_254.624)]/5 rounded-2xl border border-[oklch(50.7%_0.165_254.624)]/10">
-                                                    <p class="text-sm font-bold text-[oklch(50.7%_0.165_254.624)] leading-relaxed">
+                                                <div
+                                                    class="p-4 bg-[oklch(50.7%_0.165_254.624)]/5 rounded-2xl border border-[oklch(50.7%_0.165_254.624)]/10">
+                                                    <p
+                                                        class="text-sm font-bold text-[oklch(50.7%_0.165_254.624)] leading-relaxed">
                                                         Hipertensi Essential</p>
                                                 </div>
                                             </div>
@@ -140,8 +144,7 @@
                                     </div>
 
                                     <div class="border-t border-slate-50 pt-8 text-left">
-                                        <h5
-                                            class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">
+                                        <h5 class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">
                                             Rincian Resep Obat</h5>
                                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                             <div
@@ -186,7 +189,9 @@
                                 15/03/2026
                             </span>
                         </td>
-                        <td class="px-8 py-6 font-bold text-slate-900 text-sm group-hover:text-[oklch(64.8%_0.2_131.684)] transition-colors">dr. Siti Aminah</td>
+                        <td
+                            class="px-8 py-6 font-bold text-slate-900 text-sm group-hover:text-[oklch(64.8%_0.2_131.684)] transition-colors">
+                            dr. Siti Aminah</td>
                         <td class="px-8 py-6 text-sm font-medium text-slate-600 truncate max-w-[200px]">Gastritis Akut
                         </td>
                         <td class="px-8 py-6">
@@ -220,15 +225,15 @@
                                                 class="w-12 h-12 bg-gradient-to-r from-[oklch(50.7%_0.165_254.624)] to-[oklch(64.8%_0.2_131.684)] text-white rounded-2xl flex items-center justify-center shadow-lg shadow-blue-200">
                                                 <svg class="w-6 h-6" fill="none" stroke="currentColor"
                                                     viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2"
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                         d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                                 </svg>
                                             </div>
                                             <div>
                                                 <h3 class="text-2xl font-black text-slate-900 tracking-tight">Detail
                                                     Rekam Medis</h3>
-                                                <p class="text-xs font-bold text-[oklch(50.7%_0.165_254.624)] uppercase tracking-[0.1em]">
+                                                <p
+                                                    class="text-xs font-bold text-[oklch(50.7%_0.165_254.624)] uppercase tracking-[0.1em]">
                                                     Minggu, 15 Maret 2026</p>
                                             </div>
                                         </div>
@@ -249,8 +254,7 @@
                                                     class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">Dokter
                                                     Pemeriksa</label>
                                                 <p class="text-sm font-bold text-slate-900">dr. Siti Aminah</p>
-                                                <p
-                                                    class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
                                                     Spesialis Penyakit Dalam</p>
                                             </div>
                                             <div>
@@ -272,8 +276,10 @@
                                             <div>
                                                 <label
                                                     class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">Diagnosa</label>
-                                                <div class="p-4 bg-[oklch(64.8%_0.2_131.684)]/5 rounded-2xl border border-[oklch(64.8%_0.2_131.684)]/10">
-                                                    <p class="text-sm font-bold text-[oklch(64.8%_0.2_131.684)] leading-relaxed">
+                                                <div
+                                                    class="p-4 bg-[oklch(64.8%_0.2_131.684)]/5 rounded-2xl border border-[oklch(64.8%_0.2_131.684)]/10">
+                                                    <p
+                                                        class="text-sm font-bold text-[oklch(64.8%_0.2_131.684)] leading-relaxed">
                                                         Gastritis Akut</p>
                                                 </div>
                                             </div>
@@ -281,8 +287,7 @@
                                     </div>
 
                                     <div class="border-t border-slate-50 pt-8 text-left">
-                                        <h5
-                                            class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">
+                                        <h5 class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">
                                             Rincian Resep Obat</h5>
                                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                             <div
@@ -342,4 +347,4 @@
         </div>
         {{-- Kontainer Tabel Rekam Medis End --}}
     </div>
-</x-layout3>
+@endsection

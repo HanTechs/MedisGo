@@ -1,6 +1,6 @@
-<x-layout>
-    <x-slot:title class="relative">{{ $title }}</x-slot:title>
-
+@extends('layouts.master_layout')
+@section('title', $title)
+@section('content')
     <div class="p-15 relative min-h-screen overflow-hidden" x-data="{ isOpenTambahModal: false, isOpenEditModal: false, isOpenDeleteModal: false }">
         {{-- Dekorasi Latar Belakang Start --}}
         <div class="absolute top-0 right-0 w-80 h-80 bg-[oklch(50.7%_0.165_254.624)]/5 rounded-full blur-[100px] -z-10">
@@ -141,8 +141,7 @@
                                     </button>
                                     <button @click="isOpenDeleteModal = true"
                                         class="p-2.5 text-red-500 bg-red-50 hover:bg-red-600 hover:text-white rounded-xl transition-all">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                         </svg>
@@ -273,8 +272,7 @@
                                 placeholder="Alamat Lengkap" required></textarea>
                         </div>
                         <div class="space-y-2">
-                            <label
-                                class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Password
+                            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Password
                                 Sistem</label>
                             <input type="password" name="password"
                                 class="w-full p-4 bg-slate-50 border-2 border-transparent focus:border-[oklch(64.8%_0.2_131.684)]/20 focus:bg-white focus:ring-0 rounded-2xl text-sm font-bold transition-all"
@@ -376,8 +374,7 @@
                                 placeholder="Alamat Lengkap" required></textarea>
                         </div>
                         <div class="space-y-2">
-                            <label
-                                class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Password
+                            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Password
                                 Sistem</label>
                             <input type="password" name="password"
                                 class="w-full p-4 bg-slate-50 border-2 border-transparent focus:border-[oklch(64.8%_0.2_131.684)]/20 focus:bg-white focus:ring-0 rounded-2xl text-sm font-bold transition-all"
@@ -395,4 +392,4 @@
         </div>
         {{-- Modal Tambah Pasien End --}}
     </div>
-</x-layout>
+@endsection

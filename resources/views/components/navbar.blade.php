@@ -2,7 +2,7 @@
     class="bg-neutral-primary fixed w-full z-[60] top-0 start-0 border-b border-default shadow-sm">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-3 px-7 ">
         <a href="#" class="flex items-center space-x-2 rtl:space-x-reverse group">
-            <img src="/img/logo.png"
+            <img src="/images/logo.png"
                 class="m-0 h-12 w-auto transform transition-transform duration-300 group-hover:scale-150"
                 alt="MedisGo Logo" />
             <span
@@ -29,7 +29,7 @@
                 <button @click="open = !open" type="button"
                     class="flex text-sm bg-neutral-primary rounded-full focus:ring-4 focus:ring-blue-100 transition-all border border-[oklch(64.8%_0.2_131.684)]">
                     <span class="sr-only">Open user menu</span>
-                    <img class="w-8 h-8 rounded-full" src="/img/logo.png" alt="user photo">
+                    <img class="w-8 h-8 rounded-full" src="/images/logo.png" alt="user photo">
                 </button>
 
                 <!-- Dropdown menu -->

@@ -112,7 +112,7 @@
                             </div>
                             <span
                                 class="flex-1 ms-3 font-bold text-sm whitespace-nowrap group-hover:text-slate-800 transition-colors">Kelola
-                                Booking</span>
+                                Pembayaran</span>
                         </a>
                     </li>
                 </ul>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $title }}</title>
+    <title>@yield('title', 'Default Title')</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -13,12 +13,12 @@
         <x-navbar />
 
         <div class="flex flex-1 pt-16 overflow-hidden">
-            <x-sidebar3 />
+            <x-sidebar2 />
 
             <main id="main-content" class="flex-1 w-full min-w-0 overflow-y-auto transition-all duration-300 sm:ml-64">
                 <div class="container mx-auto ">
                     <div class="">
-                        {{ $slot }}
+                        @yield('content')
                     </div>
                     <x-footer />
                 </div>

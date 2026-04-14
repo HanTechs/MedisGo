@@ -1,6 +1,6 @@
-<x-layout2>
-    <x-slot:title>{{ $title }}</x-slot:title>
-
+@extends('layouts.master_layout2')
+@section('title', $title)
+@section('content')
     <div class="p-15 relative min-h-screen overflow-hidden">
         {{-- Gradien Latar Belakang Start --}}
         <div
@@ -22,8 +22,7 @@
             <a href="#"
                 class="flex items-center gap-2 text-slate-400 font-bold text-xs uppercase hover:text-[oklch(50.7%_0.165_254.624)] transition-colors">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                 </svg> Kembali ke Dashboard
             </a>
         </div>
@@ -190,4 +189,4 @@
 
         </div>
     </div>
-</x-layout2>
+@endsection

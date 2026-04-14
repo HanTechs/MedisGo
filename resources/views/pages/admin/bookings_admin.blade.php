@@ -1,6 +1,6 @@
-<x-layout>
-    <x-slot:title class="relative">{{ $title }}</x-slot:title>
-
+@extends('layouts.master_layout')
+@section('title', $title)
+@section('content')
     <div class="p-15 relative min-h-screen overflow-hidden" x-data="{ isOpenConfirmModal: false }">
         {{-- Dekorasi Latar Belakang Start --}}
         <div class="absolute top-0 right-0 w-80 h-80 bg-[oklch(50.7%_0.165_254.624)]/5 rounded-full blur-[100px] -z-10">
@@ -13,8 +13,9 @@
             <div>
                 <div class="flex items-center gap-3 mb-1">
                     <div class="p-2 bg-white rounded-xl shadow-sm border border-slate-100">
-                        <svg class="w-6 h-6 text-[oklch(50.7%_0.165_254.624)]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                            width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <svg class="w-6 h-6 text-[oklch(50.7%_0.165_254.624)]" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                            viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M3 10h18M6 14h2m3 0h5M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2Z" />
                         </svg>
@@ -62,7 +63,9 @@
                                 </span>
                             </td>
                             <td class="px-8 py-6">
-                                <p class="font-bold text-slate-900 group-hover:text-[oklch(50.7%_0.165_254.624)] transition-colors">Budi
+                                <p
+                                    class="font-bold text-slate-900 group-hover:text-[oklch(50.7%_0.165_254.624)] transition-colors">
+                                    Budi
                                     Santoso</p>
                                 <p class="text-[10px] text-slate-400 font-medium tracking-widest italic">dr. Farhan Syah
                                     (Umum)</p>
@@ -152,4 +155,4 @@
         </div>
         {{-- Modal Konfirmasi Pembayaran End --}}
     </div>
-</x-layout>
+@endsection
