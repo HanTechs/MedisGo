@@ -100,7 +100,7 @@
                     </li>
 
                     <li>
-                        <a href="{{ route('ShowBookingsAdmin') }}"
+                        <a href="{{ route('ShowBiayaPendaftaranAdmin') }}"
                             class="flex items-center px-4 py-3 text-slate-500 rounded-2xl transition-all duration-300 group hover:bg-slate-50">
                             <div
                                 class="p-2 bg-slate-50 rounded-lg group-hover:bg-white group-hover:shadow-md group-hover:shadow-teal-100 transition-all duration-300">
@@ -111,8 +111,8 @@
                                 </svg>
                             </div>
                             <span
-                                class="flex-1 ms-3 font-bold text-sm whitespace-nowrap group-hover:text-slate-800 transition-colors">Kelola
-                                Pembayaran</span>
+                                class="flex-1 ms-3 font-bold text-sm whitespace-nowrap group-hover:text-slate-800 transition-colors">Biaya
+                                Pendaftaran</span>
                         </a>
                     </li>
                 </ul>

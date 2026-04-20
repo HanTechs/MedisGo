@@ -18,16 +18,13 @@
             {{-- Nama & Role --}}
             <div class="text-right hidden sm:block">
                 <p class="text-xs font-bold text-slate-800 leading-tight">Nama Pengguna</p>
-                <p
-                    class="text-[10px] font-bold bg-gradient-to-r from-[oklch(50.7%_0.165_254.624)] to-[oklch(64.8%_0.2_131.684)] bg-clip-text text-transparent uppercase tracking-widest leading-tight">
-                    Administrator
-                </p>
+                <p class="text-xs font-bold text-formal-accent">Administrator</p>
             </div>
 
             {{-- Profil --}}
             <div class="relative">
                 <button @click="open = !open" type="button"
-                    class="flex text-sm bg-neutral-primary rounded-full focus:ring-4 focus:ring-blue-100 transition-all border border-[oklch(64.8%_0.2_131.684)]">
+                    class="flex text-sm bg-neutral-primary rounded-full focus:ring-4 focus:ring-blue-100 transition-all border border-formal-accent ">
                     <span class="sr-only">Open user menu</span>
                     <img class="w-8 h-8 rounded-full" src="/images/logo.png" alt="user photo">
                 </button>

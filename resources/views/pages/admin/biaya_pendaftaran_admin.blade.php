@@ -3,7 +3,7 @@
 @section('content')
     <div class="p-15 relative min-h-screen overflow-hidden" x-data="{ isOpenConfirmModal: false }">
         {{-- Dekorasi Latar Belakang Start --}}
-        <div class="absolute top-0 right-0 w-80 h-80 bg-[oklch(50.7%_0.165_254.624)]/5 rounded-full blur-[100px] -z-10">
+        <div class="absolute top-0 right-0 w-80 h-80 bg-cyan-50 rounded-full blur-[100px] -z-10">
         </div>
         {{-- Dekorasi Latar Belakang End --}}
 
@@ -13,18 +13,16 @@
             <div>
                 <div class="flex items-center gap-3 mb-1">
                     <div class="p-2 bg-white rounded-xl shadow-sm border border-slate-100">
-                        <svg class="w-6 h-6 text-[oklch(50.7%_0.165_254.624)]" aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                            viewBox="0 0 24 24">
+                        <svg class="w-6 h-6 text-formal-accent" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            width="24" height="24" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M3 10h18M6 14h2m3 0h5M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2Z" />
                         </svg>
                     </div>
-                    <h2 class="text-3xl font-black text-slate-900 tracking-tight">Kelola <span
-                            class="bg-gradient-to-r from-[oklch(50.7%_0.165_254.624)] to-[oklch(64.8%_0.2_131.684)] bg-clip-text text-transparent italic">Pembayaran</span>
-                    </h2>
+                    <h2 class="text-3xl font-black text-formal-primary tracking-tight">Biaya Pendaftaran </h2>
                 </div>
-                <p class="text-slate-500 font-medium ml-12">Konfirmasi pembayaran fee pendaftaran pasien di kasir secara
+                <p class="text-formal-secondary font-medium ml-12">Konfirmasi pembayaran fee pendaftaran pasien di kasir
+                    secara
                     real-time.</p>
             </div>
         </div>
@@ -52,26 +50,25 @@
                     </thead>
                     <tbody class="divide-y divide-slate-50">
                         {{-- Data Dummy Baris 1 (Belum Bayar) --}}
-                        <tr class="hover:bg-[oklch(50.7%_0.165_254.624)]/5 transition-colors group">
+                        <tr class="hover:bg-cyan-50/50 transition-colors group">
                             <td class="px-8 py-6 text-sm font-bold text-slate-600">
                                 05 Apr 2026
                             </td>
                             <td class="px-8 py-6">
                                 <span
-                                    class="px-3 py-1.5 bg-[oklch(50.7%_0.165_254.624)]/10 text-[oklch(50.7%_0.165_254.624)] text-[10px] font-black rounded-xl uppercase tracking-widest">
+                                    class="px-3 py-1.5 bg-cyan-50 text-formal-accent text-[10px] font-black rounded-xl uppercase tracking-widest">
                                     A-01
                                 </span>
                             </td>
                             <td class="px-8 py-6">
-                                <p
-                                    class="font-bold text-slate-900 group-hover:text-[oklch(50.7%_0.165_254.624)] transition-colors">
+                                <p class="font-bold text-formal-primary group-hover:text-formal-accent transition-colors">
                                     Budi
                                     Santoso</p>
                                 <p class="text-[10px] text-slate-400 font-medium tracking-widest italic">dr. Farhan Syah
                                     (Umum)</p>
                             </td>
                             <td class="px-8 py-6">
-                                <p class="text-sm font-black text-slate-900 mb-1">Rp50.000</p>
+                                <p class="text-sm font-black text-formal-primary mb-1">Rp50.000</p>
                                 <span
                                     class="px-2 py-0.5 bg-red-50 text-red-500 text-[9px] font-black rounded-lg uppercase tracking-widest border border-red-100">
                                     BELUM LUNAS
@@ -80,7 +77,7 @@
                             <td class="px-8 py-6">
                                 <div class="flex justify-center">
                                     <button @click="isOpenConfirmModal = true"
-                                        class="bg-gradient-to-r from-[oklch(50.7%_0.165_254.624)] to-[oklch(64.8%_0.2_131.684)] text-white px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:brightness-110 hover:-translate-y-0.5 transition-all shadow-lg shadow-[oklch(50.7%_0.165_254.624)/30%]">
+                                        class="bg-formal-accent text-white px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-cyan-700 hover:-translate-y-0.5 transition-all shadow-lg shadow-cyan-100">
                                         Konfirmasi
                                     </button>
                                 </div>
@@ -99,7 +96,7 @@
                                 </span>
                             </td>
                             <td class="px-8 py-6 opacity-60">
-                                <p class="font-bold text-slate-900">Siti Aminah</p>
+                                <p class="font-bold text-formal-primary">Siti Aminah</p>
                                 <p class="text-[10px] text-slate-400 font-medium tracking-widest italic">dr. Rizky
                                     (Spesialis Anak)</p>
                             </td>
@@ -131,14 +128,14 @@
                 <div class="bg-white w-full max-w-sm rounded-[3rem] p-10 shadow-2xl animate-in zoom-in duration-300 text-center"
                     @click.away="isOpenConfirmModal = false">
                     <div
-                        class="w-20 h-20 bg-[oklch(50.7%_0.165_254.624)]/5 text-[oklch(50.7%_0.165_254.624)] rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner animate-pulse">
+                        class="w-20 h-20 bg-cyan-50 text-formal-accent rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner animate-pulse">
                         <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
                         </svg>
                     </div>
-                    <h3 class="text-2xl font-black text-slate-900 mb-2">Konfirmasi Bayar?</h3>
-                    <p class="text-slate-500 text-sm font-medium mb-8">Pastikan kasir telah menerima uang tunai atau
+                    <h3 class="text-2xl font-black text-formal-primary mb-2">Konfirmasi Bayar?</h3>
+                    <p class="text-formal-secondary text-sm font-medium mb-8">Pastikan kasir telah menerima uang tunai atau
                         bukti transfer dari pasien sebesar <strong>Rp50.000</strong>.</p>
                     <div class="flex gap-3">
                         <button @click="isOpenConfirmModal = false"
@@ -146,7 +143,7 @@
                         <form action="#" method="POST" class="flex-1">
                             @csrf
                             <button type="submit"
-                                class="w-full py-4 bg-gradient-to-r from-[oklch(50.7%_0.165_254.624)] to-[oklch(64.8%_0.2_131.684)] text-white font-black rounded-2xl uppercase text-[10px] tracking-widest shadow-lg shadow-[oklch(50.7%_0.165_254.624)/30%] hover:brightness-110 transition-all">Ya,
+                                class="w-full py-4 bg-formal-accent text-white font-black rounded-2xl uppercase text-[10px] tracking-widest shadow-lg shadow-cyan-100 hover:bg-cyan-700 transition-all">Ya,
                                 Lunas</button>
                         </form>
                     </div>

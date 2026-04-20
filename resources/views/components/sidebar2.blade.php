@@ -60,13 +60,13 @@
                                 </svg>
                             </div>
                             <span
-                                class="flex-1 ms-3 font-bold text-sm whitespace-nowrap group-hover:text-slate-800 transition-colors">Kelola
-                                Jadwal</span>
+                                class="flex-1 ms-3 font-bold text-sm whitespace-nowrap group-hover:text-slate-800 transition-colors">Jadwal
+                                Praktik</span>
                         </a>
                     </li>
 
                     <li>
-                        <a href="{{ route('ShowPasiensDokter') }}"
+                        <a href="{{ route('ShowDaftarRiwayatPasiensDokter') }}"
                             class="flex items-center px-4 py-3 text-slate-500 rounded-2xl transition-all duration-300 group hover:bg-slate-50">
                             <div
                                 class="p-2 bg-slate-50 rounded-lg group-hover:bg-white group-hover:shadow-md group-hover:shadow-blue-100 transition-all duration-300">
@@ -77,8 +77,8 @@
                                 </svg>
                             </div>
                             <span
-                                class="flex-1 ms-3 font-bold text-sm whitespace-nowrap group-hover:text-slate-800 transition-colors">Kelola
-                                Pasien</span>
+                                class="flex-1 ms-3 font-bold text-sm whitespace-nowrap group-hover:text-slate-800 transition-colors">Daftar
+                                Riwayat Pasien</span>
                         </a>
                     </li>
 
@@ -94,8 +94,8 @@
                                 </svg>
                             </div>
                             <span
-                                class="flex-1 ms-3 font-bold text-sm whitespace-nowrap group-hover:text-slate-800 transition-colors">Kelola
-                                Pemeriksaan</span>
+                                class="flex-1 ms-3 font-bold text-sm whitespace-nowrap group-hover:text-slate-800 transition-colors">Pemeriksaan
+                                Pasien</span>
                         </a>
                     </li>
                 </ul>

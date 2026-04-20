@@ -13,6 +13,10 @@
         "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
         "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
         "Noto Color Emoji";
+    --color-formal-primary: #082f49;
+    --color-formal-secondary: #64748b;
+    --color-formal-accent: #0891b2;
+    --color-formal-bg: #f8fafc;
 }
 
 [x-cloak] {

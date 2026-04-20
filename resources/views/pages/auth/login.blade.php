@@ -8,22 +8,22 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="antialiased min-h-screen flex items-center justify-center p-4 md:p-6 bg-white overflow-x-hidden relative">
+<body class="antialiased min-h-screen flex items-center justify-center p-4 md:p-8 bg-white overflow-x-hidden relative">
     {{-- Elemen Dekoratif Latar Belakang Start --}}
     <div
-        class="orb absolute bg-blue-50 top-[-5%] left-[-5%] w-[60%] md:w-[40%] h-[30%] opacity-60 rounded-full blur-[80px] md:blur-[120px]">
+        class="orb absolute bg-cyan-50 top-[-10%] left-[-10%] w-[80%] md:w-[40%] h-[40%] opacity-60 rounded-full blur-[80px] md:blur-[120px]">
     </div>
     <div
-        class="orb absolute bg-indigo-50 bottom-[-5%] right-[-5%] w-[60%] md:w-[40%] h-[30%] opacity-60 rounded-full blur-[80px] md:blur-[120px]">
+        class="orb absolute bg-sky-50 bottom-[-10%] right-[-10%] w-[80%] md:w-[40%] h-[40%] opacity-60 rounded-full blur-[80px] md:blur-[120px]">
     </div>
     {{-- Elemen Dekoratif Latar Belakang End --}}
 
     {{-- Kontainer Utama Start --}}
     <main
-        class="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-24 items-center relative z-10 px-2 md:px-12 py-8">
+        class="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center relative z-10 px-4 sm:px-6 md:px-12 py-10 md:py-16">
 
         {{-- Bagian Kiri: Branding & Headline Start --}}
-        <div class="space-y-6 md:space-y-10 text-center lg:text-left lg:pr-10">
+        <div class="space-y-8 md:space-y-12 text-center lg:text-left">
             {{-- Logo --}}
             <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse group">
                 <img src="/images/logo.png"
@@ -39,14 +39,16 @@
             </a>
 
             {{-- Teks Headline --}}
-            <div class="space-y-4 md:space-y-6">
-                <h1 class="text-4xl sm:text-5xl md:text-7xl font-extrabold text-[#0F172A] leading-[1.1] tracking-tight">
+            <div class="space-y-6">
+                <h1
+                    class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-formal-primary leading-[1.1] tracking-tight">
                     Health <br class="hidden sm:block">
-                    <span class="text-[#0061A8] italic">Management</span> <br class="hidden sm:block">
-                    <span class="text-[#4E9F3D] italic">Simplified.</span>
+                    <span class="text-formal-primary italic">Management</span> <br class="hidden sm:block">
+                    <span class="text-formal-accent italic">Simplified.</span>
                 </h1>
-                <p class="text-slate-400 text-base md:text-xl font-medium max-w-md mx-auto lg:mx-0">
-                    Akses rekam medis dan antrean klinik dalam satu dasbor cerdas.
+                <p
+                    class="text-formal-secondary text-lg sm:text-xl md:text-2xl font-medium max-w-lg mx-auto lg:mx-0 leading-relaxed">
+                    Akses rekam medis dan antrean klinik dalam satu dasbor cerdas dan terintegrasi.
                 </p>
             </div>
         </div>
@@ -55,48 +57,53 @@
         {{-- Bagian Kanan: Card Form Login Start --}}
         <div class="flex justify-center lg:justify-end w-full">
             <div
-                class="w-full max-w-md bg-white p-8 md:p-14 rounded-[2.5rem] md:rounded-[3.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-slate-50">
-                <div class="mb-8 md:mb-10 text-center lg:text-left">
-                    <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">Portal Login</h2>
-                    <p class="text-slate-400 mt-2 font-medium text-xs md:text-sm ">Silakan masuk untuk mengakses layanan
-                        MedisGo.</p>
+                class="w-full max-w-lg bg-white/80 backdrop-blur-sm p-8 sm:p-10 md:p-16 rounded-3xl shadow-2xl border border-cyan-50/50">
+                <div class="mb-10 text-center lg:text-left">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-formal-primary tracking-tight">Portal Masuk</h2>
+                    <p class="text-formal-secondary mt-3 font-medium text-sm md:text-base">Silakan masuk untuk mengakses
+                        layanan MedisGo.</p>
                 </div>
 
                 {{-- Form Login Start --}}
                 <form action="#" method="POST" class="space-y-6 md:space-y-8">
                     @csrf
-                    <div class="space-y-2">
+                    <div class="group space-y-2">
                         <label
-                            class="text-[10px] md:text-[11px] font-bold uppercase tracking-widest text-slate-400 block text-left">EMAIL</label>
-                        <input type="email" name="email" placeholder="admin@healthcare.com"
-                            class="w-full px-4 py-3 md:py-4 bg-slate-50 rounded-xl border border-slate-100 outline-none transition-all font-semibold text-slate-800 text-sm focus:border-blue-400 placeholder:text-slate-300">
+                            class="text-xs font-bold uppercase tracking-widest text-formal-secondary block text-left transition-colors group-focus-within:text-formal-accent">EMAIL</label>
+                        <div class="relative">
+                            <input type="email" name="email" placeholder="admin@medisgo.com" required
+                                class="w-full px-6 py-4 bg-slate-50 rounded-xl border border-slate-100 outline-none transition-all font-semibold text-formal-primary text-base focus:border-formal-accent focus:bg-white focus:ring-4 focus:ring-cyan-50 placeholder:text-slate-300">
+                        </div>
                     </div>
 
-                    <div class="space-y-2">
+                    <div class="group space-y-2">
                         <div class="flex justify-between items-center">
                             <label
-                                class="text-[10px] md:text-[11px] font-bold uppercase tracking-widest text-slate-400">PASSWORD</label>
+                                class="text-xs font-bold uppercase tracking-widest text-formal-secondary transition-colors group-focus-within:text-formal-accent">PASSWORD</label>
                             <a href="{{ route('ShowLupaPassword') }}"
-                                class="text-[10px] md:text-[11px] font-bold text-blue-600 hover:underline">Lupa?</a>
+                                class="text-xs font-bold text-formal-accent hover:text-cyan-700 transition-colors">Lupa
+                                Password?</a>
                         </div>
-                        <input type="password" name="password" placeholder="••••••••"
-                            class="w-full px-4 py-3 md:py-4 bg-slate-50 rounded-xl border border-slate-100 outline-none transition-all font-semibold text-slate-800 text-sm focus:border-blue-400 placeholder:text-slate-300">
+                        <div class="relative">
+                            <input type="password" name="password" placeholder="••••••••" required
+                                class="w-full px-6 py-4 bg-slate-50 rounded-xl border border-slate-100 outline-none transition-all font-semibold text-formal-primary text-base focus:border-formal-accent focus:bg-white focus:ring-4 focus:ring-cyan-50 placeholder:text-slate-300">
+                        </div>
                     </div>
 
-                    <div class="pt-2 md:pt-4">
+                    <div class="pt-4">
                         <button type="submit"
-                            class="w-full py-3 md:py-4 text-white text-xs md:text-sm font-bold uppercase tracking-widest rounded-full bg-gradient-to-r from-[#006BB8] to-[#4E9F3D] shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all active:scale-95 cursor-pointer">
-                            MASUK
+                            class="w-full py-4 px-8 text-white text-sm md:text-base font-bold uppercase tracking-widest rounded-xl bg-formal-accent hover:bg-cyan-700 shadow-xl shadow-cyan-100 transition-all hover:-translate-y-1 active:scale-95 cursor-pointer">
+                            MASUK KE AKUN
                         </button>
                     </div>
                 </form>
                 {{-- Form Login End --}}
 
                 {{-- Tautan Daftar Akun Start --}}
-                <div class="mt-8 md:mt-10 text-center">
-                    <p class="text-[10px] md:text-xs font-bold text-slate-400">
+                <div class="mt-12 text-center">
+                    <p class="text-sm font-bold text-formal-secondary">
                         Belum punya akun? <a href="{{ route('ShowRegister') }}"
-                            class="text-blue-600 hover:underline ml-1">Daftar
+                            class="text-formal-accent hover:text-cyan-700 font-extrabold ml-1 transition-colors">Daftar
                             Sekarang</a>
                     </p>
                 </div>
