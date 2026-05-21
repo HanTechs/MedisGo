@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -21,7 +22,8 @@ class AdminController extends Controller
     public function showDokters()
     {
         $title = 'Halaman Kelola Dokter | MedisGo ';
-        return view('pages.admin.dokters_admin', compact('title'));
+        $listDokter = User::with('dokter')->where('role', 'dokter')->get();
+        return view('pages.admin.dokters_admin', compact('title', 'listDokter'));
     }
 
     public function showPasiens()
