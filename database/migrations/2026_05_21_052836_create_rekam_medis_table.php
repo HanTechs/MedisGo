@@ -12,10 +12,10 @@ return new class extends Migration
             $table->id('id_rekam');
             $table->foreignId('id_pendaftaran')->constrained('pendaftaran', 'id_pendaftaran')->onDelete('cascade');
             $table->date('tgl_periksa');
-            $table->text('keluhan');
             $table->text('hasil_pemeriksaan');
             $table->text('diagnosa');
             $table->text('tindakan');
+            $table->string('file_resep')->nullable();
             $table->timestamps();
         });
     }

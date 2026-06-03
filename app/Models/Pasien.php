@@ -5,17 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Dokter extends Model
+class Pasien extends Model
 {
     use HasFactory;
 
-    protected $table = 'dokter';
+    protected $table = 'pasien';
     protected $primaryKey = 'id_user';
     public $incrementing = false;
 
     protected $fillable = [
         'id_user',
-        'spesialis',
+        'nik',
+        'no_hp',
+        'jenis_kelamin',
+        'tgl_lahir',
+        'alamat',
     ];
 
     public function user()
@@ -23,8 +27,8 @@ class Dokter extends Model
         return $this->belongsTo(User::class, 'id_user', 'id_user');
     }
 
-    public function jadwal()
+    public function pendaftaran()
     {
-        return $this->hasMany(Jadwal::class, 'id_user', 'id_user');
+        return $this->hasMany(Pendaftaran::class, 'id_user', 'id_user');
     }
 }
