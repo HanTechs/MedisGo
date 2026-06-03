@@ -17,6 +17,8 @@ Route::get('/{index?}', [LandingController::class, 'index'])
 // Route Auth
 Route::controller(AuthController::class)->group(function () {
     Route::get('/login', 'showLogin')->name('ShowLogin');
+    Route::post('/login', 'login');
+    Route::post('/logout', 'logout')->name('logout');
     Route::get('/daftar', 'showRegister')->name('ShowRegister');
     Route::get('/lupa', 'showLupaPassword')->name('ShowLupaPassword');
     Route::get('/reset', 'showResetPassword')->name('ShowResetPassword');
@@ -24,7 +26,7 @@ Route::controller(AuthController::class)->group(function () {
 
 
 // Route Admin
-Route::prefix('admin')->controller(AdminController::class)->group(function () {
+Route::middleware(['auth', 'admin'])->prefix('admin')->controller(AdminController::class)->group(function () {
     Route::get('/dashboard', 'showDashboard')->name('ShowDashboardAdmin');
     Route::get('/biaya', 'showBiayaPendaftaran')->name('ShowBiayaPendaftaranAdmin');
     Route::get('/dokters', 'showDokters')->name('ShowDoktersAdmin');
@@ -33,7 +35,7 @@ Route::prefix('admin')->controller(AdminController::class)->group(function () {
 });
 
 // Route Dokter
-Route::prefix('dokter')->controller(DokterController::class)->group(function () {
+Route::middleware(['auth', 'dokter'])->prefix('dokter')->controller(DokterController::class)->group(function () {
     Route::get('/dashboard', 'showDashboard')->name('ShowDashboardDokter');
     Route::get('/jadwal', 'showJadwals')->name('ShowJadwalsDokter');
     Route::get('/riwayat', 'showDaftarRiwayatPasiens')->name('ShowDaftarRiwayatPasiensDokter');
@@ -41,7 +43,7 @@ Route::prefix('dokter')->controller(DokterController::class)->group(function () 
 });
 
 // Route Pasien
-Route::prefix('pasien')->controller(PasienController::class)->group(function () {
+Route::middleware(['auth', 'pasien'])->prefix('pasien')->controller(PasienController::class)->group(function () {
     Route::get('/dashboard', 'showDashboard')->name('ShowDashboardPasien');
     Route::get('/antrean', 'showAntrean')->name('ShowAntreanPasien');
     Route::get('/rekam', 'showRekamMedis')->name('ShowRekamMedisPasien');
