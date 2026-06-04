@@ -8,7 +8,6 @@ class LandingController extends Controller
 {
     public function index()
     {
-        $title = 'Halaman Landing | MedisGo ';
-        return view('pages.landing', compact('title'));
+        return $this->renderView('pages.landing', [], 'Halaman Landing');
     }
 }

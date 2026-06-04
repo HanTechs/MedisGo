@@ -1,14 +1,12 @@
-@extends('layouts.master_layout2')
+@extends('layouts.master_layout')
 @section('title', $title)
 @section('content')
 
-    <div class="p-15 relative min-h-screen overflow-hidden">
+    <div class="p-2 relative min-h-screen overflow-hidden">
         {{-- Gradien Latar Belakang Start --}}
-        <div
-            class="absolute top-0 right-0 w-96 h-96 bg-cyan-50 rounded-full blur-[120px] -z-10 animate-pulse">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-cyan-50 rounded-full blur-[120px] -z-10 animate-pulse">
         </div>
-        <div
-            class="absolute bottom-0 left-0 w-96 h-96 bg-sky-50 rounded-full blur-[120px] -z-10 animate-pulse delay-700">
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-sky-50 rounded-full blur-[120px] -z-10 animate-pulse delay-700">
         </div>
         {{-- Gradien Latar Belakang End --}}
 
@@ -17,7 +15,8 @@
             <h2 class="text-3xl font-black text-formal-primary tracking-tight">Halo, <span
                     class="text-formal-accent italic">dr.
                     Muhammad Farhan</span></h2>
-            <p class="text-formal-secondary font-medium mt-1">Selamat bertugas! Berikut adalah ringkasan pasien Anda hari ini.
+            <p class="text-formal-secondary font-medium mt-1">Selamat bertugas! Berikut adalah ringkasan pasien Anda hari
+                ini.
             </p>
         </div>
         {{-- Bagian Header End --}}
@@ -143,7 +142,8 @@
                                 <p class="text-[10px] text-slate-400 font-medium">Laki-laki</p>
                             </td>
                             <td class="px-8 py-6">
-                                <p class="text-sm text-formal-secondary font-medium line-clamp-1">Nyeri dada sebelah kiri sejak
+                                <p class="text-sm text-formal-secondary font-medium line-clamp-1">Nyeri dada sebelah kiri
+                                    sejak
                                     pagi tadi.</p>
                             </td>
                             <td class="px-8 py-6">
@@ -175,7 +175,8 @@
                                 <p class="text-[10px] text-slate-400 font-medium">Perempuan</p>
                             </td>
                             <td class="px-8 py-6">
-                                <p class="text-sm text-formal-secondary font-medium line-clamp-1">Kontrol rutin pasca operasi
+                                <p class="text-sm text-formal-secondary font-medium line-clamp-1">Kontrol rutin pasca
+                                    operasi
                                     pasang ring.</p>
                             </td>
                             <td class="px-8 py-6">

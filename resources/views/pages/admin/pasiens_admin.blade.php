@@ -1,9 +1,57 @@
 @extends('layouts.master_layout')
 @section('title', $title)
 @section('content')
-    <div class="p-15 relative min-h-screen overflow-hidden" x-data="{ isOpenTambahModal: false, isOpenEditModal: false, isOpenDeleteModal: false }">
+    <div class="p-2 relative min-h-screen overflow-hidden" x-data="{
+        isOpenTambahModal: false,
+        isOpenEditModal: false,
+        isOpenDeleteModal: false,
+        editData: {
+            id: '',
+            nama: '',
+            nik: '',
+            no_hp: '',
+            jenis_kelamin: 'Laki-laki',
+            tgl_lahir: '',
+            email: '',
+            alamat: '',
+            action: ''
+        },
+        deleteAction: '',
+        openTambah() {
+            this.editData = {
+                id: '',
+                nama: '',
+                nik: '',
+                no_hp: '',
+                jenis_kelamin: 'Laki-laki',
+                tgl_lahir: '',
+                email: '',
+                alamat: '',
+                action: ''
+            };
+            this.isOpenTambahModal = true;
+        },
+        openEdit(user) {
+            this.editData = {
+                id: user.id_user,
+                nama: user.nama,
+                nik: user.pasien ? user.pasien.nik : '',
+                no_hp: user.pasien ? user.pasien.no_hp : '',
+                jenis_kelamin: user.pasien ? user.pasien.jenis_kelamin : 'Laki-laki',
+                tgl_lahir: user.pasien ? user.pasien.tgl_lahir : '',
+                email: user.email,
+                alamat: user.pasien ? user.pasien.alamat : '',
+                action: '{{ route('UpdatePasienAdmin', ':id') }}'.replace(':id', user.id_user)
+            };
+            this.isOpenEditModal = true;
+        },
+        openDelete(id) {
+            this.deleteAction = '{{ route('HapusPasienAdmin', ':id') }}'.replace(':id', id);
+            this.isOpenDeleteModal = true;
+        }
+    }">
         {{-- Dekorasi Latar Belakang Start --}}
-        <div class="absolute top-0 right-0 w-80 h-80 bg-cyan-50 rounded-full blur-[100px] -z-10">
+        <div class="absolute top-0 right-0 w-80 h-80 bg-cyan-50 rounded-full blur-[100px] -z-10 opacity-60">
         </div>
         {{-- Dekorasi Latar Belakang End --}}
 
@@ -27,7 +75,7 @@
                 </p>
             </div>
 
-            <button @click="isOpenTambahModal = !isOpenTambahModal"
+            <button @click="openTambah()"
                 class="bg-formal-accent text-white px-8 py-4 rounded-2xl font-black text-[10px] uppercase tracking-[0.15em] hover:bg-cyan-700 hover:-translate-y-1 transition-all shadow-xl shadow-cyan-100 flex items-center justify-center gap-2">
                 <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                     viewBox="0 0 24 24">
@@ -37,6 +85,24 @@
             </button>
         </div>
         {{-- Bagian Header End --}}
+
+        @if (session('success'))
+            <div
+                class="mb-6 p-4 bg-green-50 border border-green-200 text-green-700 rounded-2xl font-bold animate-in fade-in duration-500">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if ($errors->any())
+            <div
+                class="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 rounded-2xl font-bold animate-in fade-in duration-500">
+                <ul class="list-disc list-inside">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
         {{-- Kontainer Tabel Start --}}
         <div
@@ -59,93 +125,54 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-50">
-                        {{-- Data Dummy Baris 1 --}}
-                        <tr class="hover:bg-cyan-50/50 transition-colors group">
-                            <td class="px-8 py-6">
-                                <span
-                                    class="px-3 py-1.5 bg-slate-100 text-slate-600 text-[10px] font-black rounded-xl uppercase tracking-widest group-hover:bg-cyan-100/50 group-hover:text-formal-accent transition-colors">
-                                    #1001
-                                </span>
-                            </td>
-                            <td class="px-8 py-6">
-                                <p class="font-bold text-formal-primary group-hover:text-formal-accent transition-colors">
-                                    Budi
-                                    Santoso</p>
-                                <p class="text-[10px] text-slate-400 font-medium tracking-widest">budi@example.com</p>
-                            </td>
-                            <td class="px-8 py-6">
-                                <p class="text-sm font-bold text-slate-600">1234567890123456</p>
-                                <p class="text-[10px] text-slate-400 font-medium tracking-widest">08123456789</p>
-                            </td>
-                            <td class="px-8 py-6">
-                                <div class="flex items-center gap-2">
-                                    <span class="w-2 h-2 rounded-full bg-formal-accent"></span>
-                                    <span class="text-sm font-semibold text-slate-600">Laki-laki</span>
-                                </div>
-                            </td>
-                            <td class="px-8 py-6">
-                                <div class="flex justify-center gap-3">
-                                    <button @click="isOpenEditModal = true"
-                                        class="p-2.5 text-formal-accent bg-cyan-50 hover:bg-formal-accent hover:text-white rounded-xl transition-all">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                        </svg>
-                                    </button>
-                                    <button @click="isOpenDeleteModal = true"
-                                        class="p-2.5 text-red-500 bg-red-50 hover:bg-red-600 hover:text-white rounded-xl transition-all">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                        </svg>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-
-                        {{-- Data Dummy Baris 2 --}}
-                        <tr class="hover:bg-cyan-50/50 transition-colors group">
-                            <td class="px-8 py-6">
-                                <span
-                                    class="px-3 py-1.5 bg-slate-100 text-slate-600 text-[10px] font-black rounded-xl uppercase tracking-widest group-hover:bg-cyan-100/50 group-hover:text-formal-accent transition-colors">
-                                    #1002
-                                </span>
-                            </td>
-                            <td class="px-8 py-6">
-                                <p class="font-bold text-formal-primary group-hover:text-formal-accent transition-colors">
-                                    Siti
-                                    Aminah</p>
-                                <p class="text-[10px] text-slate-400 font-medium tracking-widest">siti@example.com</p>
-                            </td>
-                            <td class="px-8 py-6">
-                                <p class="text-sm font-bold text-slate-600">9876543210987654</p>
-                                <p class="text-[10px] text-slate-400 font-medium tracking-widest">08987654321</p>
-                            </td>
-                            <td class="px-8 py-6">
-                                <div class="flex items-center gap-2">
-                                    <span class="w-2 h-2 rounded-full bg-pink-400"></span>
-                                    <span class="text-sm font-semibold text-slate-600">Perempuan</span>
-                                </div>
-                            </td>
-                            <td class="px-8 py-6">
-                                <div class="flex justify-center gap-3">
-                                    <button @click="isOpenEditModal = true"
-                                        class="p-2.5 text-formal-accent bg-cyan-50 hover:bg-formal-accent hover:text-white rounded-xl transition-all">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                        </svg>
-                                    </button>
-                                    <button @click="isOpenDeleteModal = true"
-                                        class="p-2.5 text-red-500 bg-red-50 hover:bg-red-600 hover:text-white rounded-xl transition-all">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                        </svg>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
+                        @foreach ($listPasien as $user)
+                            <tr class="hover:bg-cyan-50/50 transition-colors group">
+                                <td class="px-8 py-6">
+                                    <span
+                                        class="px-3 py-1.5 bg-slate-100 text-slate-600 text-[10px] font-black rounded-xl uppercase tracking-widest group-hover:bg-cyan-100/50 group-hover:text-formal-accent transition-colors">
+                                        #P-{{ str_pad($user->id_user, 3, '0', STR_PAD_LEFT) }}
+                                    </span>
+                                </td>
+                                <td class="px-8 py-6">
+                                    <p
+                                        class="font-bold text-formal-primary group-hover:text-formal-accent transition-colors">
+                                        {{ $user->nama }}</p>
+                                    <p class="text-[10px] text-slate-400 font-medium tracking-widest">{{ $user->email }}
+                                    </p>
+                                </td>
+                                <td class="px-8 py-6">
+                                    <p class="text-sm font-bold text-slate-600">{{ $user->pasien->nik ?? '-' }}</p>
+                                    <p class="text-[10px] text-slate-400 font-medium tracking-widest">
+                                        {{ $user->pasien->no_hp ?? '-' }}</p>
+                                </td>
+                                <td class="px-8 py-6">
+                                    <div class="flex items-center gap-2">
+                                        <span
+                                            class="w-2 h-2 rounded-full {{ ($user->pasien->jenis_kelamin ?? '') == 'Laki-laki' ? 'bg-formal-accent' : 'bg-pink-400' }}"></span>
+                                        <span
+                                            class="text-sm font-semibold text-slate-600">{{ $user->pasien->jenis_kelamin ?? '-' }}</span>
+                                    </div>
+                                </td>
+                                <td class="px-8 py-6">
+                                    <div class="flex justify-center gap-3">
+                                        <button @click='openEdit(@js($user))'
+                                            class="p-2.5 text-formal-accent bg-cyan-50 hover:bg-formal-accent hover:text-white rounded-xl transition-all">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                            </svg>
+                                        </button>
+                                        <button @click="openDelete({{ $user->id_user }})"
+                                            class="p-2.5 text-red-500 bg-red-50 hover:bg-red-600 hover:text-white rounded-xl transition-all">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -159,7 +186,7 @@
             x-transition:leave-end="opacity-0"
             class="fixed top-16 bottom-0 left-0 sm:left-64 right-0 z-[40] overflow-y-auto bg-slate-900/40 backdrop-blur-sm">
             <div class="flex min-h-full items-center justify-center p-4">
-                <div class="bg-white w-full max-w-sm rounded-[3rem] p-10 shadow-2xl animate-in zoom-in duration-300 text-center"
+                <div class="bg-white w-full max-sm:rounded-[3rem] rounded-[3rem] p-10 shadow-2xl animate-in zoom-in duration-300 text-center"
                     @click.away="isOpenDeleteModal = false">
                     <div
                         class="w-20 h-20 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner animate-bounce">
@@ -174,7 +201,7 @@
                     <div class="flex gap-3">
                         <button @click="isOpenDeleteModal = false"
                             class="flex-1 py-4 bg-slate-100 text-slate-600 font-black rounded-2xl uppercase text-[10px] tracking-widest hover:bg-slate-200 transition-colors">Batal</button>
-                        <form action="#" method="POST" class="flex-1">
+                        <form :action="deleteAction" method="POST" class="flex-1">
                             @csrf @method('DELETE')
                             <button type="submit"
                                 class="w-full py-4 bg-red-600 text-white font-black rounded-2xl uppercase text-[10px] tracking-widest shadow-lg shadow-red-200 hover:brightness-110 transition-all">Hapus</button>
@@ -202,13 +229,17 @@
                         <span class="text-formal-accent">Data Pasien</span>
                     </h3>
 
-                    <form @click.away="isOpenEditModal = false; isOpenTambahModal = false" action="#" method="POST"
+                    <form @click.away="isOpenEditModal = false; isOpenTambahModal = false"
+                        :action="isOpenEditModal ? editData.action : '{{ route('TambahPasienAdmin') }}'" method="POST"
                         class="space-y-6">
                         @csrf
+                        <template x-if="isOpenEditModal">
+                            @method('PUT')
+                        </template>
                         <div class="space-y-2">
                             <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Nama
                                 Pasien</label>
-                            <input type="text" name="nama_pasien"
+                            <input type="text" name="nama_pasien" x-model="editData.nama"
                                 class="w-full p-4 bg-slate-50 border-2 border-transparent focus:border-formal-accent/20 focus:bg-white focus:ring-0 rounded-2xl text-sm font-bold transition-all"
                                 placeholder="Nama Lengkap" required>
                         </div>
@@ -216,14 +247,14 @@
                             <div class="space-y-2">
                                 <label
                                     class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">NIK</label>
-                                <input type="text" name="nik"
+                                <input type="text" name="nik" x-model="editData.nik"
                                     class="w-full p-4 bg-slate-50 border-2 border-transparent focus:border-formal-accent/20 focus:bg-white focus:ring-0 rounded-2xl text-sm font-bold transition-all"
                                     placeholder="16 Digit NIK" required>
                             </div>
                             <div class="space-y-2">
                                 <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">No.
                                     HP</label>
-                                <input type="text" name="no_hp"
+                                <input type="text" name="no_hp" x-model="editData.no_hp"
                                     class="w-full p-4 bg-slate-50 border-2 border-transparent focus:border-formal-accent/20 focus:bg-white focus:ring-0 rounded-2xl text-sm font-bold transition-all"
                                     placeholder="08xxxx" required>
                             </div>
@@ -232,7 +263,7 @@
                             <div class="space-y-2">
                                 <label
                                     class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Gender</label>
-                                <select name="jenis_kelamin"
+                                <select name="jenis_kelamin" x-model="editData.jenis_kelamin"
                                     class="w-full p-4 bg-slate-50 border-2 border-transparent focus:border-formal-accent/20 focus:bg-white focus:ring-0 rounded-2xl text-sm font-bold transition-all appearance-none">
                                     <option value="Laki-laki">Laki-laki</option>
                                     <option value="Perempuan">Perempuan</option>
@@ -241,7 +272,7 @@
                             <div class="space-y-2">
                                 <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Tgl
                                     Lahir</label>
-                                <input type="date" name="tgl_lahir"
+                                <input type="date" name="tgl_lahir" x-model="editData.tgl_lahir"
                                     class="w-full p-4 bg-slate-50 border-2 border-transparent focus:border-formal-accent/20 focus:bg-white focus:ring-0 rounded-2xl text-sm font-bold transition-all"
                                     required>
                             </div>
@@ -250,7 +281,7 @@
                             <div class="space-y-2">
                                 <label
                                     class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Email</label>
-                                <input type="email" name="email"
+                                <input type="email" name="email" x-model="editData.email"
                                     class="w-full p-4 bg-slate-50 border-2 border-transparent focus:border-formal-accent/20 focus:bg-white focus:ring-0 rounded-2xl text-sm font-bold transition-all"
                                     placeholder="email@contoh.com" required>
                             </div>
@@ -259,13 +290,15 @@
                                     class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Password</label>
                                 <input type="password" name="password"
                                     class="w-full p-4 bg-slate-50 border-2 border-transparent focus:border-formal-accent/20 focus:bg-white focus:ring-0 rounded-2xl text-sm font-bold transition-all"
-                                    placeholder="••••••••" required>
+                                    placeholder="••••••••" :required="isOpenTambahModal">
+                                <p x-show="isOpenEditModal" class="text-[10px] text-slate-400 mt-1 italic">*Kosongkan jika
+                                    tidak ingin mengubah password</p>
                             </div>
                         </div>
                         <div class="space-y-2">
                             <label
                                 class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Alamat</label>
-                            <textarea name="alamat" rows="2"
+                            <textarea name="alamat" x-model="editData.alamat" rows="2"
                                 class="w-full p-4 bg-slate-50 border-2 border-transparent focus:border-formal-accent/20 focus:bg-white focus:ring-0 rounded-2xl text-sm font-bold transition-all"
                                 placeholder="Alamat Lengkap" required></textarea>
                         </div>
@@ -273,7 +306,10 @@
                             <button type="button" @click="isOpenEditModal = false; isOpenTambahModal = false"
                                 class="flex-1 py-4 bg-slate-100 text-slate-600 font-black rounded-2xl uppercase text-[10px] tracking-[0.2em] hover:bg-slate-200 transition-colors">Batal</button>
                             <button type="submit"
-                                class="flex-1 py-4 bg-formal-accent text-white font-black rounded-2xl uppercase text-[10px] tracking-[0.2em] shadow-xl shadow-cyan-100 hover:bg-cyan-700 transition-all">Simpan</button>
+                                class="flex-1 py-4 bg-formal-accent text-white font-black rounded-2xl uppercase text-[10px] tracking-[0.2em] shadow-xl shadow-cyan-100 hover:bg-cyan-700 transition-all">
+                                <span x-show="isOpenTambahModal">Simpan Data</span>
+                                <span x-show="isOpenEditModal">Simpan Perubahan</span>
+                            </button>
                         </div>
                     </form>
                 </div>

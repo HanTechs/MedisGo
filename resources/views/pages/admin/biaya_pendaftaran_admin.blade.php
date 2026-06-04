@@ -1,7 +1,7 @@
 @extends('layouts.master_layout')
 @section('title', $title)
 @section('content')
-    <div class="p-15 relative min-h-screen overflow-hidden" x-data="{ isOpenConfirmModal: false }">
+    <div class="p-2 relative min-h-screen overflow-hidden" x-data="{ isOpenConfirmModal: false }">
         {{-- Dekorasi Latar Belakang Start --}}
         <div class="absolute top-0 right-0 w-80 h-80 bg-cyan-50 rounded-full blur-[100px] -z-10">
         </div>

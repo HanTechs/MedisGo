@@ -9,8 +9,22 @@ class AuthController extends Controller
 {
     public function showLogin()
     {
-        $title = 'Halaman Login | MedisGo ';
-        return view('pages.auth.login', compact('title'));
+        return $this->renderView('pages.auth.login', [], 'Halaman Login');
+    }
+
+    public function showRegister()
+    {
+        return $this->renderView('pages.auth.daftar', [], 'Halaman Daftar');
+    }
+
+    public function showLupaPassword()
+    {
+        return $this->renderView('pages.auth.lupa-password', [], 'Halaman Lupa Password');
+    }
+
+    public function showResetPassword()
+    {
+        return $this->renderView('pages.auth.reset-password', [], 'Halaman Reset Password');
     }
 
     public function login(Request $request)
@@ -46,23 +60,5 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect('/login');
-    }
-
-    public function showRegister()
-    {
-        $title = 'Halaman Daftar | MedisGo ';
-        return view('pages.auth.daftar', compact('title'));
-    }
-
-    public function showLupaPassword()
-    {
-        $title = 'Halaman Lupa Password | MedisGo ';
-        return view('pages.auth.lupa-password', compact('title'));
-    }
-
-    public function showResetPassword()
-    {
-        $title = 'Halaman Reset Password | MedisGo ';
-        return view('pages.auth.reset-password', compact('title'));
     }
 }

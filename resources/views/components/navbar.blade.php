@@ -17,8 +17,12 @@
 
             {{-- Nama & Role --}}
             <div class="text-right hidden sm:block">
-                <p class="text-xs font-bold text-slate-800 leading-tight">Nama Pengguna</p>
-                <p class="text-xs font-bold text-formal-accent">Administrator</p>
+                @auth
+                    <p class="text-xs font-bold text-slate-800 leading-tight">{{ auth()->user()->nama }}</p>
+                    <p class="text-xs font-bold text-formal-accent uppercase">{{ auth()->user()->role }}</p>
+                @else
+                    <p class="text-xs font-bold text-slate-800 leading-tight">Guest</p>
+                @endauth
             </div>
 
             {{-- Profil --}}
@@ -31,21 +35,26 @@
 
                 <!-- Dropdown menu -->
                 <div x-show="open" x-cloak @click.away="open = false"
-                    class="z-50  absolute right-0 mt-2 bg-neutral-primary border border-default rounded-base shadow-lg w-44 :class="open
-                    ? 'block' , 'hidden' ">
-                    <div class="px-4 py-3 text-sm border-b border-default text-center">
-                        <span class="block text-slate-800 font-bold">Joseph McFall</span>
-                        <span class="block text-slate-500 text-[10px] truncate">joseph@medisgo.com</span>
-                    </div>
+                    class="z-50  absolute right-0 mt-2 bg-neutral-primary border border-default rounded-base shadow-lg w-44">
+                    @auth
+                        <div class="px-4 py-3 text-sm border-b border-default text-center">
+                            <span class="block text-slate-800 font-bold">{{ auth()->user()->nama }}</span>
+                            <span class="block text-slate-500 text-[10px] truncate">{{ auth()->user()->email }}</span>
+                        </div>
+                    @endauth
                     <ul class="p-2 text-sm text-slate-600 font-medium">
                         <li>
                             <a href="#"
                                 class="inline-flex items-center w-full p-2 hover:bg-slate-50 hover:text-blue-600 rounded-base">Settings</a>
                         </li>
                         <li>
-                            <a href="#"
-                                class="inline-flex items-center w-full p-2 hover:bg-danger-soft hover:text-danger-strong rounded-base">Sign
-                                Out</a>
+                            <form action="{{ route('logout') }}" method="POST" id="logout-form-navbar">
+                                @csrf
+                                <button type="submit"
+                                    class="inline-flex items-center w-full p-2 hover:bg-danger-soft hover:text-danger-strong rounded-base text-left cursor-pointer">
+                                    Sign Out
+                                </button>
+                            </form>
                         </li>
                     </ul>
                 </div>

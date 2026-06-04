@@ -29,9 +29,23 @@ Route::controller(AuthController::class)->group(function () {
 Route::middleware(['auth', 'admin'])->prefix('admin')->controller(AdminController::class)->group(function () {
     Route::get('/dashboard', 'showDashboard')->name('ShowDashboardAdmin');
     Route::get('/biaya', 'showBiayaPendaftaran')->name('ShowBiayaPendaftaranAdmin');
+
+    // Kelola Dokter
     Route::get('/dokters', 'showDokters')->name('ShowDoktersAdmin');
+    Route::post('/dokters', 'tambahDokter')->name('TambahDokterAdmin');
+    Route::put('/dokters/{id}', 'updateDokter')->name('UpdateDokterAdmin');
+    Route::delete('/dokters/{id}', 'hapusDokter')->name('HapusDokterAdmin');
+
+    // Kelola Pasien
     Route::get('/pasiens', 'showPasiens')->name('ShowPasiensAdmin');
+    Route::post('/pasiens', 'tambahPasien')->name('TambahPasienAdmin');
+    Route::put('/pasiens/{id}', 'updatePasien')->name('UpdatePasienAdmin');
+    Route::delete('/pasiens/{id}', 'hapusPasien')->name('HapusPasienAdmin');
+
     Route::get('/jadwals', 'showJadwals')->name('ShowJadwalsAdmin');
+    Route::post('/jadwals', 'tambahJadwal')->name('tambahJadwalAdmin');
+    Route::put('/jadwals/{id}', 'updateJadwal')->name('UpdateJadwalAdmin');
+    Route::delete('/jadwals/{id}', 'hapusJadwal')->name('HapusJadwalAdmin');
 });
 
 // Route Dokter

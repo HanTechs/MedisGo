@@ -3,24 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Interfaces\DashboardInterface;
 
-class PasienController extends Controller
+class PasienController extends Controller implements DashboardInterface
 {
     public function showDashboard()
     {
-        $title = 'Halaman Pasien Dashboard | MedisGo ';
-        return view('pages.pasien.dashboard_pasien', compact('title'));
+        return $this->renderView('pages.pasien.dashboard_pasien', [], 'Halaman Pasien Dashboard');
     }
 
     public function showAntrean()
     {
-        $title = 'Halaman Antrean Pasien | MedisGo ';
-        return view('pages.pasien.antrean_pasien', compact('title'));
+        return $this->renderView('pages.pasien.antrean_pasien', [], 'Halaman Antrean Pasien');
     }
 
     public function showRekamMedis()
     {
-        $title = 'Halaman Rekam Medis Pasien | MedisGo ';
-        return view('pages.pasien.rekam_pasien', compact('title'));
+        return $this->renderView('pages.pasien.rekam_pasien', [], 'Halaman Rekam Medis Pasien');
     }
 }

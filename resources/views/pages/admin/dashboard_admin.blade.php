@@ -1,7 +1,7 @@
 @extends('layouts.master_layout')
 @section('title', $title)
 @section('content')
-    <div class="p-15  relative min-h-screen overflow-hidden">
+    <div class="p-2  relative min-h-screen overflow-hidden">
         {{-- Gradien Latar Belakang Start --}}
         <div class="absolute top-0 right-0 w-96 h-96 bg-cyan-50 rounded-full blur-[120px] -z-10 animate-pulse">
         </div>
