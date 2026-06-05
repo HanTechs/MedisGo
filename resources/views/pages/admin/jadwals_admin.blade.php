@@ -71,7 +71,7 @@
                 </p>
             </div>
 
-            <button @click="openTambah()"
+            <button @click.stop="openTambah()"
                 class="bg-formal-accent text-white px-8 py-4 rounded-2xl font-black text-[10px] uppercase tracking-[0.15em] hover:bg-cyan-700 hover:-translate-y-1 transition-all shadow-xl shadow-cyan-100 flex items-center justify-center gap-2">
                 <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                     viewBox="0 0 24 24">
@@ -141,7 +141,7 @@
                                 </td>
                                 <td class="px-8 py-6">
                                     <div class="flex justify-center gap-3">
-                                        <button @click='openEdit(@js($jadwal))'
+                                        <button @click="openEdit({{ json_encode($jadwal) }})"
                                             class="p-2.5 text-formal-accent bg-cyan-50 hover:bg-formal-accent hover:text-white rounded-xl transition-all">
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -157,63 +157,69 @@
                                         </button>
                                     </div>
                                 </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        {{-- Kontainer Tabel End --}}
+                                </tr>
+                                @endforeach
+                                </tbody>
+                                </table>
+                                </div>
+                                </div>
+                                {{-- Kontainer Tabel End --}}
 
-        {{-- Modal Konfirmasi Hapus Start --}}
-        <div x-cloak x-show="isOpenDeleteModal" x-transition:enter="transition ease-out duration-300"
-            x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
-            x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100"
-            x-transition:leave-end="opacity-0"
-            class="fixed inset-0 z-[100] overflow-y-auto bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4">
-            <div class="bg-white w-full max-w-sm rounded-[3rem] p-10 shadow-2xl text-center"
-                @click.away="isOpenDeleteModal = false">
-                <div
-                    class="w-20 h-20 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner animate-bounce">
-                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                    </svg>
-                </div>
-                <h3 class="text-2xl font-black text-slate-900 mb-2">Hapus Jadwal?</h3>
-                <p class="text-slate-500 text-sm font-medium mb-8">Jadwal yang dihapus akan membatalkan sesi praktik
-                    dokter terkait.</p>
-                <div class="flex gap-3">
-                    <button @click="isOpenDeleteModal = false"
-                        class="flex-1 py-4 bg-slate-100 text-slate-600 font-black rounded-2xl uppercase text-[10px] tracking-widest hover:bg-slate-200 transition-colors">Batal</button>
-                    <form :action="'{{ url('admin/jadwals') }}/' + deleteId" method="POST" class="flex-1">
-                        @csrf @method('DELETE')
-                        <button type="submit"
-                            class="w-full py-4 bg-red-600 text-white font-black rounded-2xl uppercase text-[10px] tracking-widest shadow-lg shadow-red-200 hover:brightness-110 transition-all">Hapus</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-        {{-- Modal Konfirmasi Hapus End --}}
+                                {{-- Modal Konfirmasi Hapus Start --}}
+                                <div x-cloak x-show="isOpenDeleteModal" x-transition:enter="transition ease-out duration-300"
+                                x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+                                x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100"
+                                x-transition:leave-end="opacity-0" class="fixed inset-0 z-[100] overflow-y-auto">
+                                {{-- Overlay --}}
+                                <div class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm" @click="isOpenDeleteModal = false"></div>
 
-        {{-- Modal Tambah/Edit Jadwal Start --}}
-        <div x-cloak x-show="isOpenTambahModal || isOpenEditModal" x-transition:enter="transition ease-out duration-300"
-            x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
-            x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100"
-            x-transition:leave-end="opacity-0 scale-95"
-            class="fixed inset-0 z-[100] overflow-y-auto bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4">
-            <div class="bg-white w-full max-w-lg rounded-[3rem] p-12 shadow-2xl relative overflow-hidden">
-                <div class="absolute top-0 right-0 w-32 h-32 bg-cyan-50 rounded-full -mr-16 -mt-16">
-                </div>
+                                <div class="flex min-h-full items-center justify-center p-4">
+                                <div class="relative bg-white w-full max-w-sm rounded-[3rem] p-10 shadow-2xl text-center">
+                                <div
+                                class="w-20 h-20 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner animate-bounce">
+                                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                </svg>
+                                </div>
+                                <h3 class="text-2xl font-black text-slate-900 mb-2">Hapus Jadwal?</h3>
+                                <p class="text-slate-500 text-sm font-medium mb-8">Jadwal yang dihapus akan membatalkan sesi praktik
+                                dokter terkait.</p>
+                                <div class="flex gap-3">
+                                <button @click="isOpenDeleteModal = false"
+                                class="flex-1 py-4 bg-slate-100 text-slate-600 font-black rounded-2xl uppercase text-[10px] tracking-widest hover:bg-slate-200 transition-colors">Batal</button>
+                                <form :action="'{{ url('admin/jadwals') }}/' + deleteId" method="POST" class="flex-1">
+                                @csrf @method('DELETE')
+                                <button type="submit"
+                                class="w-full py-4 bg-red-600 text-white font-black rounded-2xl uppercase text-[10px] tracking-widest shadow-lg shadow-red-200 hover:brightness-110 transition-all">Hapus</button>
+                                </form>
+                                </div>
+                                </div>
+                                </div>
+                                </div>
+                                {{-- Modal Konfirmasi Hapus End --}}
 
-                <h3 class="text-3xl font-black text-formal-primary mb-8 tracking-tight italic">
-                    <span x-show="isOpenTambahModal">Atur Jadwal</span>
-                    <span x-show="isOpenEditModal">Edit Jadwal</span>
-                    <span class="text-formal-accent">Dokter</span>
-                </h3>
+                                {{-- Modal Tambah/Edit Jadwal Start --}}
+                                <div x-cloak x-show="isOpenTambahModal || isOpenEditModal" x-transition:enter="transition ease-out duration-300"
+                                x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+                                x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100"
+                                x-transition:leave-end="opacity-0 scale-95" class="fixed inset-0 z-[100] overflow-y-auto">
+                                {{-- Overlay --}}
+                                <div class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm"
+                                @click="isOpenTambahModal = false; isOpenEditModal = false"></div>
 
-                <form @click.away="isOpenTambahModal = false; isOpenEditModal = false" :action="editData.action"
-                    method="POST" class="space-y-6">
+                                <div class="flex min-h-full items-center justify-center p-4">
+                                <div class="relative bg-white w-full max-w-lg rounded-[3rem] p-12 shadow-2xl overflow-hidden">
+                                <div class="absolute top-0 right-0 w-32 h-32 bg-cyan-50 rounded-full -mr-16 -mt-16">
+                                </div>
+
+                                <h3 class="text-3xl font-black text-formal-primary mb-8 tracking-tight italic">
+                                <span x-show="isOpenTambahModal">Atur Jadwal</span>
+                                <span x-show="isOpenEditModal">Edit Jadwal</span>
+                                <span class="text-formal-accent">Dokter</span>
+                                </h3>
+
+                                <form :action="editData.action" method="POST" class="space-y-6">
                     @csrf
                     <template x-if="isOpenEditModal">
                         @method('PUT')

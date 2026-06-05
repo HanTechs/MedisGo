@@ -20,6 +20,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('/login', 'login');
     Route::post('/logout', 'logout')->name('logout');
     Route::get('/daftar', 'showRegister')->name('ShowRegister');
+    Route::post('/daftar', 'register')->name('Register');
     Route::get('/lupa', 'showLupaPassword')->name('ShowLupaPassword');
     Route::get('/reset', 'showResetPassword')->name('ShowResetPassword');
 });

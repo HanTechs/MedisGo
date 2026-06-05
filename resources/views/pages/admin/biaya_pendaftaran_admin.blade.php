@@ -76,7 +76,7 @@
                             </td>
                             <td class="px-8 py-6">
                                 <div class="flex justify-center">
-                                    <button @click="isOpenConfirmModal = true"
+                                    <button @click.stop="isOpenConfirmModal = true"
                                         class="bg-formal-accent text-white px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-cyan-700 hover:-translate-y-0.5 transition-all shadow-lg shadow-cyan-100">
                                         Konfirmasi
                                     </button>
@@ -122,11 +122,13 @@
         <div x-cloak x-show="isOpenConfirmModal" x-transition:enter="transition ease-out duration-300"
             x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
             x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100"
-            x-transition:leave-end="opacity-0"
-            class="fixed top-16 bottom-0 left-0 sm:left-64 right-0 z-[40] overflow-y-auto bg-slate-900/40 backdrop-blur-sm">
+            x-transition:leave-end="opacity-0" class="fixed inset-0 z-[100] overflow-y-auto">
+            {{-- Overlay --}}
+            <div class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm" @click="isOpenConfirmModal = false"></div>
+
             <div class="flex min-h-full items-center justify-center p-4">
-                <div class="bg-white w-full max-w-sm rounded-[3rem] p-10 shadow-2xl animate-in zoom-in duration-300 text-center"
-                    @click.away="isOpenConfirmModal = false">
+                <div
+                    class="relative bg-white w-full max-w-sm rounded-[3rem] p-10 shadow-2xl animate-in zoom-in duration-300 text-center">
                     <div
                         class="w-20 h-20 bg-cyan-50 text-formal-accent rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner animate-pulse">
                         <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">

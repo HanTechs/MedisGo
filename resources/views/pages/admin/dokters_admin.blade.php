@@ -53,7 +53,7 @@
                 </p>
             </div>
 
-            <button @click="openTambah()"
+            <button @click.stop="openTambah()"
                 class="bg-formal-accent text-white px-8 py-4 rounded-2xl font-black text-[10px] uppercase tracking-[0.15em] hover:bg-cyan-700 hover:-translate-y-1 transition-all shadow-xl shadow-cyan-100 flex items-center justify-center gap-2">
                 <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                     viewBox="0 0 24 24">
@@ -128,7 +128,7 @@
                                 </td>
                                 <td class="px-8 py-6">
                                     <div class="flex justify-center gap-3">
-                                        <button @click='openEdit(@js($user))'
+                                        <button @click="openEdit({{ json_encode($user) }})"
                                             class="p-2.5 text-formal-accent bg-cyan-50 hover:bg-formal-accent hover:text-white rounded-xl transition-all">
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -156,11 +156,13 @@
         <div x-cloak x-show="isOpenDeleteModal" x-transition:enter="transition ease-out duration-300"
             x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
             x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100"
-            x-transition:leave-end="opacity-0"
-            class="fixed top-16 bottom-0 left-0 sm:left-64 right-0 z-[40] overflow-y-auto bg-slate-900/40 backdrop-blur-sm">
+            x-transition:leave-end="opacity-0" class="fixed inset-0 z-[100] overflow-y-auto">
+            {{-- Overlay --}}
+            <div class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm" @click="isOpenDeleteModal = false"></div>
+
             <div class="flex min-h-full items-center justify-center p-4">
-                <div class="bg-white w-full max-w-sm rounded-[3rem] p-10 shadow-2xl animate-in zoom-in duration-300 text-center"
-                    @click.away="isOpenDeleteModal = false">
+                <div
+                    class="relative bg-white w-full max-w-sm rounded-[3rem] p-10 shadow-2xl animate-in zoom-in duration-300 text-center">
                     <div
                         class="w-20 h-20 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner animate-bounce">
                         <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -189,11 +191,14 @@
         <div x-cloak x-show="isOpenTambahModal || isOpenEditModal" x-transition:enter="transition ease-out duration-300"
             x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
             x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100"
-            x-transition:leave-end="opacity-0 scale-95"
-            class="fixed top-16 bottom-0 left-0 sm:left-64 right-0 z-[40] overflow-y-auto bg-slate-900/40 backdrop-blur-sm">
+            x-transition:leave-end="opacity-0 scale-95" class="fixed inset-0 z-[100] overflow-y-auto">
+            {{-- Overlay --}}
+            <div class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm"
+                @click="isOpenTambahModal = false; isOpenEditModal = false"></div>
+
             <div class="flex min-h-full items-center justify-center p-4">
                 <div
-                    class="bg-white w-full max-w-lg rounded-[3rem] p-12 shadow-2xl animate-in zoom-in duration-300 relative overflow-hidden">
+                    class="relative bg-white w-full max-w-lg rounded-[3rem] p-12 shadow-2xl animate-in zoom-in duration-300 overflow-hidden">
                     <div class="absolute top-0 right-0 w-32 h-32 bg-cyan-50 rounded-full -mr-16 -mt-16">
                     </div>
 
@@ -203,8 +208,7 @@
                         <span class="text-formal-accent">Data Dokter</span>
                     </h3>
 
-                    <form @click.away="isOpenTambahModal = false; isOpenEditModal = false"
-                        :action="isOpenEditModal ? editData.action : '{{ route('TambahDokterAdmin') }}'" method="POST"
+                    <form :action="isOpenEditModal ? editData.action : '{{ route('TambahDokterAdmin') }}'" method="POST"
                         class="space-y-6">
                         @csrf
                         <template x-if="isOpenEditModal">
