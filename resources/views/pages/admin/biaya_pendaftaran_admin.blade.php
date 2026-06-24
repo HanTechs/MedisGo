@@ -1,7 +1,10 @@
 @extends('layouts.master_layout')
 @section('title', $title)
 @section('content')
-    <div class="p-2 relative min-h-screen overflow-hidden" x-data="{ isOpenConfirmModal: false }">
+    <div class="p-2 relative min-h-screen overflow-hidden" x-data="{
+        isOpenConfirmModal: false,
+        currentPendaftaran: { id: null, nama: '', fee: 'Rp20.000', actionUrl: '' }
+    }">
         {{-- Dekorasi Latar Belakang Start --}}
         <div class="absolute top-0 right-0 w-80 h-80 bg-cyan-50 rounded-full blur-[100px] -z-10">
         </div>
@@ -49,69 +52,75 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-50">
-                        {{-- Data Dummy Baris 1 (Belum Bayar) --}}
-                        <tr class="hover:bg-cyan-50/50 transition-colors group">
-                            <td class="px-8 py-6 text-sm font-bold text-slate-600">
-                                05 Apr 2026
-                            </td>
-                            <td class="px-8 py-6">
-                                <span
-                                    class="px-3 py-1.5 bg-cyan-50 text-formal-accent text-[10px] font-black rounded-xl uppercase tracking-widest">
-                                    A-01
-                                </span>
-                            </td>
-                            <td class="px-8 py-6">
-                                <p class="font-bold text-formal-primary group-hover:text-formal-accent transition-colors">
-                                    Budi
-                                    Santoso</p>
-                                <p class="text-[10px] text-slate-400 font-medium tracking-widest italic">dr. Farhan Syah
-                                    (Umum)</p>
-                            </td>
-                            <td class="px-8 py-6">
-                                <p class="text-sm font-black text-formal-primary mb-1">Rp50.000</p>
-                                <span
-                                    class="px-2 py-0.5 bg-red-50 text-red-500 text-[9px] font-black rounded-lg uppercase tracking-widest border border-red-100">
-                                    BELUM LUNAS
-                                </span>
-                            </td>
-                            <td class="px-8 py-6">
-                                <div class="flex justify-center">
-                                    <button @click.stop="isOpenConfirmModal = true"
-                                        class="bg-formal-accent text-white px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-cyan-700 hover:-translate-y-0.5 transition-all shadow-lg shadow-cyan-100">
-                                        Konfirmasi
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-
-                        {{-- Data Dummy Baris 2 (Lunas) --}}
-                        <tr class="hover:bg-emerald-50/20 transition-colors group">
-                            <td class="px-8 py-6 text-sm font-bold text-slate-400">
-                                04 Apr 2026
-                            </td>
-                            <td class="px-8 py-6 opacity-60">
-                                <span
-                                    class="px-3 py-1.5 bg-slate-100 text-slate-500 text-[10px] font-black rounded-xl uppercase tracking-widest">
-                                    A-12
-                                </span>
-                            </td>
-                            <td class="px-8 py-6 opacity-60">
-                                <p class="font-bold text-formal-primary">Siti Aminah</p>
-                                <p class="text-[10px] text-slate-400 font-medium tracking-widest italic">dr. Rizky
-                                    (Spesialis Anak)</p>
-                            </td>
-                            <td class="px-8 py-6">
-                                <p class="text-sm font-black text-slate-400 mb-1 line-through">Rp75.000</p>
-                                <span
-                                    class="px-2 py-0.5 bg-emerald-50 text-emerald-500 text-[9px] font-black rounded-lg uppercase tracking-widest border border-emerald-100">
-                                    LUNAS
-                                </span>
-                            </td>
-                            <td class="px-8 py-6 text-center">
-                                <span
-                                    class="text-[10px] font-black text-slate-300 uppercase tracking-widest italic">SELESAI</span>
-                            </td>
-                        </tr>
+                        @forelse ($listPendaftaran as $item)
+                            @php
+                                $isLunas = strtolower($item->status_pembayaran) === 'lunas';
+                                $fee = $item->jadwal->dokter->spesialis === 'Umum' ? 'Rp20.000' : 'Rp20.000';
+                            @endphp
+                            <tr class="hover:bg-cyan-50/50 transition-colors group {{ $isLunas ? 'opacity-60' : '' }}">
+                                <td
+                                    class="px-8 py-6 text-sm font-bold {{ $isLunas ? 'text-slate-400' : 'text-slate-600' }}">
+                                    {{ \Carbon\Carbon::parse($item->tgl_pendaftaran)->translatedFormat('d M Y') }}
+                                </td>
+                                <td class="px-8 py-6">
+                                    <span
+                                        class="px-3 py-1.5 {{ $isLunas ? 'bg-slate-100 text-slate-500' : 'bg-cyan-50 text-formal-accent' }} text-[10px] font-black rounded-xl uppercase tracking-widest">
+                                        A-{{ str_pad($item->no_antrean, 2, '0', STR_PAD_LEFT) }}
+                                    </span>
+                                </td>
+                                <td class="px-8 py-6">
+                                    <p
+                                        class="font-bold text-formal-primary {{ !$isLunas ? 'group-hover:text-formal-accent' : '' }} transition-colors">
+                                        {{ $item->pasien->user->nama }}</p>
+                                    <p class="text-[10px] text-slate-400 font-medium tracking-widest italic">
+                                        dr. {{ $item->jadwal->dokter->user->nama }} ({{ $item->jadwal->dokter->spesialis }})
+                                    </p>
+                                </td>
+                                <td class="px-8 py-6">
+                                    <p
+                                        class="text-sm font-black {{ $isLunas ? 'text-slate-400 line-through' : 'text-formal-primary' }} mb-1">
+                                        {{ $fee }}</p>
+                                    @if ($isLunas)
+                                        <span
+                                            class="px-2 py-0.5 bg-emerald-50 text-emerald-500 text-[9px] font-black rounded-lg uppercase tracking-widest border border-emerald-100">
+                                            LUNAS
+                                        </span>
+                                    @else
+                                        <span
+                                            class="px-2 py-0.5 bg-red-50 text-red-500 text-[9px] font-black rounded-lg uppercase tracking-widest border border-red-100">
+                                            BELUM LUNAS
+                                        </span>
+                                    @endif
+                                </td>
+                                <td class="px-8 py-6">
+                                    <div class="flex justify-center">
+                                        @if (!$isLunas)
+                                            <button
+                                                @click.stop="
+                                                    isOpenConfirmModal = true; 
+                                                    currentPendaftaran = { 
+                                                        id: {{ $item->id_pendaftaran }}, 
+                                                        nama: '{{ $item->pasien->user->nama }}', 
+                                                        fee: '{{ $fee }}',
+                                                        actionUrl: '{{ route('KonfirmasiPembayaranAdmin', $item->id_pendaftaran) }}'
+                                                    }"
+                                                class="bg-formal-accent text-white px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-cyan-700 hover:-translate-y-0.5 transition-all shadow-lg shadow-cyan-100">
+                                                Konfirmasi
+                                            </button>
+                                        @else
+                                            <span
+                                                class="text-[10px] font-black text-slate-300 uppercase tracking-widest italic">SELESAI</span>
+                                        @endif
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="5" class="px-8 py-10 text-center text-slate-400 font-medium italic">
+                                    Belum ada data pendaftaran.
+                                </td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
@@ -137,13 +146,17 @@
                         </svg>
                     </div>
                     <h3 class="text-2xl font-black text-formal-primary mb-2">Konfirmasi Bayar?</h3>
-                    <p class="text-formal-secondary text-sm font-medium mb-8">Pastikan kasir telah menerima uang tunai atau
-                        bukti transfer dari pasien sebesar <strong>Rp50.000</strong>.</p>
+                    <p class="text-formal-secondary text-sm font-medium mb-8">
+                        Pastikan kasir telah menerima uang tunai atau bukti transfer dari pasien
+                        <strong x-text="currentPendaftaran.nama"></strong> sebesar <strong
+                            x-text="currentPendaftaran.fee"></strong>.
+                    </p>
                     <div class="flex gap-3">
                         <button @click="isOpenConfirmModal = false"
                             class="flex-1 py-4 bg-slate-100 text-slate-600 font-black rounded-2xl uppercase text-[10px] tracking-widest hover:bg-slate-200 transition-colors">Batal</button>
-                        <form action="#" method="POST" class="flex-1">
+                        <form :action="currentPendaftaran.actionUrl" method="POST" class="flex-1">
                             @csrf
+                            @method('PATCH')
                             <button type="submit"
                                 class="w-full py-4 bg-formal-accent text-white font-black rounded-2xl uppercase text-[10px] tracking-widest shadow-lg shadow-cyan-100 hover:bg-cyan-700 transition-all">Ya,
                                 Lunas</button>

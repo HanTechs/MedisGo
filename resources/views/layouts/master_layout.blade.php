@@ -11,6 +11,7 @@
 <body class="antialiased text-slate-900 bg-slate-50">
     <div class="flex flex-col min-h-screen">
         <x-navbar />
+        <x-alert />
 
         <div class="flex flex-1 pt-16 overflow-hidden">
             @auth

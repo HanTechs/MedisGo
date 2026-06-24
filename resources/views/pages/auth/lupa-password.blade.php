@@ -43,16 +43,26 @@
             </div>
             {{-- Header & Branding End --}}
 
-            {{-- Pesan Error Start --}}
+            {{-- Pesan Error / Sukses Start --}}
             @if ($errors->any())
                 <div class="mb-6 p-4 bg-red-50 text-red-600 rounded-2xl border border-red-100 font-bold text-xs">
                     {{ $errors->first() }}
                 </div>
             @endif
-            {{-- Pesan Error End --}}
+            @if (session('status'))
+                <div class="mb-6 p-4 bg-emerald-50 text-emerald-600 rounded-2xl border border-emerald-100 font-bold text-xs">
+                    {{ session('status') }}
+                </div>
+            @endif
+            @if (session('success'))
+                <div class="mb-6 p-4 bg-emerald-50 text-emerald-600 rounded-2xl border border-emerald-100 font-bold text-xs">
+                    {{ session('success') }}
+                </div>
+            @endif
+            {{-- Pesan Error / Sukses End --}}
 
             {{-- Form Lupa Password Start --}}
-            <form action="#" method="POST" class="space-y-8">
+            <form action="{{ route('password.email') }}" method="POST" class="space-y-8">
                 @csrf
                 <div class="relative group">
                     <label

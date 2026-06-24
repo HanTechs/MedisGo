@@ -46,10 +46,14 @@
                                 clip-rule="evenodd" />
                         </svg>
                     </div>
-                    <span class="text-xs font-bold text-emerald-500 bg-emerald-50 px-2 py-1 rounded-lg">+2 New</span>
+                    @if ($dokterBaru > 0)
+                        <span
+                            class="text-xs font-bold text-emerald-500 bg-emerald-50 px-2 py-1 rounded-lg">+{{ $dokterBaru }}
+                            New</span>
+                    @endif
                 </div>
                 <h4 class="text-formal-primary font-extrabold text-lg mb-1">Dokter</h4>
-                <p class="text-3xl font-black text-formal-accent">12</p>
+                <p class="text-3xl font-black text-formal-accent">{{ $totalDokter }}</p>
                 <p class="text-[10px] font-bold text-slate-400 uppercase mt-2 tracking-widest">Tenaga Medis Aktif</p>
             </div>
             {{-- Card Dokter End --}}
@@ -69,7 +73,7 @@
                     </div>
                 </div>
                 <h4 class="text-formal-primary font-extrabold text-lg mb-1">Pasien</h4>
-                <p class="text-3xl font-black text-sky-600">1.250</p>
+                <p class="text-3xl font-black text-sky-600">{{ number_format($totalPasien, 0, ',', '.') }}</p>
                 <p class="text-[10px] font-bold text-slate-400 uppercase mt-2 tracking-widest">Total Terdaftar</p>
             </div>
             {{-- Card Pasien End --}}
@@ -89,7 +93,7 @@
                     </div>
                 </div>
                 <h4 class="text-formal-primary font-extrabold text-lg mb-1">Jadwal</h4>
-                <p class="text-3xl font-black text-formal-accent">8</p>
+                <p class="text-3xl font-black text-formal-accent">{{ $totalJadwal }}</p>
                 <p class="text-[10px] font-bold text-slate-400 uppercase mt-2 tracking-widest">Sesi Hari Ini</p>
             </div>
             {{-- Card Jadwal End --}}
@@ -99,8 +103,9 @@
                 class="bg-formal-accent p-6 rounded-[2.5rem] text-white relative overflow-hidden group hover:-translate-y-2 transition-all duration-500 shadow-xl shadow-cyan-100 animate-in zoom-in-95 duration-700 delay-300">
                 <div class="relative z-10">
                     <h4 class="font-black text-lg mb-1">Antrean</h4>
-                    <p class="text-5xl font-black tracking-tighter mb-4 animate-pulse">42</p>
-                    <div class="flex items-center gap-2">
+                    <p class="text-5xl font-black tracking-tighter mb-4 animate-pulse">{{ $totalAntrean }}</p>
+                    <h4 class="font-black text-lg mb-1">Hari ini</h4>
+                    <div class="flex items-center gap-3">
                         <span class="w-2 h-2 bg-white rounded-full animate-ping"></span>
                     </div>
                 </div>

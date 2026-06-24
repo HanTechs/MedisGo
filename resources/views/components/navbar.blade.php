@@ -44,7 +44,7 @@
                     @endauth
                     <ul class="p-2 text-sm text-slate-600 font-medium">
                         <li>
-                            <a href="#"
+                            <a href="{{ route('ShowSettings') }}"
                                 class="inline-flex items-center w-full p-2 hover:bg-slate-50 hover:text-blue-600 rounded-base">Settings</a>
                         </li>
                         <li>
