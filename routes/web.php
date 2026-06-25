@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DokterController;
+use App\Http\Controllers\ListLayananController;
 
 
 // Routh Landing Page
@@ -75,6 +77,10 @@ Route::prefix('dokter')->group(function () {
         return view('pages.dokter.pemeriksaan_dokter', compact('title'));
     })->name('ShowPemeriksaansDokter');
 });
+// Routh Admin Dokter (CRUD)
+Route::delete('/admin/dokter/{id}', [DokterController::class, 'delete'])->name('dokter.delete');
+Route::get('/admin/dokter/{id}/edit', [DokterController::class, 'edit'])->name('dokter.edit');
+Route::put('/admin/dokter/{id}', [DokterController::class, 'update'])->name('dokter.update');
 
 // Routh Pasien
 Route::prefix('pasien')->group(function () {
