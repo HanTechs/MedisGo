@@ -1,8 +1,8 @@
-@extends('layouts.master_layout3')
+@extends('layouts.master_layout')
 @section('title', $title)
 @section('content')
 
-    <div class="p-15 relative min-h-screen overflow-hidden">
+    <div class="p-2 relative min-h-screen overflow-hidden">
         {{-- Gradien Latar Belakang Start --}}
         <div class="absolute top-0 right-0 w-96 h-96 bg-cyan-50 rounded-full blur-[120px] -z-10 animate-pulse">
         </div>
@@ -13,12 +13,12 @@
         {{-- Bagian Header Start --}}
         <div class="mb-10 animate-in fade-in slide-in-from-top-4 duration-700">
             <h2 class="text-3xl font-black text-formal-primary tracking-tight">Ambil Antrean</h2>
-            <p class="text-formal-secondary font-medium mt-1">Pilih jadwal konsultasi yang tersedia untuk hari ini.</p>
+            <p class="text-formal-secondary font-medium">Pilih jadwal konsultasi yang tersedia untuk hari ini.</p>
         </div>
         {{-- Bagian Header End --}}
 
         <div class="max-w-2xl mx-auto">
-            <form action="#" method="POST">
+            <form action="{{ route('TambahAntreanPasien') }}" method="POST">
                 @csrf
                 <div class="bg-white p-10 rounded-[3rem] border border-slate-100 shadow-sm space-y-8">
 
@@ -29,14 +29,15 @@
                                 & Jam Praktik</label>
                             <span
                                 class="text-[9px] font-black text-formal-accent bg-cyan-50 px-2 py-1 rounded-lg uppercase tracking-widest border border-cyan-100">
-                                Senin, 06 April
+                                {{ \Carbon\Carbon::now()->translatedFormat('l, d F') }}
                             </span>
                         </div>
 
                         <div x-data="{
                             open: false,
                             selectedLabel: 'Klik untuk memilih jadwal...',
-                            selectedId: ''
+                            selectedId: '',
+                            selectedFee: 'Rp0'
                         }" class="relative">
                             <button @click="open = !open" type="button"
                                 class="w-full p-6 bg-slate-50 border-none rounded-2xl text-sm font-bold text-left flex justify-between items-center focus:ring-4 focus:ring-formal-accent/10 transition-all">
@@ -53,49 +54,37 @@
                             <div x-show="open" @click.away="open = false" x-cloak
                                 class="absolute z-[60] mt-3 w-full bg-white border border-slate-100 rounded-[2rem] shadow-2xl max-h-64 overflow-y-auto p-3 animate-in fade-in zoom-in duration-200">
 
-                                {{-- Item Jadwal Dummy 1 Start --}}
-                                <div @click="selectedId = '1'; selectedLabel = 'dr. Muhammad Farhan (08.00 - 12.00)'; open = false"
-                                    class="p-4 hover:bg-cyan-50/50 rounded-2xl cursor-pointer transition-all flex items-center gap-4 group"
-                                    :class="selectedId == '1' ? 'bg-cyan-50/50' : ''">
-                                    <div
-                                        class="w-12 h-12 rounded-xl bg-white border border-slate-100 flex items-center justify-center text-slate-400 group-hover:bg-formal-accent group-hover:text-white transition-all">
-                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                        </svg>
+                                @foreach ($listJadwal as $jadwal)
+                                    @php
+                                        $fee = $jadwal->dokter->spesialis === 'Umum' ? 'Rp50.000' : 'Rp75.000';
+                                    @endphp
+                                    <div @click="
+                                            selectedId = '{{ $jadwal->id_jadwal }}'; 
+                                            selectedLabel = 'dr. {{ $jadwal->dokter->user->nama }} ({{ substr($jadwal->jam_mulai, 0, 5) }} - {{ substr($jadwal->jam_selesai, 0, 5) }})'; 
+                                            selectedFee = '{{ $fee }}';
+                                            open = false"
+                                        class="p-4 hover:bg-cyan-50/50 rounded-2xl cursor-pointer transition-all flex items-center gap-4 group"
+                                        :class="selectedId == '{{ $jadwal->id_jadwal }}' ? 'bg-cyan-50/50' : ''">
+                                        <div
+                                            class="w-12 h-12 rounded-xl bg-white border border-slate-100 flex items-center justify-center text-slate-400 group-hover:bg-formal-accent group-hover:text-white transition-all">
+                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <p
+                                                class="text-sm font-black text-formal-primary group-hover:text-formal-accent">
+                                                dr. {{ $jadwal->dokter->user->nama }}
+                                            </p>
+                                            <p
+                                                class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-0.5 group-hover:text-formal-accent/60">
+                                                {{ $jadwal->dokter->spesialis }} • {{ substr($jadwal->jam_mulai, 0, 5) }}
+                                                WIB
+                                            </p>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <p class="text-sm font-black text-formal-primary group-hover:text-formal-accent">
-                                            dr.
-                                            Muhammad Farhan</p>
-                                        <p
-                                            class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-0.5 group-hover:text-formal-accent/60">
-                                            Spesialis Jantung • 08.00 WIB</p>
-                                    </div>
-                                </div>
-                                {{-- Item Jadwal Dummy 1 End --}}
-
-                                {{-- Item Jadwal Dummy 2 Start --}}
-                                <div @click="selectedId = '2'; selectedLabel = 'dr. Siti Aminah (13.00 - 16.00)'; open = false"
-                                    class="p-4 hover:bg-cyan-50/50 rounded-2xl cursor-pointer transition-all flex items-center gap-4 group"
-                                    :class="selectedId == '2' ? 'bg-cyan-50/50' : ''">
-                                    <div
-                                        class="w-12 h-12 rounded-xl bg-white border border-slate-100 flex items-center justify-center text-slate-400 group-hover:bg-formal-accent group-hover:text-white transition-all">
-                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <p class="text-sm font-black text-formal-primary group-hover:text-formal-accent">
-                                            dr. Siti
-                                            Aminah</p>
-                                        <p
-                                            class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-0.5 group-hover:text-formal-accent/60">
-                                            Spesialis Anak • 13.00 WIB</p>
-                                    </div>
-                                </div>
-                                {{-- Item Jadwal Dummy 2 End --}}
+                                @endforeach
 
                             </div>
                         </div>
@@ -107,7 +96,7 @@
                         <label
                             class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-4 group-focus-within:text-formal-accent transition-colors">Apa
                             keluhan utama anda?</label>
-                        <textarea name="keluhan_utama" rows="5" placeholder="Ceritakan keluhan anda secara singkat..."
+                        <textarea name="keluhan" rows="5" placeholder="Ceritakan keluhan anda secara singkat..."
                             class="w-full p-6 bg-slate-50 border-none rounded-3xl text-sm font-bold text-slate-800 placeholder:text-slate-300 focus:ring-4 focus:ring-formal-accent/10 transition-all resize-none"
                             required></textarea>
                     </div>
@@ -127,7 +116,12 @@
                             <div>
                                 <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Biaya
                                     Pendaftaran</p>
-                                <p class="text-lg font-black text-formal-accent">Rp20.000</p>
+                                <div class="flex items-center gap-2 mt-2 mb-1">
+                                    <span
+                                        class="px-2 py-1 bg-cyan-100 text-formal-accent text-[10px] font-black rounded-lg uppercase tracking-widest">Fee
+                                        Flat</span>
+                                    <span class="text-xl font-black text-formal-primary tracking-tight">Rp20.000</span>
+                                </div>
                             </div>
                         </div>
                         <div class="text-right">
@@ -141,7 +135,7 @@
                     {{-- Tombol Submit Start --}}
                     <div class="pt-4">
                         <button type="submit"
-                            class="w-full py-5 bg-formal-accent hover:bg-cyan-700 text-white font-black rounded-2xl transition-all duration-500 flex items-center justify-center gap-4 group shadow-xl shadow-cyan-100 hover:brightness-110 active:scale-[0.98]">
+                            class="w-full py-5 bg-formal-accent hover:bg-cyan-700 text-white font-black rounded-2xl transition-all duration-500 flex items-center justify-center gap-4 group shadow-xl shadow-cyan-100 hover:brightness-110 active:scale-[0.98] cursor-pointer">
                             AMBIL NOMOR ANTREAN
                             <svg class="w-5 h-5 group-hover:rotate-12 transition-transform" fill="none"
                                 stroke="currentColor" viewBox="0 0 24 24">

@@ -43,24 +43,29 @@
             </div>
             {{-- Header & Branding End --}}
 
-            {{-- Pesan Error Start --}}
+            {{-- Pesan Error / Sukses Start --}}
             @if ($errors->any())
                 <div class="mb-6 p-4 bg-red-50 text-red-600 rounded-2xl border border-red-100 font-bold text-xs">
                     {{ $errors->first() }}
                 </div>
             @endif
-            {{-- Pesan Error End --}}
+            @if (session('status'))
+                <div class="mb-6 p-4 bg-emerald-50 text-emerald-600 rounded-2xl border border-emerald-100 font-bold text-xs">
+                    {{ session('status') }}
+                </div>
+            @endif
+            {{-- Pesan Error / Sukses End --}}
 
             {{-- Form Atur Ulang Password Start --}}
-            <form action="#" method="POST" class="space-y-6">
+            <form action="{{ route('password.update') }}" method="POST" class="space-y-6">
                 @csrf
-                <input type="hidden" name="token" value="#">
-                <input type="hidden" name="email" value="#">
+                <input type="hidden" name="token" value="{{ $token }}">
+                <input type="hidden" name="email" value="{{ $email }}">
 
                 <div class="relative group opacity-60">
                     <label
                         class="text-[10px] font-black uppercase tracking-widest text-formal-secondary block mb-1.5">EMAIL</label>
-                    <input type="email" value="#" disabled
+                    <input type="email" value="{{ $email }}" disabled
                         class="w-full py-3 bg-transparent border-b-2 border-slate-100 outline-none font-semibold text-slate-400 text-sm cursor-not-allowed">
                 </div>
 

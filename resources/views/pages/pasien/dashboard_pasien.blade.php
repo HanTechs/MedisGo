@@ -1,8 +1,8 @@
-@extends('layouts.master_layout3')
+@extends('layouts.master_layout')
 @section('title', $title)
 @section('content')
 
-    <div class="p-15 relative min-h-screen overflow-hidden">
+    <div class="p-2 relative min-h-screen overflow-hidden">
         {{-- Gradien Latar Belakang Start --}}
         <div class="absolute top-0 right-0 w-96 h-96 bg-cyan-50 rounded-full blur-[120px] -z-10 animate-pulse">
         </div>
@@ -13,8 +13,7 @@
         {{-- Bagian Header Start --}}
         <div class="mb-10 animate-in fade-in slide-in-from-top-4 duration-700">
             <h2 class="text-3xl font-black text-formal-primary tracking-tight">Selamat Datang, <span
-                    class="text-formal-accent italic">Budi
-                    Santoso</span></h2>
+                    class="text-formal-accent italic">{{ Auth::user()->nama }}</span></h2>
             <p class="text-formal-secondary font-medium mt-1">Pantau status kesehatan dan jadwal konsultasi klinikmu di sini.
             </p>
         </div>
@@ -36,11 +35,14 @@
                         <h4 class="text-[10px] font-black text-formal-accent uppercase tracking-[0.3em] mb-4">
                             Sedang
                             Dilayani</h4>
-                        <p class="text-6xl font-black text-formal-primary tracking-tighter">A-008</p>
+                        <p class="text-6xl font-black text-formal-primary tracking-tighter">
+                            {{ $sedangDilayani ? 'A-' . str_pad($sedangDilayani->no_antrean, 3, '0', STR_PAD_LEFT) : '---' }}
+                        </p>
                         <div class="mt-6 flex flex-col gap-1">
-                            <p class="text-sm font-black text-slate-800">Poli Umum</p>
+                            <p class="text-sm font-black text-slate-800">
+                                {{ $antreanAktif ? $antreanAktif->jadwal->dokter->spesialis : 'Belum Ada Antrean' }}</p>
                             <p class="text-[10px] font-bold text-slate-400 uppercase">
-                                Status: Pemeriksaan
+                                Status: {{ $sedangDilayani ? $sedangDilayani->status_periksa : 'Standby' }}
                             </p>
                         </div>
                     </div>
@@ -67,10 +69,14 @@
                 <p class="text-formal-secondary text-sm font-medium tracking-wide">Nomor antrean Anda hari ini</p>
 
                 <div class="flex items-end gap-3 mt-4">
-                    <p class="text-4xl font-black text-formal-accent tracking-tighter">A-012</p>
-                    <p class="text-[10px] font-black text-orange-500 bg-orange-50 px-2 py-1 rounded-md mb-2 uppercase">
-                        Sisa 4 Antrean
+                    <p class="text-4xl font-black text-formal-accent tracking-tighter">
+                        {{ $antreanAktif ? 'A-' . str_pad($antreanAktif->no_antrean, 3, '0', STR_PAD_LEFT) : '---' }}
                     </p>
+                    @if ($antreanAktif)
+                        <p class="text-[10px] font-black text-orange-500 bg-orange-50 px-2 py-1 rounded-md mb-2 uppercase">
+                            Sisa {{ $sisaAntrean }} Antrean
+                        </p>
+                    @endif
                 </div>
             </div>
             <!-- Card Antrean Saya End -->
@@ -81,7 +87,7 @@
                 <div class="relative z-10">
                     <h4 class="font-black text-xl mb-1 tracking-tight">Daftar Baru</h4>
                     <p class="text-cyan-50 text-sm font-medium mb-8">Ambil antrean secara online sekarang.</p>
-                    <a href="#"
+                    <a href="{{ route('ShowAntreanPasien') }}"
                         class="inline-flex items-center gap-3 bg-white text-formal-accent px-8 py-4 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] hover:bg-cyan-50 transition-all active:scale-95 shadow-lg">
                         Klik Di Sini <svg class="w-3 h-3 group-hover:translate-x-1 transition-transform" fill="none"
                             stroke="currentColor" viewBox="0 0 24 24">
@@ -115,10 +121,16 @@
                 </div>
                 <div>
                     <h5 class="text-sm font-black text-formal-primary uppercase tracking-widest">Poli & Dokter</h5>
-                    <p class="text-xs font-medium text-formal-secondary mt-1">Anda terdaftar di <span
-                            class="text-formal-accent font-bold">Poli Umum</span> bersama <span
-                            class="text-formal-accent font-bold">dr. Muhammad Farhan</span>
-                    </p>
+                    @if ($antreanAktif)
+                        <p class="text-xs font-medium text-formal-secondary mt-1">Anda terdaftar di <span
+                                class="text-formal-accent font-bold">{{ $antreanAktif->jadwal->dokter->spesialis }}</span>
+                            bersama <span
+                                class="text-formal-accent font-bold">dr. {{ $antreanAktif->jadwal->dokter->user->nama }}</span>
+                        </p>
+                    @else
+                        <p class="text-xs font-medium text-formal-secondary mt-1">Anda belum terdaftar di poli manapun hari
+                            ini.</p>
+                    @endif
                 </div>
             </div>
             {{-- Bagian Poli & Dokter End --}}

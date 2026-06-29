@@ -1,99 +1,109 @@
 <?php
 
+use App\Http\Controllers\Admin\DokterResourceController;
+use App\Http\Controllers\Admin\PasienResourceController;
+use App\Http\Controllers\Admin\PendaftaranController;
+use App\Http\Controllers\Admin\JadwalResourceController;
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Pasien\AntreanController;
+use App\Http\Controllers\View\ViewController;
+use App\Http\Controllers\Validation\ValidationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DokterController;
 use App\Http\Controllers\ListLayananController;
 
 
-// Routh Landing Page
-Route::get('/{index?}', function () {
-    $title = 'Halaman Landing | MedisGo ';
-    return view('pages.landing', compact('title'));
-})->where('index', 'index|landing')->name('ShowLanding');
+// Route Landing Page
+Route::get('/{index?}', [ViewController::class, 'showLanding'])
+    ->where('index', 'index|landing')
+    ->name('ShowLanding');
 
 
-// Routh Auth
-Route::get('/login', function () {
-    $title = 'Halaman Login | MedisGo ';
-    return view('pages.auth.login', compact('title'));
-})->name('ShowLogin');
-
-Route::get('/daftar', function () {
-    $title = 'Halaman Daftar | MedisGo ';
-    return view('pages.auth.daftar', compact('title'));
-})->name('ShowRegister');
-
-Route::get('/lupa', function () {
-    $title = 'Halaman Lupa Password | MedisGo ';
-    return view('pages.auth.lupa-password', compact('title'));
-})->name('ShowLupaPassword');
-
-Route::get('/reset', function () {
-    $title = 'Halaman Reset Password | MedisGo ';
-    return view('pages.auth.reset-password', compact('title'));
-})->name('ShowResetPassword');
-
-
-// Routh Admin
-Route::prefix('admin')->group(function () {
-    Route::get('/dashboard', function () {
-        $title = 'Halaman Admin Dashboard | MedisGo ';
-        return view('pages.admin.dashboard_admin', compact('title'));
-    })->name('ShowDashboardAdmin');
-    Route::get('/biaya', function () {
-        $title = 'Biaya Pendaftaran Page | MedisGo ';
-        return view('pages.admin.biaya_pendaftaran_admin', compact('title'));
-    })->name('ShowBiayaPendaftaranAdmin');
-    Route::get('/dokters', function () {
-        $title = 'Halaman Kelola Dokter | MedisGo ';
-        return view('pages.admin.dokters_admin', compact('title'));
-    })->name('ShowDoktersAdmin');
-    Route::get('/pasiens', function () {
-        $title = 'Halaman Kelola Pasiens | MedisGo ';
-        return view('pages.admin.pasiens_admin', compact('title'));
-    })->name('ShowPasiensAdmin');
-    Route::get('/jadwals', function () {
-        $title = 'Halaman Kelola Jadwals | MedisGo ';
-        return view('pages.admin.jadwals_admin', compact('title'));
-    })->name('ShowJadwalsAdmin');
+// Route Auth
+Route::controller(ViewController::class)->group(function () {
+    Route::get('/login', 'showLogin')->name('ShowLogin');
+    Route::get('/daftar', 'showRegister')->name('ShowRegister');
+    Route::get('/lupa', 'showLupaPassword')->name('ShowLupaPassword');
+    Route::get('/reset', 'showResetPassword')->name('password.reset');
 });
 
-// Routh Dokter
-Route::prefix('dokter')->group(function () {
-    Route::get('/dashboard', function () {
-        $title = 'Halaman Dokter Dashboard | MedisGo ';
-        return view('pages.dokter.dashboard_dokter', compact('title'));
-    })->name('ShowDashboardDokter');
-    Route::get('/jadwal', function () {
-        $title = 'Halaman Jadwal Praktik | MedisGo ';
-        return view('pages.dokter.jadwals_dokter', compact('title'));
-    })->name('ShowJadwalsDokter');
-    Route::get('/riwayat', function () {
-        $title = 'Halaman Daftar Riwayat Pasiens | MedisGo ';
-        return view('pages.dokter.daftar_riwayat_pasiens_dokter', compact('title'));
-    })->name('ShowDaftarRiwayatPasiensDokter');
-    Route::get('/pemeriksaan', function () {
-        $title = 'Halaman Pemeriksaan Pasien | MedisGo ';
-        return view('pages.dokter.pemeriksaan_dokter', compact('title'));
-    })->name('ShowPemeriksaansDokter');
+Route::controller(AuthController::class)->group(function () {
+    Route::post('/login', 'login');
+    Route::post('/logout', 'logout')->name('logout');
+    Route::post('/daftar', 'register')->name('Register');
+    Route::post('/lupa', 'sendResetLinkEmail')->name('password.email');
+    Route::post('/reset', 'resetPassword')->name('password.update');
 });
 // Routh Admin Dokter (CRUD)
 Route::delete('/admin/dokter/{id}', [DokterController::class, 'delete'])->name('dokter.delete');
 Route::get('/admin/dokter/{id}/edit', [DokterController::class, 'edit'])->name('dokter.edit');
 Route::put('/admin/dokter/{id}', [DokterController::class, 'update'])->name('dokter.update');
 
-// Routh Pasien
-Route::prefix('pasien')->group(function () {
-    Route::get('/dashboard', function () {
-        $title = 'Halaman Pasien Dashboard | MedisGo ';
-        return view('pages.pasien.dashboard_pasien', compact('title'));
-    })->name('ShowDashboardPasien');
-    Route::get('/antrean', function () {
-        $title = 'Halaman Antrean Pasien | MedisGo ';
-        return view('pages.pasien.antrean_pasien', compact('title'));
-    })->name('ShowAntreanPasien');
-    Route::get('/rekam', function () {
-        $title = 'Halaman Rekam Medis Pasien | MedisGo ';
-        return view('pages.pasien.rekam_pasien', compact('title'));
-    })->name('ShowRekamMedisPasien');
+Route::post('/validate/login', [ValidationController::class, 'validateLogin'])->name('validate.login');
+
+
+// Route Admin
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    Route::controller(ViewController::class)->group(function () {
+        Route::get('/dashboard', 'showDashboardAdmin')->name('ShowDashboardAdmin');
+        Route::get('/biaya', 'showBiayaPendaftaranAdmin')->name('ShowBiayaPendaftaranAdmin');
+        Route::get('/dokters', 'showDoktersAdmin')->name('ShowDoktersAdmin');
+        Route::get('/pasiens', 'showPasiensAdmin')->name('ShowPasiensAdmin');
+        Route::get('/jadwals', 'showJadwalsAdmin')->name('ShowJadwalsAdmin');
+    });
+
+    // Kelola Dokter
+    Route::resource('dokters', DokterResourceController::class)->names([
+        'store' => 'TambahDokterAdmin',
+        'update' => 'UpdateDokterAdmin',
+        'destroy' => 'HapusDokterAdmin',
+    ])->only(['store', 'update', 'destroy']);
+
+    // Kelola Pasien
+    Route::resource('pasiens', PasienResourceController::class)->names([
+        'store' => 'TambahPasienAdmin',
+        'update' => 'UpdatePasienAdmin',
+        'destroy' => 'HapusPasienAdmin',
+    ])->only(['store', 'update', 'destroy']);
+
+    // Kelola Jadwal
+    Route::resource('jadwals', JadwalResourceController::class)->names([
+        'store' => 'tambahJadwalAdmin',
+        'update' => 'UpdateJadwalAdmin',
+        'destroy' => 'HapusJadwalAdmin',
+    ])->only(['store', 'update', 'destroy']);
+
+    // Konfirmasi Pembayaran
+    Route::patch('/biaya/konfirmasi/{id}', [PendaftaranController::class, 'update'])->name('KonfirmasiPembayaranAdmin');
+});
+
+use App\Http\Controllers\Dokter\PemeriksaanPasienController;
+
+// Route Dokter
+Route::middleware(['auth', 'dokter'])->prefix('dokter')->group(function () {
+    Route::controller(ViewController::class)->group(function () {
+        Route::get('/dashboard', 'showDashboardDokter')->name('ShowDashboardDokter');
+        Route::get('/jadwal', 'showJadwalsDokter')->name('ShowJadwalsDokter');
+        Route::get('/riwayat', 'showDaftarRiwayatPasiensDokter')->name('ShowDaftarRiwayatPasiensDokter');
+        Route::get('/pemeriksaan', 'showPemeriksaansDokter')->name('ShowPemeriksaansDokter');
+    });
+
+    Route::post('/pemeriksaan/simpan', [PemeriksaanPasienController::class, 'simpanPemeriksaan'])->name('SimpanPemeriksaanDokter');
+});
+
+// Route Pasien
+Route::middleware(['auth', 'pasien'])->prefix('pasien')->group(function () {
+    Route::controller(ViewController::class)->group(function () {
+        Route::get('/dashboard', 'showDashboardPasien')->name('ShowDashboardPasien');
+        Route::get('/antrean', 'showAntreanPasien')->name('ShowAntreanPasien');
+        Route::get('/rekam', 'showRekamMedisPasien')->name('ShowRekamMedisPasien');
+    });
+
+    Route::post('/antrean', [AntreanController::class, 'store'])->name('TambahAntreanPasien');
+});
+
+// Route Settings (Aksesibel untuk semua user yang login)
+Route::middleware(['auth'])->group(function () {
+    Route::get('/settings', [ViewController::class, 'showSettings'])->name('ShowSettings');
+    Route::post('/settings', [AuthController::class, 'updateSettings'])->name('UpdateSettings');
 });

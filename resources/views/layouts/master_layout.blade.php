@@ -11,12 +11,15 @@
 <body class="antialiased text-slate-900 bg-slate-50">
     <div class="flex flex-col min-h-screen">
         <x-navbar />
+        <x-alert />
 
         <div class="flex flex-1 pt-16 overflow-hidden">
-            <x-sidebar />
+            @auth
+                <x-sidebar />
+            @endauth
 
-            <main id="main-content" class="flex-1 w-full min-w-0 overflow-y-auto transition-all duration-300 sm:ml-64">
-                <div class="container mx-auto ">
+            <main id="main-content" class="flex-1 min-w-0 overflow-y-auto transition-all duration-300 sm:ml-64">
+                <div class="p-6 md:p-10 lg:p-15">
                     @yield('content')
                     <x-footer />
                 </div>

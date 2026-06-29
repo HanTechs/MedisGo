@@ -17,7 +17,7 @@
 
             {{-- Logo --}}
             <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse group">
-                <img src="/images/logo.png"
+                <img src="{{ asset('images/logo.png') }}"
                     class="h-8 sm:h-10 md:h-12 w-auto transform scale-150 m-0 transition-transform duration-300 group-hover:scale-[1.7]"
                     alt="MedisGo Logo" />
                 <span
@@ -123,7 +123,7 @@
                     </div>
 
                     {{-- Image with Gradient Mask to blend with background --}}
-                    <img src="/images/Gambar_Landing.jpeg"
+                    <img src="{{ asset('images/Gambar_Landing.jpeg') }}"
                         class="w-full h-auto object-contain mix-blend-multiply opacity-90 transition-opacity duration-700 hover:opacity-100"
                         style="mask-image: linear-gradient(to right, transparent 0%, black 30%, black 70%, transparent 100%), 
                                      linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);

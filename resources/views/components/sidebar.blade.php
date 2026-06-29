@@ -32,89 +32,214 @@
                     Menu Utama
                 </p>
                 <ul class="space-y-3 font-medium">
-                    <li>
-                        <a href="{{ route('ShowDashboardAdmin') }}"
-                            class="flex items-center px-4 py-3 text-slate-500 rounded-2xl transition-all duration-300 group hover:bg-slate-50">
-                            <div
-                                class="p-2 bg-slate-50 rounded-lg group-hover:bg-white group-hover:shadow-md group-hover:shadow-blue-100 transition-all duration-300">
-                                <svg class="w-5 h-5 text-slate-400 group-hover:text-blue-500 transition-colors"
-                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-                                </svg>
-                            </div>
-                            <span class="ms-3 font-bold text-sm group-hover:text-slate-800 transition-colors">Admin
-                                Dashboard</span>
-                        </a>
-                    </li>
+                    @auth
+                        @if (auth()->user()->role == 'admin')
+                            {{-- Menu Admin --}}
+                            <li>
+                                <a href="{{ route('ShowDashboardAdmin') }}"
+                                    class="flex items-center px-4 py-3 text-slate-500 rounded-2xl transition-all duration-300 group hover:bg-slate-50">
+                                    <div
+                                        class="p-2 bg-slate-50 rounded-lg group-hover:bg-white group-hover:shadow-md group-hover:shadow-blue-100 transition-all duration-300">
+                                        <svg class="w-5 h-5 text-slate-400 group-hover:text-blue-500 transition-colors"
+                                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                                        </svg>
+                                    </div>
+                                    <span class="ms-3 font-bold text-sm group-hover:text-slate-800 transition-colors">Admin
+                                        Dashboard</span>
+                                </a>
+                            </li>
 
-                    <li>
-                        <a href="{{ route('ShowDoktersAdmin') }}"
-                            class="flex items-center px-4 py-3 text-slate-500 rounded-2xl transition-all duration-300 group hover:bg-slate-50">
-                            <div
-                                class="p-2 bg-slate-50 rounded-lg group-hover:bg-white group-hover:shadow-md group-hover:shadow-teal-100 transition-all duration-300">
-                                <svg class="w-5 h-5 text-slate-400 group-hover:text-teal-500 transition-colors"
-                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                </svg>
-                            </div>
-                            <span
-                                class="flex-1 ms-3 font-bold text-sm whitespace-nowrap group-hover:text-slate-800 transition-colors">Kelola
-                                Dokter</span>
-                        </a>
-                    </li>
+                            <li>
+                                <a href="{{ route('ShowDoktersAdmin') }}"
+                                    class="flex items-center px-4 py-3 text-slate-500 rounded-2xl transition-all duration-300 group hover:bg-slate-50">
+                                    <div
+                                        class="p-2 bg-slate-50 rounded-lg group-hover:bg-white group-hover:shadow-md group-hover:shadow-teal-100 transition-all duration-300">
+                                        <svg class="w-5 h-5 text-slate-400 group-hover:text-teal-500 transition-colors"
+                                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                        </svg>
+                                    </div>
+                                    <span
+                                        class="flex-1 ms-3 font-bold text-sm whitespace-nowrap group-hover:text-slate-800 transition-colors">Kelola
+                                        Dokter</span>
+                                </a>
+                            </li>
 
-                    <li>
-                        <a href="{{ route('ShowPasiensAdmin') }}"
-                            class="flex items-center px-4 py-3 text-slate-500 rounded-2xl transition-all duration-300 group hover:bg-slate-50">
-                            <div
-                                class="p-2 bg-slate-50 rounded-lg group-hover:bg-white group-hover:shadow-md group-hover:shadow-blue-100 transition-all duration-300">
-                                <svg class="w-5 h-5 text-slate-400 group-hover:text-blue-500 transition-colors"
-                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                                </svg>
-                            </div>
-                            <span
-                                class="flex-1 ms-3 font-bold text-sm whitespace-nowrap group-hover:text-slate-800 transition-colors">Kelola
-                                Pasien</span>
-                        </a>
-                    </li>
+                            <li>
+                                <a href="{{ route('ShowPasiensAdmin') }}"
+                                    class="flex items-center px-4 py-3 text-slate-500 rounded-2xl transition-all duration-300 group hover:bg-slate-50">
+                                    <div
+                                        class="p-2 bg-slate-50 rounded-lg group-hover:bg-white group-hover:shadow-md group-hover:shadow-blue-100 transition-all duration-300">
+                                        <svg class="w-5 h-5 text-slate-400 group-hover:text-blue-500 transition-colors"
+                                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                                        </svg>
+                                    </div>
+                                    <span
+                                        class="flex-1 ms-3 font-bold text-sm whitespace-nowrap group-hover:text-slate-800 transition-colors">Kelola
+                                        Pasien</span>
+                                </a>
+                            </li>
 
-                    <li>
-                        <a href="{{ route('ShowJadwalsAdmin') }}"
-                            class="flex items-center px-4 py-3 text-slate-500 rounded-2xl transition-all duration-300 group hover:bg-slate-50">
-                            <div
-                                class="p-2 bg-slate-50 rounded-lg group-hover:bg-white group-hover:shadow-md group-hover:shadow-teal-100 transition-all duration-300">
-                                <svg class="w-5 h-5 text-slate-400 group-hover:text-teal-500 transition-colors"
-                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2-2v12a2 2 0 002 2z" />
-                                </svg>
-                            </div>
-                            <span
-                                class="flex-1 ms-3 font-bold text-sm whitespace-nowrap group-hover:text-slate-800 transition-colors">Kelola
-                                Jadwal</span>
-                        </a>
-                    </li>
+                            <li>
+                                <a href="{{ route('ShowJadwalsAdmin') }}"
+                                    class="flex items-center px-4 py-3 text-slate-500 rounded-2xl transition-all duration-300 group hover:bg-slate-50">
+                                    <div
+                                        class="p-2 bg-slate-50 rounded-lg group-hover:bg-white group-hover:shadow-md group-hover:shadow-teal-100 transition-all duration-300">
+                                        <svg class="w-5 h-5 text-slate-400 group-hover:text-teal-500 transition-colors"
+                                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2-2v12a2 2 0 002 2z" />
+                                        </svg>
+                                    </div>
+                                    <span
+                                        class="flex-1 ms-3 font-bold text-sm whitespace-nowrap group-hover:text-slate-800 transition-colors">Kelola
+                                        Jadwal</span>
+                                </a>
+                            </li>
 
-                    <li>
-                        <a href="{{ route('ShowBiayaPendaftaranAdmin') }}"
-                            class="flex items-center px-4 py-3 text-slate-500 rounded-2xl transition-all duration-300 group hover:bg-slate-50">
-                            <div
-                                class="p-2 bg-slate-50 rounded-lg group-hover:bg-white group-hover:shadow-md group-hover:shadow-teal-100 transition-all duration-300">
-                                <svg class="w-5 h-5 text-slate-400 group-hover:text-blue-500 transition-colors"
-                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2-2v12a2 2 0 002 2z" />
-                                </svg>
-                            </div>
-                            <span
-                                class="flex-1 ms-3 font-bold text-sm whitespace-nowrap group-hover:text-slate-800 transition-colors">Biaya
-                                Pendaftaran</span>
-                        </a>
-                    </li>
+                            <li>
+                                <a href="{{ route('ShowBiayaPendaftaranAdmin') }}"
+                                    class="flex items-center px-4 py-3 text-slate-500 rounded-2xl transition-all duration-300 group hover:bg-slate-50">
+                                    <div
+                                        class="p-2 bg-slate-50 rounded-lg group-hover:bg-white group-hover:shadow-md group-hover:shadow-teal-100 transition-all duration-300">
+                                        <svg class="w-5 h-5 text-slate-400 group-hover:text-blue-500 transition-colors"
+                                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2-2v12a2 2 0 002 2z" />
+                                        </svg>
+                                    </div>
+                                    <span
+                                        class="flex-1 ms-3 font-bold text-sm whitespace-nowrap group-hover:text-slate-800 transition-colors">Biaya
+                                        Pendaftaran</span>
+                                </a>
+                            </li>
+                        @elseif(auth()->user()->role == 'dokter')
+                            {{-- Menu Dokter --}}
+                            <li>
+                                <a href="{{ route('ShowDashboardDokter') }}"
+                                    class="flex items-center px-4 py-3 text-slate-500 rounded-2xl transition-all duration-300 group hover:bg-slate-50">
+                                    <div
+                                        class="p-2 bg-slate-50 rounded-lg group-hover:bg-white group-hover:shadow-md group-hover:shadow-blue-100 transition-all duration-300">
+                                        <svg class="w-5 h-5 text-slate-400 group-hover:text-blue-500 transition-colors"
+                                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                                        </svg>
+                                    </div>
+                                    <span class="ms-3 font-bold text-sm group-hover:text-slate-800 transition-colors">Dokter
+                                        Dashboard</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="{{ route('ShowJadwalsDokter') }}"
+                                    class="flex items-center px-4 py-3 text-slate-500 rounded-2xl transition-all duration-300 group hover:bg-slate-50">
+                                    <div
+                                        class="p-2 bg-slate-50 rounded-lg group-hover:bg-white group-hover:shadow-md group-hover:shadow-teal-100 transition-all duration-300">
+                                        <svg class="w-5 h-5 text-slate-400 group-hover:text-teal-500 transition-colors"
+                                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                        </svg>
+                                    </div>
+                                    <span
+                                        class="flex-1 ms-3 font-bold text-sm whitespace-nowrap group-hover:text-slate-800 transition-colors">Jadwal
+                                        Praktik</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="{{ route('ShowDaftarRiwayatPasiensDokter') }}"
+                                    class="flex items-center px-4 py-3 text-slate-500 rounded-2xl transition-all duration-300 group hover:bg-slate-50">
+                                    <div
+                                        class="p-2 bg-slate-50 rounded-lg group-hover:bg-white group-hover:shadow-md group-hover:shadow-blue-100 transition-all duration-300">
+                                        <svg class="w-5 h-5 text-slate-400 group-hover:text-blue-500 transition-colors"
+                                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                                        </svg>
+                                    </div>
+                                    <span
+                                        class="flex-1 ms-3 font-bold text-sm whitespace-nowrap group-hover:text-slate-800 transition-colors">Daftar
+                                        Riwayat Pasien</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="{{ route('ShowPemeriksaansDokter') }}"
+                                    class="flex items-center px-4 py-3 text-slate-500 rounded-2xl transition-all duration-300 group hover:bg-slate-50">
+                                    <div
+                                        class="p-2 bg-slate-50 rounded-lg group-hover:bg-white group-hover:shadow-md group-hover:shadow-teal-100 transition-all duration-300">
+                                        <svg class="w-5 h-5 text-slate-400 group-hover:text-teal-500 transition-colors"
+                                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2-2v12a2 2 0 002 2z" />
+                                        </svg>
+                                    </div>
+                                    <span
+                                        class="flex-1 ms-3 font-bold text-sm whitespace-nowrap group-hover:text-slate-800 transition-colors">Pemeriksaan
+                                        Pasien</span>
+                                </a>
+                            </li>
+                        @elseif(auth()->user()->role == 'pasien')
+                            {{-- Menu Pasien --}}
+                            <li>
+                                <a href="{{ route('ShowDashboardPasien') }}"
+                                    class="flex items-center px-4 py-3 text-slate-500 rounded-2xl transition-all duration-300 group hover:bg-slate-50">
+                                    <div
+                                        class="p-2 bg-slate-50 rounded-lg group-hover:bg-white group-hover:shadow-md group-hover:shadow-blue-100 transition-all duration-300">
+                                        <svg class="w-5 h-5 text-slate-400 group-hover:text-blue-500 transition-colors"
+                                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                                        </svg>
+                                    </div>
+                                    <span class="ms-3 font-bold text-sm group-hover:text-slate-800 transition-colors">Pasien
+                                        Dashboard</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="{{ route('ShowAntreanPasien') }}"
+                                    class="flex items-center px-4 py-3 text-slate-500 rounded-2xl transition-all duration-300 group hover:bg-slate-50">
+                                    <div
+                                        class="p-2 bg-slate-50 rounded-lg group-hover:bg-white group-hover:shadow-md group-hover:shadow-teal-100 transition-all duration-300">
+                                        <svg class="w-5 h-5 text-slate-400 group-hover:text-teal-500 transition-colors"
+                                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                        </svg>
+                                    </div>
+                                    <span
+                                        class="flex-1 ms-3 font-bold text-sm whitespace-nowrap group-hover:text-slate-800 transition-colors">Ambil
+                                        Antrean
+                                    </span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="{{ route('ShowRekamMedisPasien') }}"
+                                    class="flex items-center px-4 py-3 text-slate-500 rounded-2xl transition-all duration-300 group hover:bg-slate-50">
+                                    <div
+                                        class="p-2 bg-slate-50 rounded-lg group-hover:bg-white group-hover:shadow-md group-hover:shadow-blue-100 transition-all duration-300">
+                                        <svg class="w-5 h-5 text-slate-400 group-hover:text-blue-500 transition-colors"
+                                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                                        </svg>
+                                    </div>
+                                    <span
+                                        class="flex-1 ms-3 font-bold text-sm whitespace-nowrap group-hover:text-slate-800 transition-colors">
+                                        Rekam Medis</span>
+                                </a>
+                            </li>
+                        @endif
+                    @endauth
                 </ul>
             </div>
             {{-- Bagian Menu Utama End --}}
@@ -123,21 +248,24 @@
             <div class="pt-4 mt-auto border-t border-slate-100 pb-2">
                 <ul class="font-medium">
                     <li>
-                        <a href="{{ route('ShowLogin') }}"
-                            class="flex items-center px-4 py-3 text-red-500 rounded-2xl transition-all duration-300 group hover:bg-red-50">
-                            <div
-                                class="p-2 bg-red-50/50 rounded-lg group-hover:bg-white group-hover:shadow-md group-hover:shadow-red-100 transition-all duration-300">
-                                <svg class="shrink-0 w-5 h-5 text-red-400 transition duration-75" fill="none"
-                                    stroke="currentColor" width="24" height="24" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2" />
-                                </svg>
-                            </div>
-                            <span
-                                class="flex-1 ms-3 font-bold whitespace-nowrap text-sm uppercase tracking-wider group-hover:text-red-600">
-                                Sign Out
-                            </span>
-                        </a>
+                        <form action="{{ route('logout') }}" method="POST" id="logout-form">
+                            @csrf
+                            <button type="submit"
+                                class="w-full flex items-center px-4 py-3 text-red-500 rounded-2xl transition-all duration-300 group hover:bg-red-50 cursor-pointer">
+                                <div
+                                    class="p-2 bg-red-50/50 rounded-lg group-hover:bg-white group-hover:shadow-md group-hover:shadow-red-100 transition-all duration-300">
+                                    <svg class="shrink-0 w-5 h-5 text-red-400 transition duration-75" fill="none"
+                                        stroke="currentColor" width="24" height="24" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2" />
+                                    </svg>
+                                </div>
+                                <span
+                                    class="flex-1 ms-3 font-bold whitespace-nowrap text-sm uppercase tracking-wider group-hover:text-red-600 text-left">
+                                    Sign Out
+                                </span>
+                            </button>
+                        </form>
                     </li>
                 </ul>
             </div>

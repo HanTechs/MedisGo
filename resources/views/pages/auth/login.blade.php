@@ -26,7 +26,7 @@
         <div class="space-y-8 md:space-y-12 text-center lg:text-left">
             {{-- Logo --}}
             <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse group">
-                <img src="/images/logo.png"
+                <img src="{{ asset('images/logo.png') }}"
                     class="h-8 sm:h-10 md:h-12 w-auto transform scale-150 m-0 transition-transform duration-300 group-hover:scale-[1.7]"
                     alt="MedisGo Logo" />
                 <span
@@ -64,16 +64,30 @@
                         layanan MedisGo.</p>
                 </div>
 
+                {{-- Pesan Error / Sukses Start --}}
+                @if ($errors->any())
+                    <div class="mb-6 p-4 bg-red-50 text-red-600 rounded-2xl border border-red-100 font-bold text-xs">
+                        {{ $errors->first() }}
+                    </div>
+                @endif
+                @if (session('success'))
+                    <div class="mb-6 p-4 bg-emerald-50 text-emerald-600 rounded-2xl border border-emerald-100 font-bold text-xs">
+                        {{ session('success') }}
+                    </div>
+                @endif
+                {{-- Pesan Error / Sukses End --}}
+
                 {{-- Form Login Start --}}
-                <form action="#" method="POST" class="space-y-6 md:space-y-8">
+                <form id="loginForm" action="#" method="POST" class="space-y-6 md:space-y-8">
                     @csrf
                     <div class="group space-y-2">
                         <label
                             class="text-xs font-bold uppercase tracking-widest text-formal-secondary block text-left transition-colors group-focus-within:text-formal-accent">EMAIL</label>
                         <div class="relative">
-                            <input type="email" name="email" placeholder="admin@medisgo.com" required
+                            <input type="email" id="email" name="email" placeholder="admin@medisgo.com" required
                                 class="w-full px-6 py-4 bg-slate-50 rounded-xl border border-slate-100 outline-none transition-all font-semibold text-formal-primary text-base focus:border-formal-accent focus:bg-white focus:ring-4 focus:ring-cyan-50 placeholder:text-slate-300">
                         </div>
+                        <p id="email-error" class="text-xs text-red-500 font-semibold text-left hidden mt-1"></p>
                     </div>
 
                     <div class="group space-y-2">
@@ -85,9 +99,10 @@
                                 Password?</a>
                         </div>
                         <div class="relative">
-                            <input type="password" name="password" placeholder="••••••••" required
+                            <input type="password" id="password" name="password" placeholder="••••••••" required
                                 class="w-full px-6 py-4 bg-slate-50 rounded-xl border border-slate-100 outline-none transition-all font-semibold text-formal-primary text-base focus:border-formal-accent focus:bg-white focus:ring-4 focus:ring-cyan-50 placeholder:text-slate-300">
                         </div>
+                        <p id="password-error" class="text-xs text-red-500 font-semibold text-left hidden mt-1"></p>
                     </div>
 
                     <div class="pt-4">
@@ -113,6 +128,95 @@
         {{-- Bagian Kanan: Card Form Login End --}}
     </main>
     {{-- Kontainer Utama End --}}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('loginForm');
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+
+            const emailError = document.getElementById('email-error');
+            const passwordError = document.getElementById('password-error');
+
+            const validateField = async (fieldName, value) => {
+                try {
+                    const response = await fetch('{{ route("validate.login") }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            field: fieldName,
+                            [fieldName]: value
+                        })
+                    });
+
+                    const data = await response.json();
+
+                    if (!data.success) {
+                        showError(fieldName, data.errors[fieldName][0]);
+                        return false;
+                    } else {
+                        hideError(fieldName);
+                        return true;
+                    }
+                } catch (error) {
+                    console.error('Validation error:', error);
+                    return true;
+                }
+            };
+
+            const showError = (field, message) => {
+                const errorElement = document.getElementById(`${field}-error`);
+                const inputElement = document.getElementById(field);
+                if (errorElement && inputElement) {
+                    errorElement.textContent = message;
+                    errorElement.classList.remove('hidden');
+                    inputElement.classList.add('border-red-500', 'focus:border-red-500', 'focus:ring-red-50');
+                    inputElement.classList.remove('border-slate-100', 'focus:border-formal-accent', 'focus:ring-cyan-50');
+                }
+            };
+
+            const hideError = (field) => {
+                const errorElement = document.getElementById(`${field}-error`);
+                const inputElement = document.getElementById(field);
+                if (errorElement && inputElement) {
+                    errorElement.classList.add('hidden');
+                    inputElement.classList.remove('border-red-500', 'focus:border-red-500', 'focus:ring-red-50');
+                    inputElement.classList.add('border-slate-100', 'focus:border-formal-accent', 'focus:ring-cyan-50');
+                }
+            };
+
+            // Event listeners for real-time validation on blur (when user leaves input)
+            emailInput.addEventListener('blur', () => {
+                if (emailInput.value.trim() !== '') {
+                    validateField('email', emailInput.value);
+                }
+            });
+
+            passwordInput.addEventListener('blur', () => {
+                if (passwordInput.value.trim() !== '') {
+                    validateField('password', passwordInput.value);
+                }
+            });
+
+            // Validate entire form on submit before posting to login
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                // Validate both fields
+                const isEmailValid = await validateField('email', emailInput.value);
+                const isPasswordValid = await validateField('password', passwordInput.value);
+
+                if (isEmailValid && isPasswordValid) {
+                    // Submit the form normally if validation succeeds
+                    form.submit();
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
