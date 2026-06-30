@@ -12,7 +12,7 @@ class IsDokter
     public function handle(Request $request, Closure $next): Response
     {
         if (!Auth::check() || Auth::user()->role !== 'dokter') {
-            abort(403, 'Unauthorized action.');
+            abort(403, 'Unauthorized action');
         }
 
         return $next($request);
