@@ -17,6 +17,15 @@ class JadwalResourceController extends Controller
     // Menyimpan data jadwal baru
     public function store(Request $request)
     {
+        $request->validate([
+            'id_user' => 'required|exists:dokter,id_user',
+            'hari_mulai' => 'required|string',
+            'hari_selesai' => 'required|string',
+            'jam_mulai' => 'required|string',
+            'jam_selesai' => 'required|string',
+            'kuota_maksimal' => 'required|integer|min:1',
+        ]);
+
         $jadwal = new Jadwal;
         $jadwal->id_user = $request->input('id_user');
         $jadwal->hari_mulai = $request->input('hari_mulai');
@@ -32,6 +41,15 @@ class JadwalResourceController extends Controller
     // Memperbarui data jadwal yang sudah ada
     public function update(Request $request, string $id)
     {
+        $request->validate([
+            'id_user' => 'required|exists:dokter,id_user',
+            'hari_mulai' => 'required|string',
+            'hari_selesai' => 'required|string',
+            'jam_mulai' => 'required|string',
+            'jam_selesai' => 'required|string',
+            'kuota_maksimal' => 'required|integer|min:1',
+        ]);
+
         $jadwal = Jadwal::find($id);
         if ($jadwal) {
             $jadwal->id_user = $request->input('id_user');

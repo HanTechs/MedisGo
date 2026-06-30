@@ -79,12 +79,12 @@ test('pasien can register for queue and get queue number', function () {
     ]);
 });
 
-test('pasien cannot register twice for same schedule on same day', function () {
+test('pasien cannot register twice on same day', function () {
     // First registration
     Pendaftaran::create([
         'id_user' => $this->pasienUser->id_user,
         'id_jadwal' => $this->jadwal->id_jadwal,
-        'tgl_pendaftaran' => now()->toDateString(),
+        'tgl_pendaftaran' => Pendaftaran::getActiveDate(),
         'no_antrean' => 1,
         'keluhan' => 'Sakit perut',
         'status_periksa' => 'Belum Diperiksa',
@@ -98,7 +98,7 @@ test('pasien cannot register twice for same schedule on same day', function () {
     ]);
 
     $response->assertRedirect();
-    $response->assertSessionHas('error', 'Anda sudah terdaftar di jadwal ini untuk hari ini.');
+    $response->assertSessionHas('error', 'Anda hanya dapat mengambil antrean sekali dalam sehari. Silakan coba lagi besok setelah jam 07.00.');
 
     // Assert that only 1 record exists
     $this->assertEquals(1, Pendaftaran::where('id_user', $this->pasienUser->id_user)->count());

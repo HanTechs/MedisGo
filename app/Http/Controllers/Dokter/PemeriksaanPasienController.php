@@ -18,7 +18,7 @@ class PemeriksaanPasienController extends Controller
 
         if (!$idPendaftaran) {
             // Jika tidak ada ID pendaftaran, cari yang pertama kali 'Belum Diperiksa' atau 'Sedang Diperiksa' hari ini untuk dokter ini
-            $today = now()->toDateString();
+            $today = Pendaftaran::getActiveDate();
             
             $pendaftaran = Pendaftaran::whereHas('jadwal', function ($q) use ($doctorId) {
                 $q->where('id_user', $doctorId);

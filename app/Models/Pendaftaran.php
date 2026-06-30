@@ -12,6 +12,13 @@ class Pendaftaran extends Model
     protected $table = 'pendaftaran';
     protected $primaryKey = 'id_pendaftaran';
 
+
+    public static function getActiveDate()
+    {
+        $now = now('Asia/Jakarta');
+        return $now->hour >= 7 ? $now->toDateString() : $now->subDay()->toDateString();
+    }
+
     protected $fillable = [
         'id_user',
         'id_jadwal',

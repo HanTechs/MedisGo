@@ -7,7 +7,6 @@ use App\Http\Controllers\Admin\JadwalResourceController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Pasien\AntreanController;
 use App\Http\Controllers\View\ViewController;
-use App\Http\Controllers\Validation\ValidationController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -26,14 +25,12 @@ Route::controller(ViewController::class)->group(function () {
 });
 
 Route::controller(AuthController::class)->group(function () {
-    Route::post('/login', 'login');
+    Route::post('/login', 'login')->name('login');
     Route::post('/logout', 'logout')->name('logout');
     Route::post('/daftar', 'register')->name('Register');
     Route::post('/lupa', 'sendResetLinkEmail')->name('password.email');
     Route::post('/reset', 'resetPassword')->name('password.update');
 });
-
-Route::post('/validate/login', [ValidationController::class, 'validateLogin'])->name('validate.login');
 
 
 // Route Admin

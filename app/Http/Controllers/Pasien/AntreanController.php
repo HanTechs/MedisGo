@@ -27,8 +27,19 @@ class AntreanController extends Controller
         // Sederhananya, ambil semua jadwal yang aktif
         $listJadwal = Jadwal::with('dokter.user')->get();
 
+        $userId = Auth::id();
+        $activeDate = Pendaftaran::getActiveDate();
+        $sudahAmbilAntrean = false;
+
+        if ($userId) {
+            $sudahAmbilAntrean = Pendaftaran::where('id_user', $userId)
+                ->where('tgl_pendaftaran', $activeDate)
+                ->exists();
+        }
+
         return [
-            'listJadwal' => $listJadwal
+            'listJadwal' => $listJadwal,
+            'sudahAmbilAntrean' => $sudahAmbilAntrean
         ];
     }
 
@@ -40,27 +51,26 @@ class AntreanController extends Controller
         ]);
 
         $userId = Auth::id();
-        $today = now()->toDateString();
+        $activeDate = Pendaftaran::getActiveDate();
 
-        // Cek apakah sudah daftar di jadwal yang sama hari ini
+        // Cek apakah sudah mengambil antrean pada siklus hari ini
         $existing = Pendaftaran::where('id_user', $userId)
-            ->where('id_jadwal', $request->id_jadwal)
-            ->where('tgl_pendaftaran', $today)
+            ->where('tgl_pendaftaran', $activeDate)
             ->first();
 
         if ($existing) {
-            return redirect()->back()->with('error', 'Anda sudah terdaftar di jadwal ini untuk hari ini.');
+            return redirect()->back()->with('error', 'Anda hanya dapat mengambil antrean sekali dalam sehari. Silakan coba lagi besok setelah jam 07.00.');
         }
 
         // Hitung nomor antrean
         $lastAntrean = Pendaftaran::where('id_jadwal', $request->id_jadwal)
-            ->where('tgl_pendaftaran', $today)
+            ->where('tgl_pendaftaran', $activeDate)
             ->max('no_antrean') ?? 0;
 
         $pendaftaran = new Pendaftaran();
         $pendaftaran->id_user = $userId;
         $pendaftaran->id_jadwal = $request->id_jadwal;
-        $pendaftaran->tgl_pendaftaran = $today;
+        $pendaftaran->tgl_pendaftaran = $activeDate;
         $pendaftaran->no_antrean = $lastAntrean + 1;
         $pendaftaran->keluhan = $request->keluhan;
         $pendaftaran->status_periksa = 'Belum Diperiksa';

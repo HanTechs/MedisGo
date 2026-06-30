@@ -3,11 +3,15 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Dokter;
+use App\Models\Pasien;
+use App\Models\User;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
-use App\Models\Pasien;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -82,7 +86,7 @@ class AuthController extends Controller
 
     public function updateSettings(Request $request)
     {
-        $user = auth()->user();
+        $user = Auth::user();
 
         $rules = [
             'nama' => 'required|string|max:100',
@@ -137,7 +141,7 @@ class AuthController extends Controller
         } elseif ($user->role === 'dokter') {
             $dokter = $user->dokter;
             if (!$dokter) {
-                $dokter = new \App\Models\Dokter(['id_user' => $user->id_user]);
+                $dokter = new Dokter(['id_user' => $user->id_user]);
             }
             $dokter->fill([
                 'spesialis' => $request->spesialis,
@@ -156,11 +160,11 @@ class AuthController extends Controller
             'email.exists' => 'Email tidak terdaftar dalam sistem.',
         ]);
 
-        $status = \Illuminate\Support\Facades\Password::sendResetLink(
+        $status = Password::sendResetLink(
             $request->only('email')
         );
 
-        if ($status === \Illuminate\Support\Facades\Password::RESET_LINK_SENT) {
+        if ($status === Password::RESET_LINK_SENT) {
             return back()->with('success', 'Link atur ulang kata sandi telah dikirim ke email Anda!');
         }
 
@@ -175,20 +179,20 @@ class AuthController extends Controller
             'password' => 'required|min:8|confirmed',
         ]);
 
-        $status = \Illuminate\Support\Facades\Password::reset(
+        $status = Password::reset(
             $request->only('email', 'password', 'password_confirmation', 'token'),
             function ($user, $password) {
                 $user->forceFill([
                     'password' => Hash::make($password)
-                ])->setRememberToken(\Illuminate\Support\Str::random(60));
+                ])->setRememberToken(Str::random(60));
 
                 $user->save();
 
-                event(new \Illuminate\Auth\Events\PasswordReset($user));
+                event(new PasswordReset($user));
             }
         );
 
-        if ($status === \Illuminate\Support\Facades\Password::PASSWORD_RESET) {
+        if ($status === Password::PASSWORD_RESET) {
             return redirect()->route('ShowLogin')->with('success', 'Kata sandi Anda berhasil diperbarui! Silakan login.');
         }
 

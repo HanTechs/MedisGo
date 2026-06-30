@@ -6,6 +6,10 @@
         isOpenEditModal: false,
         isOpenDeleteModal: false,
         deleteId: '',
+        jam_mulai_hour: '08',
+        jam_mulai_minute: '00',
+        jam_selesai_hour: '16',
+        jam_selesai_minute: '00',
         editData: {
             id: '',
             id_user: '',
@@ -22,11 +26,15 @@
                 id_user: '',
                 hari_mulai: 'Senin',
                 hari_selesai: 'Jumat',
-                jam_mulai: '',
-                jam_selesai: '',
+                jam_mulai: '08:00',
+                jam_selesai: '16:00',
                 kuota_maksimal: '',
                 action: '{{ route('tambahJadwalAdmin') }}'
             };
+            this.jam_mulai_hour = '08';
+            this.jam_mulai_minute = '00';
+            this.jam_selesai_hour = '16';
+            this.jam_selesai_minute = '00';
             this.isOpenTambahModal = true;
         },
         openEdit(jadwal) {
@@ -40,6 +48,14 @@
                 kuota_maksimal: jadwal.kuota_maksimal,
                 action: '{{ route('UpdateJadwalAdmin', ':id') }}'.replace(':id', jadwal.id_jadwal)
             };
+            let jamMulaiParts = (jadwal.jam_mulai || '08:00').split(':');
+            this.jam_mulai_hour = jamMulaiParts[0].padStart(2, '0');
+            this.jam_mulai_minute = (jamMulaiParts[1] || '00').substring(0, 2);
+
+            let jamSelesaiParts = (jadwal.jam_selesai || '16:00').split(':');
+            this.jam_selesai_hour = jamSelesaiParts[0].padStart(2, '0');
+            this.jam_selesai_minute = (jamSelesaiParts[1] || '00').substring(0, 2);
+
             this.isOpenEditModal = true;
         }
     }">
@@ -63,12 +79,10 @@
                         </svg>
                     </div>
                     <h2 class="text-3xl font-black text-formal-primary tracking-tight">Kelola <span
-                            class="text-formal-primary italic">Jadwal</span>
-                    </h2>
+                            class="text-formal-primary italic">Jadwal</span></h2>
                 </div>
                 <p class="text-formal-secondary font-medium ml-12">Atur hari dan jam praktik dokter spesialis secara
-                    efisien.
-                </p>
+                    efisien.</p>
             </div>
 
             <button @click.stop="openTambah()"
@@ -96,10 +110,9 @@
                 <table class="w-full text-left border-collapse">
                     <thead>
                         <tr class="bg-slate-50/50">
-                            <th class="px-8 py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">ID
+                            <th class="px-8 py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">ID</th>
+                            <th class="px-8 py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Dokter
                             </th>
-                            <th class="px-8 py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">
-                                Dokter</th>
                             <th class="px-8 py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Hari
                                 Praktik</th>
                             <th class="px-8 py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Jam /
@@ -121,9 +134,11 @@
                                 <td class="px-8 py-6">
                                     <p
                                         class="font-bold text-formal-primary group-hover:text-formal-accent transition-colors">
-                                        {{ $jadwal->dokter->user->nama ?? 'Unknown' }}</p>
+                                        {{ $jadwal->dokter->user->nama ?? 'Unknown' }}
+                                    </p>
                                     <p class="text-[10px] text-slate-400 font-medium tracking-widest">
-                                        {{ $jadwal->dokter->spesialis ?? '-' }}</p>
+                                        {{ $jadwal->dokter->spesialis ?? '-' }}
+                                    </p>
                                 </td>
                                 <td class="px-8 py-6">
                                     <span
@@ -133,11 +148,14 @@
                                 </td>
                                 <td class="px-8 py-6">
                                     <p class="text-sm font-bold text-slate-600">
-                                        {{ \Carbon\Carbon::parse($jadwal->jam_mulai)->format('H.i') }} -
-                                        {{ \Carbon\Carbon::parse($jadwal->jam_selesai)->format('H.i') }} WIB</p>
-                                    <p class="text-[10px] text-slate-400 font-black uppercase tracking-widest">Kuota:
-                                        {{ $jadwal->kuota_maksimal }}
-                                        Pasien</p>
+                                        {{ \Carbon\Carbon::parse($jadwal->jam_mulai)->format('H:i') }}
+                                        -
+                                        {{ \Carbon\Carbon::parse($jadwal->jam_selesai)->format('H:i') }}
+                                        WIB
+                                    </p>
+                                    <p class="text-[10px] text-slate-400 font-black uppercase tracking-widest">
+                                        Kuota: {{ $jadwal->kuota_maksimal }} Pasien
+                                    </p>
                                 </td>
                                 <td class="px-8 py-6">
                                     <div class="flex justify-center gap-3">
@@ -157,154 +175,187 @@
                                         </button>
                                     </div>
                                 </td>
-                                </tr>
-                                @endforeach
-                                </tbody>
-                                </table>
-                                </div>
-                                </div>
-                                {{-- Kontainer Tabel End --}}
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {{-- Kontainer Tabel End --}}
 
-                                {{-- Modal Konfirmasi Hapus Start --}}
-                                <div x-cloak x-show="isOpenDeleteModal" x-transition:enter="transition ease-out duration-300"
-                                x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
-                                x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100"
-                                x-transition:leave-end="opacity-0" class="fixed inset-0 z-[100] overflow-y-auto">
-                                {{-- Overlay --}}
-                                <div class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm" @click="isOpenDeleteModal = false"></div>
+        {{-- Modal Konfirmasi Hapus Start --}}
+        <div x-cloak x-show="isOpenDeleteModal" x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+            x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0" class="fixed inset-0 z-[100] overflow-y-auto">
+            {{-- Overlay --}}
+            <div class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm" @click="isOpenDeleteModal = false"></div>
 
-                                <div class="flex min-h-full items-center justify-center p-4">
-                                <div class="relative bg-white w-full max-w-sm rounded-[3rem] p-10 shadow-2xl text-center">
-                                <div
-                                class="w-20 h-20 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner animate-bounce">
-                                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            <div class="flex min-h-full items-center justify-center p-4">
+                <div class="relative bg-white w-full max-w-sm rounded-[3rem] p-10 shadow-2xl text-center">
+                    <div
+                        class="w-20 h-20 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner animate-bounce">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                                </svg>
-                                </div>
-                                <h3 class="text-2xl font-black text-slate-900 mb-2">Hapus Jadwal?</h3>
-                                <p class="text-slate-500 text-sm font-medium mb-8">Jadwal yang dihapus akan membatalkan sesi praktik
-                                dokter terkait.</p>
-                                <div class="flex gap-3">
-                                <button @click="isOpenDeleteModal = false"
-                                class="flex-1 py-4 bg-slate-100 text-slate-600 font-black rounded-2xl uppercase text-[10px] tracking-widest hover:bg-slate-200 transition-colors">Batal</button>
-                                <form :action="'{{ url('admin/jadwals') }}/' + deleteId" method="POST" class="flex-1">
-                                @csrf @method('DELETE')
-                                <button type="submit"
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-black text-slate-900 mb-2">Hapus Jadwal?</h3>
+                    <p class="text-slate-500 text-sm font-medium mb-8">Jadwal yang dihapus akan membatalkan sesi praktik
+                        dokter terkait.</p>
+                    <div class="flex gap-3">
+                        <button @click="isOpenDeleteModal = false"
+                            class="flex-1 py-4 bg-slate-100 text-slate-600 font-black rounded-2xl uppercase text-[10px] tracking-widest hover:bg-slate-200 transition-colors">Batal</button>
+                        <form :action="'{{ url('admin/jadwals') }}/' + deleteId" method="POST" class="flex-1">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit"
                                 class="w-full py-4 bg-red-600 text-white font-black rounded-2xl uppercase text-[10px] tracking-widest shadow-lg shadow-red-200 hover:brightness-110 transition-all">Hapus</button>
-                                </form>
-                                </div>
-                                </div>
-                                </div>
-                                </div>
-                                {{-- Modal Konfirmasi Hapus End --}}
-
-                                {{-- Modal Tambah/Edit Jadwal Start --}}
-                                <div x-cloak x-show="isOpenTambahModal || isOpenEditModal" x-transition:enter="transition ease-out duration-300"
-                                x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
-                                x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100"
-                                x-transition:leave-end="opacity-0 scale-95" class="fixed inset-0 z-[100] overflow-y-auto">
-                                {{-- Overlay --}}
-                                <div class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm"
-                                @click="isOpenTambahModal = false; isOpenEditModal = false"></div>
-
-                                <div class="flex min-h-full items-center justify-center p-4">
-                                <div class="relative bg-white w-full max-w-lg rounded-[3rem] p-12 shadow-2xl overflow-hidden">
-                                <div class="absolute top-0 right-0 w-32 h-32 bg-cyan-50 rounded-full -mr-16 -mt-16">
-                                </div>
-
-                                <h3 class="text-3xl font-black text-formal-primary mb-8 tracking-tight italic">
-                                <span x-show="isOpenTambahModal">Atur Jadwal</span>
-                                <span x-show="isOpenEditModal">Edit Jadwal</span>
-                                <span class="text-formal-accent">Dokter</span>
-                                </h3>
-
-                                <form :action="editData.action" method="POST" class="space-y-6">
-                    @csrf
-                    <template x-if="isOpenEditModal">
-                        @method('PUT')
-                    </template>
-                    <div class="space-y-2">
-                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Pilih
-                            Dokter</label>
-                        <select name="id_user" x-model="editData.id_user"
-                            class="w-full p-4 bg-slate-50 border-2 border-transparent focus:border-formal-accent focus:bg-white focus:ring-0 rounded-2xl text-sm font-bold transition-all appearance-none">
-                            <option value="">Pilih Tenaga Medis</option>
-                            @foreach ($listDokter as $user)
-                                <option value="{{ $user->id_user }}">{{ $user->nama }}
-                                    ({{ $user->dokter->spesialis ?? 'Umum' }})
-                                </option>
-                            @endforeach
-                        </select>
+                        </form>
                     </div>
+                </div>
+            </div>
+        </div>
+        {{-- Modal Konfirmasi Hapus End --}}
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {{-- Modal Tambah/Edit Jadwal Start --}}
+        <div x-cloak x-show="isOpenTambahModal || isOpenEditModal" x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+            x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100"
+            x-transition:leave-end="opacity-0 scale-95" class="fixed inset-0 z-[100] overflow-y-auto">
+            {{-- Overlay --}}
+            <div class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm"
+                @click="isOpenTambahModal = false; isOpenEditModal = false"></div>
+
+            <div class="flex min-h-full items-center justify-center p-4">
+                <div class="relative bg-white w-full max-w-lg rounded-[3rem] p-12 shadow-2xl overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-cyan-50 rounded-full -mr-16 -mt-16"></div>
+
+                    <h3 class="text-3xl font-black text-formal-primary mb-8 tracking-tight italic">
+                        <span x-show="isOpenTambahModal">Atur Jadwal</span>
+                        <span x-show="isOpenEditModal">Edit Jadwal</span>
+                        <span class="text-formal-accent">Dokter</span>
+                    </h3>
+
+                    <form :action="editData.action" method="POST" class="space-y-6">
+                        @csrf
+                        <template x-if="isOpenEditModal">
+                            @method('PUT')
+                        </template>
+
                         <div class="space-y-2">
-                            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Hari
-                                Mulai</label>
-                            <select name="hari_mulai" x-model="editData.hari_mulai"
-                                class="w-full p-4 bg-slate-50 border-2 border-transparent focus:border-formal-accent focus:bg-white focus:ring-0 rounded-2xl text-sm font-bold transition-all appearance-none">
-                                <option value="Senin">Senin</option>
-                                <option value="Selasa">Selasa</option>
-                                <option value="Rabu">Rabu</option>
-                                <option value="Kamis">Kamis</option>
-                                <option value="Jumat">Jumat</option>
-                                <option value="Sabtu">Sabtu</option>
-                                <option value="Minggu">Minggu</option>
+                            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Pilih
+                                Dokter</label>
+                            <select name="id_user" x-model="editData.id_user"
+                                class="w-full p-4 bg-slate-50 border-2 border-transparent focus:border-formal-accent focus:bg-white focus:ring-0 rounded-2xl text-sm font-bold transition-all appearance-none"
+                                required>
+                                <option value="">Pilih Tenaga Medis</option>
+                                @foreach ($listDokter as $user)
+                                    <option value="{{ $user->id_user }}">{{ $user->nama }}
+                                        ({{ $user->dokter->spesialis ?? 'Umum' }})
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
-                        <div class="space-y-2">
-                            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Hari
-                                Selesai</label>
-                            <select name="hari_selesai" x-model="editData.hari_selesai"
-                                class="w-full p-4 bg-slate-50 border-2 border-transparent focus:border-formal-accent focus:bg-white focus:ring-0 rounded-2xl text-sm font-bold transition-all appearance-none">
-                                <option value="Senin">Senin</option>
-                                <option value="Selasa">Selasa</option>
-                                <option value="Rabu">Rabu</option>
-                                <option value="Kamis">Kamis</option>
-                                <option value="Jumat">Jumat</option>
-                                <option value="Sabtu">Sabtu</option>
-                                <option value="Minggu">Minggu</option>
-                            </select>
-                        </div>
-                    </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Hari
+                                    Mulai</label>
+                                <select name="hari_mulai" x-model="editData.hari_mulai"
+                                    class="w-full p-4 bg-slate-50 border-2 border-transparent focus:border-formal-accent focus:bg-white focus:ring-0 rounded-2xl text-sm font-bold transition-all appearance-none">
+                                    <option value="Senin">Senin</option>
+                                    <option value="Selasa">Selasa</option>
+                                    <option value="Rabu">Rabu</option>
+                                    <option value="Kamis">Kamis</option>
+                                    <option value="Jumat">Jumat</option>
+                                    <option value="Sabtu">Sabtu</option>
+                                    <option value="Minggu">Minggu</option>
+                                </select>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Hari
+                                    Selesai</label>
+                                <select name="hari_selesai" x-model="editData.hari_selesai"
+                                    class="w-full p-4 bg-slate-50 border-2 border-transparent focus:border-formal-accent focus:bg-white focus:ring-0 rounded-2xl text-sm font-bold transition-all appearance-none">
+                                    <option value="Senin">Senin</option>
+                                    <option value="Selasa">Selasa</option>
+                                    <option value="Rabu">Rabu</option>
+                                    <option value="Kamis">Kamis</option>
+                                    <option value="Jumat">Jumat</option>
+                                    <option value="Sabtu">Sabtu</option>
+                                    <option value="Minggu">Minggu</option>
+                                </select>
+                            </div>
+                        </div>
+
+                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Jam
+                                    Mulai</label>
+                                <div class="flex items-center gap-2">
+                                    <select x-model="jam_mulai_hour"
+                                        class="flex-1 p-4 bg-slate-50 border-2 border-transparent focus:border-formal-accent focus:bg-white focus:ring-0 rounded-2xl text-sm font-bold transition-all appearance-none text-center">
+                                        @for ($i = 0; $i < 24; $i++)
+                                            @php $h = str_pad($i, 2, '0', STR_PAD_LEFT); @endphp
+                                            <option value="{{ $h }}">{{ $h }}</option>
+                                        @endfor
+                                    </select>
+                                    <span class="font-bold text-slate-400">:</span>
+                                    <select x-model="jam_mulai_minute"
+                                        class="flex-1 p-4 bg-slate-50 border-2 border-transparent focus:border-formal-accent focus:bg-white focus:ring-0 rounded-2xl text-sm font-bold transition-all appearance-none text-center">
+                                        @for ($i = 0; $i < 60; $i++)
+                                            @php $m = str_pad($i, 2, '0', STR_PAD_LEFT); @endphp
+                                            <option value="{{ $m }}">{{ $m }}</option>
+                                        @endfor
+                                    </select>
+                                </div>
+                                <input type="hidden" name="jam_mulai" :value="jam_mulai_hour + ':' + jam_mulai_minute">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Jam
+                                    Selesai</label>
+                                <div class="flex items-center gap-2">
+                                    <select x-model="jam_selesai_hour"
+                                        class="flex-1 p-4 bg-slate-50 border-2 border-transparent focus:border-formal-accent focus:bg-white focus:ring-0 rounded-2xl text-sm font-bold transition-all appearance-none text-center">
+                                        @for ($i = 0; $i < 24; $i++)
+                                            @php $h = str_pad($i, 2, '0', STR_PAD_LEFT); @endphp
+                                            <option value="{{ $h }}">{{ $h }}</option>
+                                        @endfor
+                                    </select>
+                                    <span class="font-bold text-slate-400">:</span>
+                                    <select x-model="jam_selesai_minute"
+                                        class="flex-1 p-4 bg-slate-50 border-2 border-transparent focus:border-formal-accent focus:bg-white focus:ring-0 rounded-2xl text-sm font-bold transition-all appearance-none text-center">
+                                        @for ($i = 0; $i < 60; $i++)
+                                            @php $m = str_pad($i, 2, '0', STR_PAD_LEFT); @endphp
+                                            <option value="{{ $m }}">{{ $m }}</option>
+                                        @endfor
+                                    </select>
+                                </div>
+                                <input type="hidden" name="jam_selesai" :value="jam_selesai_hour + ':' + jam_selesai_minute">
+                            </div>
+                        </div>
+
                         <div class="space-y-2">
-                            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Jam
-                                Mulai</label>
-                            <input type="time" name="jam_mulai" x-model="editData.jam_mulai"
+                            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Kuota
+                                Maksimal Pasien</label>
+                            <input type="number" name="kuota_maksimal" x-model="editData.kuota_maksimal"
+                                placeholder="Contoh: 20"
                                 class="w-full p-4 bg-slate-50 border-2 border-transparent focus:border-formal-accent focus:bg-white focus:ring-0 rounded-2xl text-sm font-bold transition-all"
                                 required>
                         </div>
-                        <div class="space-y-2">
-                            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Jam
-                                Selesai</label>
-                            <input type="time" name="jam_selesai" x-model="editData.jam_selesai"
-                                class="w-full p-4 bg-slate-50 border-2 border-transparent focus:border-formal-accent focus:bg-white focus:ring-0 rounded-2xl text-sm font-bold transition-all"
-                                required>
+
+                        <div class="flex gap-4 pt-4">
+                            <button type="button" @click="isOpenTambahModal = false; isOpenEditModal = false"
+                                class="flex-1 py-4 bg-slate-100 text-slate-600 font-black rounded-2xl uppercase text-[10px] tracking-[0.2em] hover:bg-slate-200 transition-colors">Batal</button>
+                            <button type="submit"
+                                class="flex-1 py-4 bg-formal-accent text-white font-black rounded-2xl uppercase text-[10px] tracking-[0.2em] shadow-xl shadow-cyan-100 hover:bg-cyan-700 transition-all">
+                                <span x-show="isOpenTambahModal">Simpan Jadwal</span>
+                                <span x-show="isOpenEditModal">Simpan Perubahan</span>
+                            </button>
                         </div>
-                    </div>
-
-                    <div class="space-y-2">
-                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Kuota
-                            Maksimal Pasien</label>
-                        <input type="number" name="kuota_maksimal" x-model="editData.kuota_maksimal"
-                            placeholder="Contoh: 20"
-                            class="w-full p-4 bg-slate-50 border-2 border-transparent focus:border-formal-accent focus:bg-white focus:ring-0 rounded-2xl text-sm font-bold transition-all"
-                            required>
-                    </div>
-
-                    <div class="flex gap-4 pt-4">
-                        <button type="button" @click="isOpenTambahModal = false; isOpenEditModal = false"
-                            class="flex-1 py-4 bg-slate-100 text-slate-600 font-black rounded-2xl uppercase text-[10px] tracking-[0.2em] hover:bg-slate-200 transition-colors">Batal</button>
-                        <button type="submit"
-                            class="flex-1 py-4 bg-formal-accent text-white font-black rounded-2xl uppercase text-[10px] tracking-[0.2em] shadow-xl shadow-cyan-100 hover:bg-cyan-700 transition-all">
-                            <span x-show="isOpenTambahModal">Simpan Jadwal</span>
-                            <span x-show="isOpenEditModal">Simpan Perubahan</span>
-                        </button>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
         {{-- Modal Tambah/Edit Jadwal End --}}

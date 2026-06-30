@@ -12,7 +12,7 @@ class DokterDashboardController extends Controller
     public static function getDashboardStats()
     {
         $doctorId = Auth::id();
-        $today = now()->toDateString();
+        $today = Pendaftaran::getActiveDate();
 
         // Total pasien terdaftar hari ini untuk dokter ini
         $totalPasien = Pendaftaran::whereHas('jadwal', function ($q) use ($doctorId) {

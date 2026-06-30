@@ -12,7 +12,7 @@ class PasienDashboardController extends Controller
     public static function getDashboardStats()
     {
         $userId = Auth::id();
-        $today = now()->toDateString();
+        $today = Pendaftaran::getActiveDate();
 
         $totalKunjungan = Pendaftaran::where('id_user', $userId)->count();
         $antreanAktif = Pendaftaran::with(['jadwal.dokter.user'])

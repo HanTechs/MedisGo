@@ -27,8 +27,26 @@ class AdminDashboardController extends Controller
         ];
         $hariIni = $days[date('l')];
 
-        $totalJadwal = Jadwal::count();
-        $totalAntrean = Pendaftaran::whereDate('tgl_pendaftaran', now()->toDateString())->count();
+        $listHari = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
+        $hariMap = array_flip($listHari);
+        $t = $hariMap[$hariIni] ?? -1;
+
+        $totalJadwal = Jadwal::all()->filter(function ($jadwal) use ($hariMap, $t) {
+            $a = $hariMap[$jadwal->hari_mulai] ?? -1;
+            $b = $hariMap[$jadwal->hari_selesai] ?? -1;
+
+            if ($a === -1 || $b === -1 || $t === -1) {
+                return false;
+            }
+
+            if ($a <= $b) {
+                return $t >= $a && $t <= $b;
+            } else {
+                return $t >= $a || $t <= $b;
+            }
+        })->count();
+
+        $totalAntrean = Pendaftaran::whereDate('tgl_pendaftaran', Pendaftaran::getActiveDate())->count();
 
         $dokterBaru = User::where('role', 'dokter')
             ->where('created_at', '>=', now()->subDays(7))
