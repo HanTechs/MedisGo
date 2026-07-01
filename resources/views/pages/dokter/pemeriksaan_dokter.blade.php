@@ -40,7 +40,8 @@
                             </svg>
                         </div>
                         <h4 class="text-xl font-black text-formal-primary">{{ $pendaftaran->pasien->user->nama }}</h4>
-                        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mt-1">ID PASIEN: P-{{ str_pad($pendaftaran->pasien->id_user, 4, '0', STR_PAD_LEFT) }}</p>
+                        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mt-1">ID PASIEN:
+                            P-{{ str_pad($pendaftaran->pasien->id_user, 4, '0', STR_PAD_LEFT) }}</p>
                     </div>
 
                     <div class="space-y-4 border-t border-slate-50 pt-6">
@@ -50,11 +51,13 @@
                         </div>
                         <div class="flex justify-between">
                             <span class="text-[10px] font-black text-slate-400 uppercase">Gender</span>
-                            <span class="text-sm font-bold text-formal-secondary">{{ $pendaftaran->pasien->jenis_kelamin }}</span>
+                            <span
+                                class="text-sm font-bold text-formal-secondary">{{ $pendaftaran->pasien->jenis_kelamin }}</span>
                         </div>
                         <div class="flex justify-between">
                             <span class="text-[10px] font-black text-slate-400 uppercase">Tgl Lahir</span>
-                            <span class="text-sm font-bold text-formal-secondary">{{ date('d M Y', strtotime($pendaftaran->pasien->tgl_lahir)) }}</span>
+                            <span
+                                class="text-sm font-bold text-formal-secondary">{{ date('d M Y', strtotime($pendaftaran->pasien->tgl_lahir)) }}</span>
                         </div>
                     </div>
                 </div>
@@ -76,7 +79,7 @@
                 <div class="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm">
                     <h5 class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-6">Riwayat Terakhir</h5>
                     <div class="space-y-6">
-                        @if($riwayatTerakhir)
+                        @if ($riwayatTerakhir)
                             <div class="relative pl-6 border-l-2 border-formal-accent/20">
                                 <div
                                     class="absolute -left-[9px] top-0 w-4 h-4 bg-white border-2 border-formal-accent rounded-full">
@@ -85,10 +88,12 @@
                                     {{ date('d M Y', strtotime($riwayatTerakhir->tgl_periksa)) }}
                                 </p>
                                 <p class="text-sm font-bold text-formal-primary mt-1">{{ $riwayatTerakhir->diagnosa }}</p>
-                                <p class="text-xs text-slate-400 mt-1">Oleh: {{ $riwayatTerakhir->pendaftaran->jadwal->dokter->user->nama ?? '-' }}</p>
+                                <p class="text-xs text-slate-400 mt-1">Oleh:
+                                    {{ $riwayatTerakhir->pendaftaran->jadwal->dokter->user->nama ?? '-' }}</p>
                             </div>
                         @else
-                            <p class="text-sm font-medium text-slate-400 italic">Tidak ada riwayat pemeriksaan sebelumnya.</p>
+                            <p class="text-sm font-medium text-slate-400 italic">Tidak ada riwayat pemeriksaan sebelumnya.
+                            </p>
                         @endif
                     </div>
                 </div>
@@ -98,7 +103,8 @@
 
             {{-- Kolom Kanan: Form Rekam Medis Start --}}
             <div class="lg:col-span-2">
-                <form action="{{ route('SimpanPemeriksaanDokter') }}" method="POST" class="space-y-6" enctype="multipart/form-data">
+                <form action="{{ route('SimpanPemeriksaanDokter') }}" method="POST" class="space-y-6"
+                    enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="id_pendaftaran" value="{{ $pendaftaran->id_pendaftaran }}">
 
@@ -144,15 +150,6 @@
                                 </div>
                             </div>
 
-                            <!-- Tindakan / Terapi -->
-                            <div class="group">
-                                <label
-                                    class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-3 group-focus-within:text-formal-accent transition-colors">Tindakan / Terapi Medis</label>
-                                <textarea name="tindakan" rows="3"
-                                    placeholder="Contoh: Pemberian obat penurun panas, resep antibiotik, anjuran istirahat..."
-                                    class="w-full p-6 bg-slate-50 border-none rounded-2xl text-sm font-semibold text-formal-primary placeholder:text-slate-300 focus:ring-4 focus:ring-formal-accent/10 transition-all"></textarea>
-                            </div>
-
                             <!-- Unggah Resep Obat -->
                             <div class="space-y-4">
                                 <label
@@ -166,8 +163,10 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                                         </svg>
-                                        <p class="text-sm font-bold text-formal-primary mb-1">Klik atau seret resep ke sini</p>
-                                        <p class="text-[10px] text-slate-400 uppercase font-black tracking-widest">Maksimal 2MB (JPG, PNG, PDF)</p>
+                                        <p class="text-sm font-bold text-formal-primary mb-1">Klik atau seret resep ke sini
+                                        </p>
+                                        <p class="text-[10px] text-slate-400 uppercase font-black tracking-widest">Maksimal
+                                            2MB (JPG, PNG, PDF)</p>
                                         <input type="file" name="resep_obat"
                                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
                                     </div>
@@ -184,7 +183,8 @@
                                             d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
                                 </button>
-                                <p class="text-center text-[10px] text-slate-400 font-bold uppercase mt-4">Status antrean akan otomatis berubah menjadi "Selesai"</p>
+                                <p class="text-center text-[10px] text-slate-400 font-bold uppercase mt-4">Status antrean
+                                    akan otomatis berubah menjadi "Selesai"</p>
                             </div>
                         </div>
                     </div>

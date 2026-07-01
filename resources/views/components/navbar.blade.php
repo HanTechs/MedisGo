@@ -28,7 +28,7 @@
             {{-- Profil --}}
             <div class="relative">
                 <button @click="open = !open" type="button"
-                    class="flex text-sm bg-neutral-primary rounded-full focus:ring-4 focus:ring-blue-100 transition-all border border-formal-accent ">
+                    class="flex text-sm bg-neutral-primary rounded-full focus:ring-4 focus:ring-blue-100 transition-all border border-formal-accent cursor-pointer">
                     <span class="sr-only">Open user menu</span>
                     <img class="w-8 h-8 rounded-full" src="{{ asset('images/logo.png') }}" alt="user photo">
                 </button>
@@ -52,7 +52,7 @@
                                 @csrf
                                 <button type="submit"
                                     class="inline-flex items-center w-full p-2 hover:bg-danger-soft hover:text-danger-strong rounded-base text-left cursor-pointer">
-                                    Sign Out
+                                    Keluar
                                 </button>
                             </form>
                         </li>

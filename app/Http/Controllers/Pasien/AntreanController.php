@@ -12,7 +12,7 @@ class AntreanController extends Controller
 {
     public static function getAntreanPageData()
     {
-        // Ambil jadwal yang tersedia hari ini (atau bisa difilter sesuai hari aktif)
+        // Ambil jadwal yang tersedia hari ini (difilter sesuai hari aktif)
         $dayNames = [
             'Sunday' => 'Minggu',
             'Monday' => 'Senin',
@@ -22,10 +22,6 @@ class AntreanController extends Controller
             'Friday' => 'Jumat',
             'Saturday' => 'Sabtu'
         ];
-        $todayName = $dayNames[date('l')];
-
-        // Sederhananya, ambil semua jadwal yang aktif
-        $listJadwal = Jadwal::with('dokter.user')->get();
 
         $userId = Auth::id();
         $activeDate = Pendaftaran::getActiveDate();
@@ -36,6 +32,47 @@ class AntreanController extends Controller
                 ->where('tgl_pendaftaran', $activeDate)
                 ->exists();
         }
+
+        // Tentukan nama hari dari tanggal pendaftaran yang aktif
+        $todayName = $dayNames[date('l', strtotime($activeDate))];
+
+        $listHari = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
+        $hariMap = array_flip($listHari);
+        $t = $hariMap[$todayName] ?? -1;
+
+        $now = now('Asia/Jakarta');
+        $isTodayActive = $activeDate === $now->toDateString();
+        $currentTime = $now->toTimeString();
+
+        // Ambil semua jadwal, lalu filter berdasarkan hari aktif dan jam selesai
+        $listJadwal = Jadwal::with('dokter.user')->get()->filter(function ($jadwal) use ($hariMap, $t, $isTodayActive, $currentTime) {
+            $a = $hariMap[$jadwal->hari_mulai] ?? -1;
+            $b = $hariMap[$jadwal->hari_selesai] ?? -1;
+
+            if ($a === -1 || $b === -1 || $t === -1) {
+                return false;
+            }
+
+            // Cek apakah hari aktif masuk dalam rentang hari praktik dokter
+            $isDayMatch = false;
+            if ($a <= $b) {
+                $isDayMatch = $t >= $a && $t <= $b;
+            } else {
+                $isDayMatch = $t >= $a || $t <= $b;
+            }
+
+            if (!$isDayMatch) {
+                return false;
+            }
+
+            // Jika hari aktif adalah hari ini secara real-time, 
+            // sembunyikan jadwal jika jam selesai praktik sudah lewat
+            if ($isTodayActive && $currentTime > $jadwal->jam_selesai) {
+                return false;
+            }
+
+            return true;
+        })->values();
 
         return [
             'listJadwal' => $listJadwal,

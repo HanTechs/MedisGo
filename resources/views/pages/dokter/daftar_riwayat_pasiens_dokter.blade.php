@@ -11,7 +11,8 @@
         {{-- Bagian Header Start --}}
         <div class="mb-10 animate-in fade-in slide-in-from-top-4 duration-700">
             <h2 class="text-3xl font-black text-formal-primary tracking-tight">Daftar Riwayat Pasien</h2>
-            <p class="text-formal-secondary font-medium mt-1">Daftar pasien yang pernah melakukan pemeriksaan dengan Anda.</p>
+            <p class="text-formal-secondary font-medium mt-1">Daftar pasien yang pernah melakukan pemeriksaan dengan Anda.
+            </p>
         </div>
         {{-- Bagian Header End --}}
 
@@ -20,9 +21,12 @@
             <table class="w-full text-left">
                 <thead>
                     <tr class="bg-slate-50/50">
-                        <th class="px-8 py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Nama Pasien</th>
-                        <th class="px-8 py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Diagnosa Terakhir</th>
-                        <th class="px-8 py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] text-center">Aksi</th>
+                        <th class="px-8 py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Nama Pasien
+                        </th>
+                        <th class="px-8 py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Diagnosa
+                            Terakhir</th>
+                        <th class="px-8 py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] text-center">
+                            Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-50">
@@ -55,7 +59,7 @@
                             </td>
                             <td class="px-8 py-6 text-center">
                                 <button @click="showHistory = true"
-                                    class="bg-formal-accent/10 text-formal-accent px-6 py-2.5 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-formal-accent hover:text-white transition-all">
+                                    class="bg-formal-accent/10 text-formal-accent px-6 py-2.5 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-formal-accent hover:text-white transition-all cursor-pointer">
                                     Lihat Riwayat
                                 </button>
 
@@ -72,20 +76,24 @@
                                                     class="w-12 h-12 bg-formal-accent text-white rounded-2xl flex items-center justify-center shadow-lg shadow-cyan-100">
                                                     <svg class="w-6 h-6" fill="none" stroke="currentColor"
                                                         viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2"
                                                             d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                                     </svg>
                                                 </div>
                                                 <div>
-                                                    <h3 class="text-2xl font-black text-formal-primary tracking-tight">Riwayat
+                                                    <h3 class="text-2xl font-black text-formal-primary tracking-tight">
+                                                        Riwayat
                                                         Medis: {{ $pasien->user->nama }}</h3>
-                                                    <p class="text-xs font-bold text-formal-accent uppercase tracking-widest">
+                                                    <p
+                                                        class="text-xs font-bold text-formal-accent uppercase tracking-widest">
                                                         Total {{ $pasien->pendaftaran->count() }} Kunjungan</p>
                                                 </div>
                                             </div>
                                             <button @click="showHistory = false"
-                                                class="text-slate-300 hover:text-slate-500 transition-colors">
-                                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                class="text-slate-300 hover:text-slate-500 transition-colors cursor-pointer">
+                                                <svg class="w-6 h-6" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                         d="M6 18L18 6M6 6l12 12" />
                                                 </svg>
@@ -114,7 +122,8 @@
                                                 <tbody class="divide-y divide-slate-100">
                                                     @forelse($pasien->pendaftaran as $kunjungan)
                                                         <tr class="hover:bg-slate-50/50 transition-colors">
-                                                            <td class="px-6 py-4 font-bold text-formal-primary whitespace-nowrap">
+                                                            <td
+                                                                class="px-6 py-4 font-bold text-formal-primary whitespace-nowrap">
                                                                 {{ date('d M Y', strtotime($kunjungan->tgl_pendaftaran)) }}
                                                             </td>
                                                             <td class="px-6 py-4 text-slate-500 italic max-w-xs truncate">
@@ -127,7 +136,7 @@
                                                                 </span>
                                                             </td>
                                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                                @if($kunjungan->rekamMedis && $kunjungan->rekamMedis->file_resep)
+                                                                @if ($kunjungan->rekamMedis && $kunjungan->rekamMedis->file_resep)
                                                                     <a href="{{ asset('storage/' . $kunjungan->rekamMedis->file_resep) }}"
                                                                         target="_blank"
                                                                         class="text-formal-accent font-black text-[10px] uppercase hover:underline">
@@ -140,7 +149,8 @@
                                                         </tr>
                                                     @empty
                                                         <tr>
-                                                            <td colspan="4" class="px-6 py-8 text-center text-slate-400 font-semibold">
+                                                            <td colspan="4"
+                                                                class="px-6 py-8 text-center text-slate-400 font-semibold">
                                                                 Belum ada riwayat pemeriksaan medis.
                                                             </td>
                                                         </tr>
@@ -152,7 +162,7 @@
 
                                         <div class="flex justify-end pt-4">
                                             <button @click="showHistory = false"
-                                                class="px-10 py-4 bg-formal-primary text-white font-black rounded-2xl uppercase text-[10px] tracking-[0.2em] hover:bg-slate-800 transition-all shadow-lg shadow-cyan-100/20">
+                                                class="px-10 py-4 bg-formal-primary text-white font-black rounded-2xl uppercase text-[10px] tracking-[0.2em] hover:bg-slate-800 transition-all shadow-lg shadow-cyan-100/20 cursor-pointer">
                                                 Tutup
                                             </button>
                                         </div>

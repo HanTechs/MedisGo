@@ -26,8 +26,6 @@
                         </th>
                         <th class="px-8 py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Dokter
                         </th>
-                        <th class="px-8 py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Diagnosa
-                        </th>
                         <th class="px-8 py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] text-center">
                             Aksi</th>
                     </tr>
@@ -57,14 +55,9 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="px-8 py-6">
-                                <span class="px-3 py-1 bg-cyan-50 text-formal-accent rounded-full font-bold text-[11px]">
-                                    {{ $rekam->diagnosa }}
-                                </span>
-                            </td>
                             <td class="px-8 py-6 text-center">
                                 <button @click="showDetail = true"
-                                    class="bg-formal-accent/10 text-formal-accent px-6 py-2.5 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-formal-accent hover:text-white transition-all">
+                                    class="bg-formal-accent/10 text-formal-accent px-6 py-2.5 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-formal-accent hover:text-white transition-all cursor-pointer">
                                     Lihat Detail
                                 </button>
 
@@ -98,7 +91,7 @@
                                                 </div>
                                             </div>
                                             <button @click="showDetail = false"
-                                                class="text-slate-300 hover:text-slate-500 transition-colors">
+                                                class="text-slate-300 hover:text-slate-500 transition-colors cursor-pointer">
                                                 <svg class="w-6 h-6" fill="none" stroke="currentColor"
                                                     viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -120,9 +113,6 @@
                                                             Keluhan & Pemeriksaan</th>
                                                         <th
                                                             class="px-6 py-4 font-black text-[10px] text-slate-400 uppercase tracking-widest">
-                                                            Diagnosa</th>
-                                                        <th
-                                                            class="px-6 py-4 font-black text-[10px] text-slate-400 uppercase tracking-widest">
                                                             Resep</th>
                                                     </tr>
                                                 </thead>
@@ -141,14 +131,15 @@
                                                                 class="text-[10px] not-italic font-bold text-slate-400 uppercase">
                                                                 {{ $rekam->pemeriksaan }}</p>
                                                         </td>
-                                                        <td class="px-6 py-4">
-                                                            <span
-                                                                class="px-2 py-0.5 bg-cyan-50 text-formal-accent rounded text-[11px] font-bold">{{ $rekam->diagnosa }}</span>
-                                                        </td>
                                                         <td class="px-6 py-4 whitespace-nowrap">
                                                             <div class="flex flex-col gap-1">
-                                                                <p class="font-bold text-formal-primary text-[11px]">
-                                                                    {{ $rekam->obat }}</p>
+                                                                @if ($rekam->obat)
+                                                                    <p
+                                                                        class="text-[10px] not-italic font-bold text-slate-400 uppercase">
+                                                                        {{ $rekam->obat }}</p>
+                                                                @else
+                                                                    <span class="text-slate-800 text-xs">-</span>
+                                                                @endif
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -159,7 +150,7 @@
 
                                         <div class="flex justify-end pt-4">
                                             <button @click="showDetail = false"
-                                                class="px-10 py-4 bg-formal-primary text-white font-black rounded-2xl uppercase text-[10px] tracking-[0.2em] hover:bg-slate-800 transition-all shadow-lg shadow-cyan-100/20">
+                                                class="px-10 py-4 bg-formal-primary text-white font-black rounded-2xl uppercase text-[10px] tracking-[0.2em] hover:bg-slate-800 transition-all shadow-lg shadow-cyan-100/20 cursor-pointer">
                                                 Tutup
                                             </button>
                                         </div>

@@ -199,7 +199,8 @@
                                                 d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
                                         </svg>
                                     </div>
-                                    <span class="ms-3 font-bold text-sm group-hover:text-slate-800 transition-colors">Pasien
+                                    <span
+                                        class="ms-3 font-bold text-sm group-hover:text-slate-800 transition-colors">Pasien
                                         Dashboard</span>
                                 </a>
                             </li>
@@ -262,7 +263,7 @@
                                 </div>
                                 <span
                                     class="flex-1 ms-3 font-bold whitespace-nowrap text-sm uppercase tracking-wider group-hover:text-red-600 text-left">
-                                    Sign Out
+                                    Keluar
                                 </span>
                             </button>
                         </form>

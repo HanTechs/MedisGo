@@ -79,8 +79,8 @@
                                             </p>
                                             <p
                                                 class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-0.5 group-hover:text-formal-accent/60">
-                                                {{ $jadwal->dokter->spesialis }} • {{ substr($jadwal->jam_mulai, 0, 5) }}
-                                                WIB
+                                                {{ $jadwal->dokter->spesialis }} • {{ substr($jadwal->jam_mulai, 0, 5) }} -
+                                                {{ substr($jadwal->jam_selesai, 0, 5) }} WIB
                                             </p>
                                         </div>
                                     </div>
@@ -134,10 +134,9 @@
 
                     {{-- Tombol Submit Start --}}
                     <div class="pt-4">
-                        <button type="submit"
-                            @if($sudahAmbilAntrean) disabled @endif
+                        <button type="submit" @if ($sudahAmbilAntrean) disabled @endif
                             class="w-full py-5 bg-formal-accent hover:bg-cyan-700 text-white font-black rounded-2xl transition-all duration-500 flex items-center justify-center gap-4 group shadow-xl shadow-cyan-100 hover:brightness-110 active:scale-[0.98] cursor-pointer disabled:bg-slate-200 disabled:text-slate-400 disabled:shadow-none disabled:cursor-not-allowed disabled:transform-none">
-                            @if($sudahAmbilAntrean)
+                            @if ($sudahAmbilAntrean)
                                 ANDA SUDAH MENGAMBIL ANTREAN HARI INI
                             @else
                                 AMBIL NOMOR ANTREAN
@@ -148,7 +147,7 @@
                                     d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
                             </svg>
                         </button>
-                        @if($sudahAmbilAntrean)
+                        @if ($sudahAmbilAntrean)
                             <p class="text-center text-xs text-red-500 font-bold mt-4 animate-bounce">
                                 Batas pengambilan antrean adalah 1 kali per hari. Antrean berikutnya dapat diambil besok.
                             </p>
