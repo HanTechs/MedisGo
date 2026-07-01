@@ -12,7 +12,7 @@ class IsPasien
     public function handle(Request $request, Closure $next): Response
     {
         if (!Auth::check() || Auth::user()->role !== 'pasien') {
-            abort(403, 'Unauthorized action.');
+            abort(403, 'Unauthorized action');
         }
 
         return $next($request);
